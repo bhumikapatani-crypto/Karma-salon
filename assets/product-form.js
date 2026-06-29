@@ -5,37 +5,22 @@ if (!customElements.get("product-form")) {
 			constructor() {
 				super();
 
-				this.init();
-			}
-
-			init() {
-				// prevent duplicate listeners on reinit
-				if (this._submitHandler && this.form) {
-					this.form.removeEventListener("submit", this._submitHandler);
-				}
-
-				this.form = this.querySelector("form");
-
-				if (this.form) {
+				if (this.querySelector("form") !== null) {
+					this.form = this.querySelector("form");
 					this.form.querySelector('[name="id"]').disabled = false;
-					this._submitHandler = this._submitHandler || this.onSubmitHandler.bind(this);
-					this.form.addEventListener("submit", this._submitHandler);
+					this.form.addEventListener("submit", this.onSubmitHandler.bind(this));
 				}
 
 				this.cart = document.querySelector("cart-drawer");
 				this.submitButton = this.querySelector('[type="submit"]');
-
-				if (this.cart && this.submitButton) {
+				if (document.querySelector("cart-drawer"))
 					this.submitButton.setAttribute("aria-haspopup", "dialog");
-				}
 
 				this.hideErrors = this.dataset.hideErrors === "true";
 			}
 
 			onSubmitHandler(evt) {
 				evt.preventDefault();
-				this.init();
-
 				if (this.submitButton.getAttribute("aria-disabled") === "true") return;
 
 				this.handleErrorMessage();

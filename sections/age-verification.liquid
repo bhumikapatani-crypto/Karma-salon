@@ -10,23 +10,22 @@
   endif
 %}
 
-<div
-  class="age-verification popup"
-  data-exit-animation="popupExitFade"
-  data-body-scroll-disable="true"
-  data-open-trigger="none"
-  data-id="{{ section.id }}"
-  data-limit-display="1"
-  data-limit-lifetime="30"
+<div class="age-verification popup"
+  data-exit-animation = "popupExitFade"
+  data-body-scroll-disable = "true"
+  data-open-trigger = "none"
+  data-id = "{{ section.id }}"
+  data-limit-display = "1"
+  data-limit-lifetime = "30"
 >
   <div class="age-verification__wrapper popup-wrap">
     <div class="container">
       <div class="age-verification__content">
         <div class="age-verification__question show">
           {% if section.settings.heading %}
-            <{{ section.settings.heading_tag }} class="popup-heading age-verification__heading {{ section.settings.heading_size }}">
+            <h2 class="popup-heading age-verification__heading {{ section.settings.heading_size }}">
               {{ section.settings.heading }}
-            </{{ section.settings.heading_tag }}>
+            </h2>
           {% endif %}
           {% if section.settings.text %}
             <div class="popup-text richtext__content richtext__content">
@@ -49,9 +48,9 @@
         <div class="age-verification__declined">
           <div class="age-declined__wrapper">
             {% if section.settings.heading_declined %}
-              <{{ section.settings.heading_tag_second }} class="popup-heading age-verification__heading h1">
+              <h2 class="popup-heading age-verification__heading h1">
                 {{ section.settings.heading_declined }}
-              </{{ section.settings.heading_tag_second }}>
+              </h2>
             {% endif %}
             {% if section.settings.text_declined %}
               <div class="popup-text richtext__content">
@@ -83,48 +82,7 @@
       "default": "t:sections.overlay-group.age-verification.settings.heading.default",
       "label": "t:sections.overlay-group.age-verification.settings.heading.label"
     },
-    {
-      "type": "select",
-      "id": "heading_tag",
-      "options": [
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_tag.options__1.label"
-        },
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_tag.options__2.label"
-        },
-        {
-          "value": "h3",
-          "label": "t:sections.all.heading_tag.options__3.label"
-        },
-        {
-          "value": "h4",
-          "label": "t:sections.all.heading_tag.options__4.label"
-        },
-        {
-          "value": "h5",
-          "label": "t:sections.all.heading_tag.options__5.label"
-        },
-        {
-          "value": "h6",
-          "label": "t:sections.all.heading_tag.options__6.label"
-        },
-        {
-          "value": "div",
-          "label": "t:sections.all.heading_tag.options__7.label"
-        },
-        {
-          "value": "p",
-          "label": "t:sections.all.heading_tag.options__8.label"
-        }
-      ],
-      "default": "h2",
-      "label": "t:sections.all.heading.label__tag",
-      "info": "t:sections.all.heading_tag.info"
-    },
-    {
+		{
       "type": "select",
       "id": "heading_size",
       "options": [
@@ -171,47 +129,6 @@
       "id": "heading_declined",
       "default": "t:sections.overlay-group.age-verification.settings.heading.default_2",
       "label": "t:sections.overlay-group.age-verification.settings.heading.label"
-    },
-    {
-      "type": "select",
-      "id": "heading_tag_second",
-      "options": [
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_tag.options__1.label"
-        },
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_tag.options__2.label"
-        },
-        {
-          "value": "h3",
-          "label": "t:sections.all.heading_tag.options__3.label"
-        },
-        {
-          "value": "h4",
-          "label": "t:sections.all.heading_tag.options__4.label"
-        },
-        {
-          "value": "h5",
-          "label": "t:sections.all.heading_tag.options__5.label"
-        },
-        {
-          "value": "h6",
-          "label": "t:sections.all.heading_tag.options__6.label"
-        },
-        {
-          "value": "div",
-          "label": "t:sections.all.heading_tag.options__7.label"
-        },
-        {
-          "value": "p",
-          "label": "t:sections.all.heading_tag.options__8.label"
-        }
-      ],
-      "default": "h2",
-      "label": "t:sections.all.heading.label__tag",
-      "info": "t:sections.all.heading_tag.info"
     },
     {
       "type": "inline_richtext",

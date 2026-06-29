@@ -119,7 +119,94 @@
           {%- endif -%}
 
           <div class="menu-drawer__utility-links">
-            {% render 'header-account', is_mobile: true %}
+            {%- if shop.customer_accounts_enabled -%}
+              {%- if customer -%}
+                <div class="menu-drawer__utility-account">
+                  <div class="menu-drawer__utility-account-header">
+                    <span class="menu-drawer__utility-name">
+                      {{- customer.name -}}
+                    </span>
+                    <a
+                      class="menu-drawer__utility-logout"
+                      href="{{ routes.account_logout_url }}"
+                      aria-label="{{ 'customer.log_out' | t }}"
+                    >
+                      {{- 'customer.log_out' | t -}}
+                    </a>
+                  </div>
+                  <ul class="menu-drawer__utility-account-body">
+                    <li class="menu-drawer__utility-account-cart">
+                      <a
+                        href="{{ routes.cart_url }}"
+                        aria-label="{{ 'customer.account.shopping_cart' | t }}"
+                      >
+                        {{- 'customer.account.shopping_cart' | t -}}
+                      </a>
+                      {%- if cart != empty -%}
+                        <div class="cart-count-bubble">
+                          {%- if cart.item_count < 100 -%}
+                            <span aria-hidden="true">
+                              {{- cart.item_count -}}
+                            </span>
+                          {%- endif -%}
+                          <span class="visually-hidden">
+                            {{-
+                              'sections.header.cart_count'
+                              | t: count: cart.item_count
+                            -}}
+                          </span>
+                        </div>
+                      {%- endif -%}
+                    </li>
+                    <li class="menu-drawer__utility-account-link">
+                      <a
+                        href="{{ routes.account_url }}"
+                        aria-label="{{ 'customer.account.title' | t }}"
+                      >
+                        {{ 'customer.account.title' | t }}
+                      </a>
+                    </li>
+                    <li class="menu-drawer__utility-account-address">
+                      <a
+                        href="{{ routes.account_addresses_url }}"
+                        aria-label="{{ 'customer.addresses.book' | t }}"
+                      >
+                        {{- 'customer.addresses.book' | t -}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              {%- else -%}
+                <a
+                  href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                  class="button button--primary button--primary-size menu-drawer__account link focus-inset"
+                  {% if customer %}
+                    aria-label="{{ 'customer.account_fallback' | t }}"
+                  {% else %}
+                    aria-label="{{ 'customer.log_in' | t }}"
+                  {% endif %}
+                >
+                  {%- liquid
+                    if customer
+                      echo 'customer.account_fallback' | t
+                    else
+                      echo 'customer.log_in' | t
+                    endif
+                  -%}
+                </a>
+                <div class="menu-drawer__account-register">
+                  <span>
+                    {{- 'customer.activate_account.no_account_yet' | t -}}
+                  </span>
+                  <a
+                    href="{{ routes.account_register_url }}"
+                    aria-label="{{ 'customer.login_page.create_account' | t }}"
+                  >
+                    {{- 'customer.login_page.create_account' | t -}}
+                  </a>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
           </div>
 
           {% if section.settings.enable_social %}
@@ -303,11 +390,6 @@
                               aria-controls="HeaderCountryListMobile"
                               aria-describedby="HeaderCountryLabel"
                             >
-                              {%- if section.settings.show_country_flag -%}
-                                <span class="currency-flag currency-country" aria-hidden="true">
-                                  {{- localization.country | image_url: width: 40 | image_tag: class: 'currency-flag-img' -}}
-                                </span>
-                              {%- endif -%}
                               <span class="currency-country">
                                 {{- localization.country.currency.iso_code -}}
                               </span>
@@ -321,16 +403,23 @@
                             >
                               {%- for country in localization.available_countries -%}
                                 <li class="disclosure__item" tabindex="-1">
-                                  <a class="link link--text disclosure__link caption-large{% if country.iso_code == localization.country.iso_code %} disclosure__link--active{% endif %} focus-inset" href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
-                                      {%- if section.settings.show_country_flag -%}
-                                        <span class="currency-flag" aria-hidden="true">
-                                          {{- country | image_url: width: 40 | image_tag: class: 'currency-flag-img' -}}
-                                        </span>
-                                      {%- endif -%}
-                                      <span class="disclosure__country-name">
-                                        {{ country.name }}
-                                      </span>
-                                      <span class="localization-form__currency">({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
+                                  <a
+                                    class="link link--text disclosure__link disclosure__link--flag caption-large{% if country.iso_code == localization.country.iso_code %} disclosure__link--active{% endif %} focus-inset"
+                                    href="#"
+                                    {% if country.iso_code == localization.country.iso_code %}
+                                      aria-current="true"
+                                    {% endif %}
+                                    aria-label="{{ country.name }}"
+                                    data-value="{{ country.iso_code }}"
+                                    data-flag="{{ country.currency.iso_code }}"
+                                  >
+                                    <span>
+                                      {{ country.name }}
+                                      <span class="localization-form__currency"
+                                        >({{ country.currency.iso_code }}
+                                        {{ country.currency.symbol }})</span
+                                      >
+                                    </span>
                                   </a>
                                 </li>
                               {%- endfor -%}

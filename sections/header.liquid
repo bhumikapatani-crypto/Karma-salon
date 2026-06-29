@@ -73,6 +73,74 @@
 			background: rgb(var(--color-background));
 		}
 	{% endif %}
+
+	@media screen and (min-width: 1100px) {
+		.header {
+			display: grid;
+			grid-template-columns: 1fr 1.5fr 1.5fr;
+			align-items: center;
+			gap: 2rem;
+		}
+
+		.header__left {
+			display: flex;
+			align-items: center;
+			gap: 1.5rem;
+		}
+
+		.header__center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+		}
+
+		.header__icons {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+		}
+
+		.header__center .header__search {
+			width: 100%;
+			max-width: 50rem;
+		}
+	}
+
+	@media screen and (max-width: 1099px) {
+		.header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.header__left,
+		.header__icons {
+			flex: 1;
+			display: flex;
+			align-items: center;
+		}
+
+		.header__icons {
+			justify-content: flex-end;
+		}
+
+		.header__center {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		/* Hide search in center on mobile as it's usually just an icon */
+		.header_layout--search_center .header__center {
+			display: none;
+		}
+		
+		/* If logo is in center, make sure it has room */
+		.header_layout--logo_center .header__center {
+			flex: 0 0 auto;
+		}
+	}
 </style>
 
 <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
@@ -83,7 +151,7 @@
 {%- endif -%}
 
 <{% if section.settings.sticky_header_type != 'none' %}sticky-header data-sticky-type="{{ section.settings.sticky_header_type }}"{% else %}div{% endif %} class="header-wrapper {% if section.settings.enable_border %}header--border{% endif %}">
-	<header class="header container">
+	<header class="header container header_layout--{{ section.settings.header_layout }}">
 		{% render 'header-inner' %}
 	</header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
@@ -201,7 +269,7 @@
 		}
 		this.disclosureLists = this.header.querySelectorAll('.disclosure__list');
 			this.disclosureLists.forEach((disclosureList) => {
-				disclosureList.setAttribute('hidden', true);
+				disclosureList.setAttribute('hidden', true); 
 			});
 		}
 	}
@@ -357,63 +425,35 @@
 		},
 		{
 			"type": "checkbox",
-			"id": "show_country_flag",
-			"default": false,
-			"label": "t:sections.header.settings.show_country_flag.label",
-			"visible_if": "{{ section.settings.enable_country_selector }}"
-		},
-		{
-			"type": "checkbox",
 			"id": "enable_language_selector",
 			"default": true,
 			"label": "t:sections.header.settings.enable_language_selector.label"
-		},
-		{
-		"type": "select",
-		"id": "aside_menu_trigger",
-		"label": "t:sections.header.settings.menu_trigger.label",
-		"default": "click",
-		"options": [
-			{ "value": "click", "label": "Click" },
-			{ "value": "hover", "label": "Hover" }
-		]
 		},
 		{
 			"type": "header",
 			"content": "t:sections.header.settings.header.content"
 		},
 		{
-			"type": "header",
-			"content": "t:sections.header.settings.header__account.content"
-		},
-		{
-			"type": "paragraph",
-			"content": "t:sections.header.settings.account_info.content"
-		},
-		{
-			"type": "checkbox",
-			"id": "enable_account_btn",
-			"default": true,
-			"label": "t:sections.header.settings.enable_account_btn.label"
-		},
-		{
-			"type": "checkbox",
-			"id": "enable_account_modal_component",
-			"default": true,
-			"label": "t:sections.header.settings.enable_account_modal_component.label",
-			"info": "t:sections.header.settings.enable_account_modal_component.info"
-		},
-		{
-			"type": "link_list",
-			"id": "customer_account_menu",
-			"default": "customer-account-main-menu",
-			"label": "t:sections.header.settings.customer_account_menu.label"
-		},
-		{
 			"type": "checkbox",
 			"id": "enable_search",
 			"default": true,
 			"label": "t:sections.header.settings.enable_search.label"
+		},
+		{
+			"type": "select",
+			"id": "header_layout",
+			"options": [
+				{
+					"value": "logo_center",
+					"label": "Search bar left, Logo center"
+				},
+				{
+					"value": "search_center",
+					"label": "Logo left, Search bar center"
+				}
+			],
+			"default": "search_center",
+			"label": "Header layout"
 		}
 	],
 	"blocks": [
@@ -924,7 +964,7 @@
 					"type": "url",
 					"id": "button_link",
 					"label": "t:sections.all.button.button_link.label_secondary"
-				}
+				}				
 			]
 		},
 		{

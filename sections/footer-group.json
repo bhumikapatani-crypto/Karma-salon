@@ -17,8 +17,9 @@
         "footer-0": {
           "type": "logo_info",
           "settings": {
-            "logo_width": 95,
-            "description": "We believe in the magic of stories. Explore our curated books, stationery, and home items for readers and cozy space lovers."
+            "logo": "shopify://shop_images/Logo.jpg",
+            "logo_width": 120,
+            "description": "<p>“All Salons Need Good Karma”</p><p>Quality and reliable furniture pieces to suit any space.</p>"
           }
         },
         "footer-1": {

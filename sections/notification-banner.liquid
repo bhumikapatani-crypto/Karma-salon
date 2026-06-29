@@ -18,15 +18,15 @@
 
 <style>
   :root {
-    --notif-width: min({{width}}, calc(100vw - 4rem));
+    --notif-width: min({{ width }}, calc(100vw - 4rem));
   }
 </style>
 
 <div
   class="
-    notification-banner
+    notification-banner 
     notification-banner--{{ section.settings.layout }}
-    popup popup--{{ section.settings.position }}
+    popup popup--{{ section.settings.position }} 
     {% if section.settings.image == blank %} notification-banner--no-image {% endif %}
     color-{{ section.settings.color_scheme }} background
   "
@@ -77,14 +77,14 @@
         {% endif %}
         <div class="popup-wraper-text">
           {% if section.settings.subheading != blank %}
-            <{{ section.settings.heading_tag_second }} class="popup-subheading subheading">
+            <h2 class="popup-subheading subheading">
               {{ section.settings.subheading }}
-            </{{ section.settings.heading_tag_second }}>
+            </h2>
           {% endif %}
           {% if section.settings.heading != blank %}
-            <{{ section.settings.heading_tag }} class="popup-heading">
+            <h2 class="popup-heading">
               {{ section.settings.heading }}
-            </{{ section.settings.heading_tag }}>
+            </h2>
           {% endif %}
           {% if section.settings.text != blank %}
             <div class="popup-text richtext__content">
@@ -131,12 +131,12 @@
         {% endif %}
         {% if section.settings.hide_close_button == false %}
           <button
-            type="button"
-            class="link modal-close-button popup-close focus-inset"
-            aria-label="{{ 'accessibility.close' | t }}"
-          >
-            {% render 'icon-close' %}
-          </button>
+          type="button"
+          class="link modal-close-button popup-close focus-inset"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {% render 'icon-close' %}
+        </button>
         {% endif %}
         {% if section.settings.layout == 'banner' %}
           </div>
@@ -204,92 +204,10 @@
       "label": "t:sections.all.subheading.label"
     },
     {
-      "type": "select",
-      "id": "heading_tag_second",
-      "options": [
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_tag.options__1.label"
-        },
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_tag.options__2.label"
-        },
-        {
-          "value": "h3",
-          "label": "t:sections.all.heading_tag.options__3.label"
-        },
-        {
-          "value": "h4",
-          "label": "t:sections.all.heading_tag.options__4.label"
-        },
-        {
-          "value": "h5",
-          "label": "t:sections.all.heading_tag.options__5.label"
-        },
-        {
-          "value": "h6",
-          "label": "t:sections.all.heading_tag.options__6.label"
-        },
-        {
-          "value": "div",
-          "label": "t:sections.all.heading_tag.options__7.label"
-        },
-        {
-          "value": "p",
-          "label": "t:sections.all.heading_tag.options__8.label"
-        }
-      ],
-      "default": "h2",
-      "label": "t:sections.all.heading.label__tag",
-      "info": "t:sections.all.heading_tag.info"
-    },
-    {
       "type": "text",
       "id": "heading",
       "default": "t:sections.overlay-group.notification-banner.settings.heading.default",
       "label": "t:sections.all.heading.label"
-    },
-    {
-      "type": "select",
-      "id": "heading_tag",
-      "options": [
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_tag.options__1.label"
-        },
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_tag.options__2.label"
-        },
-        {
-          "value": "h3",
-          "label": "t:sections.all.heading_tag.options__3.label"
-        },
-        {
-          "value": "h4",
-          "label": "t:sections.all.heading_tag.options__4.label"
-        },
-        {
-          "value": "h5",
-          "label": "t:sections.all.heading_tag.options__5.label"
-        },
-        {
-          "value": "h6",
-          "label": "t:sections.all.heading_tag.options__6.label"
-        },
-        {
-          "value": "div",
-          "label": "t:sections.all.heading_tag.options__7.label"
-        },
-        {
-          "value": "p",
-          "label": "t:sections.all.heading_tag.options__8.label"
-        }
-      ],
-      "default": "h2",
-      "label": "t:sections.all.heading.label__tag",
-      "info": "t:sections.all.heading_tag.info"
     },
     {
       "type": "inline_richtext",

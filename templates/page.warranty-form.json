@@ -24,17 +24,20 @@
         "include_margins": true
       }
     },
-    "custom_liquid_LfD9i6": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
+    "warranty_form_yydf8m": {
+      "type": "warranty-form",
+      "name": "Warranty Form",
       "settings": {
-        "custom_liquid": "<script>\n(function () {\n  if (window.__scriptLoaded2) return; // Already ran, skip\n  window.__scriptLoaded2 = true;\n\n  setTimeout(function () {\n    const params = new URLSearchParams(window.location.search);\n    let productTitle = params.get('product_title');\n\n    let inputField = document.querySelector(\n      '#block-id-text-fygcatrxmb-AVG5YNlo1MUNlTDhqM__formcrm_form_gpt_qfCVPB input'\n    );\n    if (productTitle && inputField) {\n      inputField.value = productTitle;\n    }\n\n  }, 3000);\n})();\n</script>"
+        "heading": "WARRANTY SUBMISSION FORM",
+        "success_message": "Thank you for your warranty submission. We will review your claim and get back to you shortly.",
+        "margin_top": "m",
+        "margin_bottom": "m"
       }
     }
   },
   "order": [
     "main",
     "1776947007f795afe2",
-    "custom_liquid_LfD9i6"
+    "warranty_form_yydf8m"
   ]
 }
