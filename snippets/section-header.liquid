@@ -1,51 +1,51 @@
 {% comment %}
-	Usage:
-	{% render 'section-header',
-	  section_heading: section.settings.section_heading,
-		section_heading_size: section.settings.section_heading_size,
-	  section_description: section.settings.section_description,
-	  button_label: section.settings.section_button_label,
-	  button_link: section.settings.section_button_link,
-	  button_style: section.settings.section_button_style,
-	  large_margin: boolean (optional),
-		heading_direction: section.settings.heading_direction (optional),
-		heading_alignment: section.settings.heading_alignment (optional),
-		heading_custom_size: section.settings.heading_custom_size (optional),
-		subheading_custom_size: section.settings.subheading_custom_size (optional),
-		is_animated_heading: section.settings.is_animated_heading (optional),
-		heading_animation_speed: section.settings.heading_animation_speed (optional)
-	 %}
+  Usage:
+  {% render 'section-header',
+    section_heading: section.settings.section_heading,
+  	section_heading_size: section.settings.section_heading_size,
+    section_description: section.settings.section_description,
+    button_label: section.settings.section_button_label,
+    button_link: section.settings.section_button_link,
+    button_style: section.settings.section_button_style,
+    large_margin: boolean (optional),
+  	heading_direction: section.settings.heading_direction (optional)
+    heading_tag: section.settings.heading_tag (optional)
+   %}
 {% endcomment %}
 
 {%- if section_heading != blank or button_label != blank or section_description != blank -%}
-	<div class="section-header {% if large_margin %}section-header--large_margin{% endif %} {% if heading_direction == "column" %} section-header--column{% endif %} {% if heading_alignment %}section-header--align-{{ heading_alignment }}{% endif %}">
-		<div class="section-header__wrapper 
-		{% if section_heading == blank and section_description == blank %} section-header__wrapper--end{% endif %} 
-		{% if section_heading != blank and section_description == blank %} section-header__wrapper--center{% endif %}">
-			{% if section_heading != blank or section_description != blank %}
-				<div class="main_content">
-					{%- if section_heading != blank -%}
-						<h3 class="section-header__title {{ section.settings.section_heading_size }} {% if heading_custom_size and heading_custom_size != 'default' %}heading-size--{{ heading_custom_size }}{% endif %}{% if is_animated_heading %} animated-heading{% endif %}" {% if is_animated_heading %}data-speed="{{ heading_animation_speed }}" data-animated_text="{{ section_heading }}"{% endif %}>
-							<span {% if is_animated_heading %}class="animated-heading--inner"{% endif %}>{{ section_heading }}</span>
-					{% comment %}Do not remove the comment below. This icon is in TODO list.{% endcomment %}
-					{% comment %}{% if heading_direction == "column" %}{%  render 'title-decoration' %}{% endif %}{% endcomment %}
-						</h3>
-					{% endif %}
-					{%- if section_description != blank -%}
-						<p class="section-header__text {% if subheading_custom_size and subheading_custom_size != 'default' %}subheading-size--{{ subheading_custom_size }}{% endif %}">
-							{{ section_description }}
-						</p>
-					{% endif %}
-				</div>
-			{% endif %}
-			{% if button_label != blank %}
-				{% render 'button',
-					btn_label: button_label,
-					btn_link: button_link,
-					btn_style: button_style,
-					add_classes: 'section-header__button focus-inset'
-				%}
-			{%- endif -%}
-		</div>
-	</div>
+  <div class="section-header {% if large_margin %}section-header--large_margin{% endif %} {% if heading_direction == "column" %} section-header--column{% endif %}">
+    <div
+      class="
+        section-header__wrapper
+        {% if section_heading == blank and section_description == blank %} section-header__wrapper--end{% endif %}
+        {% if section_heading != blank and section_description == blank %} section-header__wrapper--center{% endif %}
+      "
+    >
+      {% if section_heading != blank or section_description != blank %}
+        <div class="main_content">
+          {%- if section_heading != blank -%}
+            <{{ heading_tag | default: 'h2' }} class="section-header__title {{ section.settings.section_heading_size }}">
+              <span>{{ section_heading }}</span>
+              {% comment %}Do not remove the comment below. This icon is in TODO list.{% endcomment %}
+              {% comment %}{% if heading_direction == "column" %}{%  render 'title-decoration' %}{% endif %}{% endcomment %}
+            </{{ heading_tag | default: 'h2' }}>
+          {% endif %}
+          {%- if section_description != blank -%}
+            <p class="section-header__text">
+              {{ section_description }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if button_label != blank %}
+        {% render 'button',
+          btn_label: button_label,
+          btn_link: button_link,
+          btn_style: button_style,
+          add_classes: 'section-header__button focus-inset'
+        %}
+      {%- endif -%}
+    </div>
+  </div>
 {%- endif -%}

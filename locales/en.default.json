@@ -241,7 +241,12 @@
       "colors": "Colours",
       "floated_form_button": "Select Options",
       "buy_now": "Buy now",
-      "back_to": "Back to Product"
+      "back_to": "Back to Product",
+      "inquiry": {
+        "heading": "Ask a question about this product",
+        "question_label": "Your question",
+        "question_placeholder": "Type your question here..."
+      }
     },
     "load_more": {
       "label": "Load More"
@@ -357,6 +362,7 @@
         "other": "{{ count }} items"
       },
       "shop_all": "Shop All",
+      "account_hover_text": "Hello, {{ name }}!",
       "read_all": "Read All"
     },
     "cart": {

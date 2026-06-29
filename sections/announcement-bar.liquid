@@ -1,38 +1,14 @@
-<style>
+ <style>
   :root {
-  	--announcement-height: {{ section.settings.height_mobile }}px;
+    --announcement-height: {{ section.settings.height_mobile }}px;
   }
 
   @media screen and (min-width: 765px) {
-  	:root {
-  	  --announcement-height: {{ section.settings.height }}px;
+    :root {
+      --announcement-height: {{ section.settings.height }}px;
     }
   }
-
-  {% if section.settings.sticky_announcement_bar == "always" %}
-    .section-announcement {
-      position: sticky;
-      top: 0;
-      z-index: 13;
-      background-color: rgb(var(--color-background));
-    }
-    /* When announcement bar is above header - header sticks below it */
-    /* Only apply when header is actually sticky (position: sticky) - avoid shifting layout when header has position: relative */
-    /* On-scroll-up: header gets class when revealed */
-    .section-announcement ~ .shopify-section-header.shopify-section-header-sticky {
-      top: var(--announcement-height);
-    }
-    /* Always sticky: header uses inline styles, target via :has() on sticky-header wrapper */
-    .section-announcement ~ .shopify-section-header:has([data-sticky-type="always"]) {
-      top: var(--announcement-height);
-    }
-    /* When announcement bar is below header - announcement bar sticks below header */
-    .shopify-section-header ~ .section-announcement {
-      top: var(--header-height);
-    }
-  {% endif %}
 </style>
-
 {% liquid
   assign block_count = section.blocks.size
   assign slideshow_speed = section.settings.slideshow_speed
@@ -45,6 +21,7 @@
   aria-label="{{ 'sections.header.announcement' | t }}"
   data-speed="{{ slideshow_speed }}"
 	data-delay="{{ slideshow_delay }}"
+  data-sticky-type="{{ section.settings.sticky_announcement_bar }}"
 >
   <div class="container{% if block_count > 1 %} swiper-wrapper{% endif %}">
     {% for block in section.blocks %}
@@ -112,8 +89,12 @@
           "label": "t:sections.announcement-bar.settings.sticky_announcement_bar.options__1.label"
         },
         {
-          "value": "always",
+          "value": "on-scroll-up",
           "label": "t:sections.announcement-bar.settings.sticky_announcement_bar.options__2.label"
+        },
+        {
+          "value": "always",
+          "label": "t:sections.announcement-bar.settings.sticky_announcement_bar.options__3.label"
         }
       ],
       "default": "none",

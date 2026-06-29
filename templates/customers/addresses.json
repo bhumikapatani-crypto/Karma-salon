@@ -8,80 +8,88 @@
  * ------------------------------------------------------------
  */
 {
-	"sections": {
-		"main": {
-			"type": "main-addresses",
-			"settings": {
-				"text": "Add your shipping and billing addresses for next orders.",
-				"margin_top": "no-indent",
-				"margin_bottom": "m"
-			}
-		},
-		"collapsible_content_nNYTVR": {
-			"type": "collapsible-content",
-			"blocks": {
-				"faq_iBAtFG": {
-					"type": "faq",
-					"settings": {
-						"heading": "FAQs",
-						"description": "Find answers to your questions.",
-						"icon": "info",
-						"popup_info": "<h3>What is the estimated delivery time for my order?</h3><p>Our standard delivery time is 5-10 business days, depending on your location. We’ll keep you updated with tracking information so you can monitor your order’s progress.</p><h3>Do you offer assembly services?</h3><p>Yes, we offer an optional assembly service for most items. During checkout, you can choose this option to have our team handle setup upon delivery.</p><h3>What is your return policy if I’m not satisfied with my purchase?</h3><p>We accept returns within 30 days of delivery for a full refund or exchange, as long as the item is in its original condition. Please contact our customer service team to initiate a return.</p><h3>What should I do if my order arrives damaged or incomplete?</h3><p>We’re here to help. Please reach out to our customer service team with your order number and photos of the issue, and we’ll work quickly to resolve it—whether that means a replacement, refund, or missing item follow-up.</p><h3>Will sold-out items be restocked, and how can I get notified?</h3><p>We frequently restock our bestsellers. To stay updated on restocks and new arrivals, we recommend subscribing to our newsletter—you’ll be the first to know.<br/><br/></p>"
-					}
-				},
-				"info_WVHPqJ": {
-					"type": "info",
-					"settings": {
-						"heading": "Contact Us",
-						"description": "Get in touch with us.",
-						"icon": "envelope_2",
-						"description_popup": "Get in touch with us for any questions or support. We're here to help.",
-						"popup_info": "<p><strong>Our Address</strong><br/>Av. Libertador 1450, Buenos Aires, Argentina</p><p><strong>Phone Number</strong><br/>+995 596 789 093</p><p><strong>Email</strong><br/>mart.home@hello.com</p>",
-						"socials_description": "You can write us in any social media.",
-						"show_social": true
-					}
-				},
-				"info_zczbQF": {
-					"type": "info",
-					"settings": {
-						"heading": "Call Us",
-						"description": "Call us for quick assistance.",
-						"icon": "phone",
-						"description_popup": "Feel free to give us a call for any questions, support, or inquiries. We’re here to assist you.",
-						"popup_info": "<p><strong>Phone Number</strong><br/>+995 596 789 093</p>",
-						"socials_description": "You can write us in any social media.",
-						"show_social": false
-					}
-				}
-			},
-			"block_order": ["faq_iBAtFG", "info_WVHPqJ", "info_zczbQF"],
-			"name": "t:sections.collapsible-content.name",
-			"settings": {
-				"color_scheme": "",
-				"image_ratio": "16/9",
-				"image_parallax": false,
-				"notebook_bg": true,
-				"section_heading": "Have Any Questions?",
-				"section_heading_size": "h2",
-				"section_description": "Some Find all the information you need, gathered in one convenient spot.",
-				"margin_top": "no-indent",
-				"margin_bottom": "no-indent",
-				"padding_top": "m",
-				"padding_bottom": "m"
-			}
-		},
-		"rich_text_m9UJzY": {
-			"type": "rich-text",
-			"name": "t:sections.rich-text.presets.name",
-			"settings": {
-				"section_layout": "column",
-				"heading": "",
-				"heading_size": "h2",
-				"text": "<p>Discover our exclusive collections of books, stationery, soft goods, and home items — each designed to bring style and comfort to your space. From contemporary pieces to timeless details, every item is made to enrich your home’s atmosphere. Find the perfect balance of function and beauty in our carefully chosen selection.</p>",
-				"margin_top": "l",
-				"margin_bottom": "l"
-			}
-		}
-	},
-	"order": ["main", "collapsible_content_nNYTVR", "rich_text_m9UJzY"]
+  "sections": {
+    "main": {
+      "type": "main-addresses",
+      "settings": {
+        "text": "Add your shipping and billing addresses for next orders.",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "collapsible_content_nNYTVR": {
+      "type": "collapsible-content",
+      "blocks": {
+        "faq_iBAtFG": {
+          "type": "faq",
+          "settings": {
+            "heading": "FAQs",
+            "description": "Find answers to your questions.",
+            "icon": "info",
+            "popup_info": "<h3>What is the estimated delivery time for my order?</h3><p>Our standard delivery time is 5-10 business days, depending on your location. We’ll keep you updated with tracking information so you can monitor your order’s progress.</p><h3>Do you offer assembly services?</h3><p>Yes, we offer an optional assembly service for most items. During checkout, you can choose this option to have our team handle setup upon delivery.</p><h3>What is your return policy if I’m not satisfied with my purchase?</h3><p>We accept returns within 30 days of delivery for a full refund or exchange, as long as the item is in its original condition. Please contact our customer service team to initiate a return.</p><h3>What should I do if my order arrives damaged or incomplete?</h3><p>We’re here to help. Please reach out to our customer service team with your order number and photos of the issue, and we’ll work quickly to resolve it—whether that means a replacement, refund, or missing item follow-up.</p><h3>Will sold-out items be restocked, and how can I get notified?</h3><p>We frequently restock our bestsellers. To stay updated on restocks and new arrivals, we recommend subscribing to our newsletter—you’ll be the first to know.<br/><br/></p>"
+          }
+        },
+        "info_WVHPqJ": {
+          "type": "info",
+          "settings": {
+            "heading": "Contact Us",
+            "description": "Get in touch with us.",
+            "icon": "envelope_2",
+            "description_popup": "Get in touch with us for any questions or support. We're here to help.",
+            "popup_info": "<p><strong>Our Address</strong><br/>Av. Libertador 1450, Buenos Aires, Argentina</p><p><strong>Phone Number</strong><br/>+995 596 789 093</p><p><strong>Email</strong><br/>mart.home@hello.com</p>",
+            "socials_description": "You can write us in any social media.",
+            "show_social": true
+          }
+        },
+        "info_zczbQF": {
+          "type": "info",
+          "settings": {
+            "heading": "Call Us",
+            "description": "Call us for quick assistance.",
+            "icon": "phone",
+            "description_popup": "Feel free to give us a call for any questions, support, or inquiries. We’re here to assist you.",
+            "popup_info": "<p><strong>Phone Number</strong><br/>+995 596 789 093</p>",
+            "socials_description": "You can write us in any social media.",
+            "show_social": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_iBAtFG",
+        "info_WVHPqJ",
+        "info_zczbQF"
+      ],
+      "name": "t:sections.collapsible-content.name",
+      "settings": {
+        "color_scheme": "",
+        "image_ratio": "16/9",
+        "image_parallax": false,
+        "notebook_bg": true,
+        "section_heading": "Have Any Questions?",
+        "section_heading_size": "h2",
+        "section_description": "Some Find all the information you need, gathered in one convenient spot.",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent",
+        "padding_top": "m",
+        "padding_bottom": "m"
+      }
+    },
+    "rich_text_m9UJzY": {
+      "type": "rich-text",
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "section_layout": "column",
+        "heading": "",
+        "heading_size": "h2",
+        "text": "<p>Discover our exclusive collections of books, stationery, soft goods, and home items — each designed to bring style and comfort to your space. From contemporary pieces to timeless details, every item is made to enrich your home’s atmosphere. Find the perfect balance of function and beauty in our carefully chosen selection.</p>",
+        "margin_top": "l",
+        "margin_bottom": "l"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "collapsible_content_nNYTVR",
+    "rich_text_m9UJzY"
+  ]
 }

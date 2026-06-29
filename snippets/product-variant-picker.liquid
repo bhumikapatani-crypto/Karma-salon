@@ -1,0 +1,613 @@
+{% liquid
+  assign swatches_as_variant_image_already_shown = false
+
+  if product_form_id == blank
+    assign product_form_id = 'product-form-' | append: section_id
+  endif
+
+  assign is_high_variant_product = false
+  if product.variants_count > 250
+    assign is_high_variant_product = true
+  endif
+
+  assign need_update_page_url = need_update_page_url | default: false
+%}
+<div id="product-parameters" class="product-parameters">
+  {% unless product.has_only_default_variant %}
+    {% if block.settings.variant_picker_heading != blank %}
+      <span class="variant_picker_heading subheading">
+        {{- block.settings.variant_picker_heading -}}
+      </span>
+    {% endif %}
+    {% if block.settings.picker_type == 'popup' %}
+      <div class="modal-opener-main variant-radios-{{ section.id }}">
+        {%- for option in product.options_with_values -%}
+          {% liquid
+            assign color_trigger = settings.trigger_swatch | strip | newline_to_br | split: '<br />'
+            assign name_option = option.name | handle | strip
+            assign is_color_option = false
+
+            if settings.color_swatch
+              for item in color_trigger
+                assign item_temp = item | handle | strip
+                if name_option == item_temp
+                  assign is_color_option = true
+                endif
+              endfor
+
+              for value in option.values
+                if value.swatch.color != blank
+                  assign is_color_option = true
+                endif
+              endfor
+            endif
+
+            assign option_size = option.values | size
+
+            if option_size > 0
+              assign option_size = option_size | minus: 1
+            endif
+          %}
+          <modal-opener
+            class="no-js-hidden asd"
+            data-modal="#PopupVariantModal-{{ block.id }}"
+          >
+            <button
+              id="ProductVariantPopup-{{ block.id }}"
+              data-id="variant-{{ forloop.index }}"
+              class="focus-inset popup_opener"
+              type="button"
+              aria-haspopup="dialog"
+            >
+              <div
+                id="ColorName-{{ section.id }}"
+                class="ColorName-{{ section.id }} variants-name"
+              >
+                {% if is_color_option and block.settings.option_icons %}
+                  {% liquid
+                    for value in option.values
+                      if option.selected_value == value
+                        if settings.color_swatch
+                          if value.swatch.image != blank
+                            assign color_image = value.swatch.image | image_url: width: 60
+                            assign color_value = 'url(' | append: color_image | append: ') no-repeat center/cover'
+                            assign color_variant = 'color_variant-img'
+                          elsif value.swatch.color != blank
+                            assign color_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                            assign color_variant = 'color_variant-color'
+                          else
+                            assign init_color_value = value.name | handle | strip
+                            assign color_value = init_color_value | remove: '-'
+
+                            if settings.custom_colors != blank
+                              assign custom_colors_string = settings.custom_colors | strip
+                              assign custom_colors_obj = custom_colors_string | newline_to_br | split: '<br />'
+
+                              for obj in custom_colors_obj
+                                assign obj_strip = obj | strip
+                                assign obj_key = obj_strip | split: ':' | first
+                                assign obj_value = obj_strip | split: ':' | last
+                                assign obj_color_name = obj_key | handle | strip
+
+                                if init_color_value == obj_color_name
+                                  assign obj_color_value = obj_value | strip
+                                  if obj_color_value contains 'gradient'
+                                    assign color_value = obj_color_value
+                                  else
+                                    assign color_value = obj_color_value | remove: '-'
+                                  endif
+                                  break
+                                endif
+                              endfor
+                            endif
+                          endif
+                        endif
+                      endif
+                    endfor
+
+                    if color_value == 'white' or color_value == '#fff' or color_value == '#ffffff' or color_value == '255,255,255' or color_value_custom == '255,255,255,1' or color_value == 'rgb(255 255 255)'
+                      assign is_white = true
+                    else
+                      assign is_white = false
+                    endif
+
+                    if color_value == 'black' or color_value == '#000' or color_value == '#000000' or color_value == '0,0,0' or color_value == '0,0,0,1' or color_value == 'rgb(0 0 0)'
+                      assign is_black = true
+                    else
+                      assign is_black = false
+                    endif
+                  %}
+                  {% if block.settings.swatch_type != blank
+                    and block.settings.swatch_type == 'variant_image'
+                  %}
+                    <div
+                      class="variant-image-swatch"
+                      id="Swatch-{{ section.id }}"
+                    >
+                      <span
+                        class="
+                          variant-swatch {% if is_white %} color-white{% endif %}{% if is_black %} color-black{% endif %} {{ color_variant }}
+                          {%- liquid
+                            assign option_index = option.position | minus: 1
+                            for variant in product.variants
+                                if variant.options[option_index] == option.selected_value
+                                  if variant.image == blank
+                                    echo "no_img"
+                                  endif
+                                  break
+                                endif
+                            endfor
+                          -%}
+                        "
+                        style="
+                          background-image:url(
+                            {%- liquid
+                              assign option_index = option.position | minus: 1
+                              for variant in product.variants
+                                  if variant.options[option_index] == option.selected_value
+                                    if variant.image != blank
+                                      assign image_width = 102
+                                      assign image_ratio = variant.image.aspect_ratio
+                                      assign calc_ratio = 1
+
+                                      if image_ratio > 1
+                                        assign calc_ratio = image_ratio | divided_by: 1 | round: 2
+                                        assign image_width = image_width | times: calc_ratio
+                                      endif
+
+                                      echo variant.image | image_url: width: image_width
+                                    else
+                                      echo 'data:image/svg+xml,%3Csvg%20width%3D%2250%22%20height%3D%2267%22%20viewBox%3D%220%200%2050%2067%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%2250%22%20height%3D%2267%22%20fill%3D%22%23F5F5F5%22%2F%3E%3Cg%20opacity%3D%220.3%22%3E%3Cpath%20d%3D%22M17.5%2036.8333L23.3333%2034.3333L26.6667%2035.8483M29.0658%2041.1008L30.8333%2039.3333M30.8333%2039.3333L32.6008%2037.5658M30.8333%2039.3333L29.0658%2037.5658M30.8333%2039.3333L32.6008%2041.1008M28.3333%2031.8333C27.8913%2031.8333%2027.4674%2031.6577%2027.1548%2031.3452C26.8423%2031.0326%2026.6667%2030.6087%2026.6667%2030.1667C26.6667%2029.7246%2026.8423%2029.3007%2027.1548%2028.9882C27.4674%2028.6756%2027.8913%2028.5%2028.3333%2028.5C28.7754%2028.5%2029.1993%2028.6756%2029.5118%2028.9882C29.8244%2029.3007%2030%2029.7246%2030%2030.1667C30%2030.6087%2029.8244%2031.0326%2029.5118%2031.3452C29.1993%2031.6577%2028.7754%2031.8333%2028.3333%2031.8333Z%22%20stroke%3D%22black%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M25.8333%2041H18C17.8674%2041%2017.7402%2040.9473%2017.6464%2040.8536C17.5527%2040.7598%2017.5%2040.6326%2017.5%2040.5V26.5C17.5%2026.3674%2017.5527%2026.2402%2017.6464%2026.1464C17.7402%2026.0527%2017.8674%2026%2018%2026H32C32.1326%2026%2032.2598%2026.0527%2032.3536%2026.1464C32.4473%2026.2402%2032.5%2026.3674%2032.5%2026.5V34.3333%22%20stroke%3D%22black%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E'
+                                    endif
+                                    break
+                                  endif
+                              endfor
+                          -%}
+                            );
+                          background-position: center;
+                          background-repeat: no-repeat;
+                          background-size: cover;
+                          --swatch-color: {{ color_value }};
+                          --swatch-border-radius: {{ settings.swatch_border_radius }}px;
+                        "
+                      >
+                      </span>
+                    </div>
+                  {% else %}
+                    <div
+                      class="color-swatch focus-inset{% if is_white %} color-white{% endif %}{% if is_black %} color-black{% endif %}"
+                      style="--swatch-color: {{ color_value }}; --swatch-border-radius: {{ settings.swatch_border_radius }}px"
+                      id="Swatch-{{ section.id }}"
+                    ></div>
+                  {% endif %}
+                {% else %}
+                  {% if shop.metaobjects.option_icon.values
+                    and block.settings.option_icons
+                  %}
+                    {% for metaobject in shop.metaobjects.option_icon.values %}
+                      {% if option.name == metaobject.option_value %}
+                        <div class="option_icon">
+                          {% if metaobject.option_light_mode_icon != blank %}
+                            {{
+                              metaobject.option_light_mode_icon
+                              | image_url: width: 96
+                              | image_tag:
+                                width: 24,
+                                widths: '24, 48, 72, 96',
+                                class: 'aside-menu-link-icon custom_icon'
+                            }}
+                          {% endif %}
+
+                          {% if metaobject.option_dark_mode_icon != blank %}
+                            {{
+                              metaobject.option_dark_mode_icon
+                              | image_url: width: 96
+                              | image_tag:
+                                width: 24,
+                                widths: '24, 48, 72, 96',
+                                class: 'aside-menu-link-icon custom_icon--dm'
+                            }}
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endif %}
+
+                <div class="option_info SingleOptionSelector-{{ forloop.index0 }}">
+                  <div>{{- option.name }}</div>
+                  <div class=" selected_option_name">
+                    {{ option.selected_value -}}
+                  </div>
+                </div>
+              </div>
+              <div class="button-circle">
+                {% if is_color_option and option_size >= 1 %}
+                  +{{ option_size }}
+                {% endif %}
+                <div class="svg-embed">
+                  {% render 'icon-small-arrow' %}
+                </div>
+              </div>
+            </button>
+          </modal-opener>
+        {%- endfor -%}
+      </div>
+      <modal-dialog
+        id="PopupVariantModal-{{ block.id }}"
+        class="product-popup-modal product-variant-popup-modal"
+        {{ block.shopify_attributes }}
+      >
+        <div
+          role="dialog"
+          aria-label="{{ block.settings.label }}"
+          aria-modal="true"
+          class="product-popup-modal__dialog"
+          tabindex="-1"
+        >
+          <div class="product-popup-modal__top">
+            <{{ block.settings.heading_tag }} class="product-popup-modal__title h4">
+              {%- for option in product.options_with_values -%}
+                <span>{{ option.name }}</span>
+              {%- endfor -%}
+            </{{ block.settings.heading_tag }}>
+            <button
+              id="ModalClose-{{ block.id }}"
+              type="button"
+              class="product-popup-modal__close modal-close-button focus-inset"
+              aria-label="{{ 'accessibility.close' | t }}"
+            >
+              {% render 'icon-close' %}
+            </button>
+          </div>
+          <div class="product-popup-modal__content product-popup-modal__variant_content">
+            <variant-radios
+              id="variant-picker-{{ section.id }}"
+              class="no-js-hidden variant-picker-{{ section.id }}"
+              data-section="{{ section.id }}"
+              data-url="{{ product.url }}"
+              {{ block.shopify_attributes }}
+              data-is-high-variant-product="{{ is_high_variant_product }}"
+              data-update-url="{{ need_update_page_url }}"
+              data-variant-media-display="{{ section.settings.variant_media_display }}"
+            >
+              {%- for option in product.options_with_values -%}
+                {% liquid
+                  assign color_trigger = settings.trigger_swatch | append: '<br />' | append: settings.trigger_swatch_other | strip | newline_to_br | split: '<br />'
+                  assign name_option = option.name | handle | strip
+
+                  assign is_color_option = false
+                  assign color_option_match_with_color_trigger = false
+
+                  if settings.color_swatch
+                    for item in color_trigger
+                      assign item_temp = item | handle | strip
+                      if name_option == item_temp
+                        assign is_color_option = true
+                      endif
+                    endfor
+
+                    for value in option.values
+                      if value.swatch.color != blank
+                        assign is_color_option = true
+                      endif
+                    endfor
+                  endif
+
+                  # check if this option has variants with images (for image-based swatches)
+                  assign option_has_variant_images = false
+                  assign option_index = option.position | minus: 1
+                  for variant in product.variants
+                    if variant.options[option_index] != blank and variant.image != blank
+                      assign option_has_variant_images = true
+                      break
+                    endif
+                  endfor
+
+                  # show image swatches for color options OR any option with variant images
+                  assign show_image_swatch = false
+                  if block.settings.swatch_type == 'variant_image'
+                    if is_color_option or option_has_variant_images
+                      assign show_image_swatch = true
+                    endif
+                  endif
+
+                  assign is_variant_image_option = false
+                  if block.settings.swatch_type == 'variant_image' and color_option_match_with_color_trigger and swatches_as_variant_image_already_shown == false
+                    assign is_variant_image_option = true
+                  endif
+                %}
+                <div
+                  class="fieldset popup_variant_fieldset product-form__controls{% if is_color_option or show_image_swatch %} product-form__controls--colors{% endif %}"
+                  id="SingleOptionSelector-{{ forloop.index0 }}"
+                  {% if is_variant_image_option -%}
+                    data-is-variant-image-swatch="true"
+                  {%- endif %}
+                >
+                  <span class="hidden_option_name product-form__group-name secondary_text">
+                    {{- option.name -}}
+                  </span>
+                  <div
+                    id="{{ section.id }}-product-form"
+                    class="product-form__group-wrapper"
+                  >
+                    <div class="product-form__controls-group">
+                      {% render 'product-variant-options',
+                        product: product,
+                        option: option,
+                        block: block,
+                        section_obj: section,
+                        section_id: section.id,
+                        show_color_swatch: is_color_option,
+                        show_image_swatch: show_image_swatch,
+                        swatch_type: block.settings.swatch_type,
+                        prevent_variant_image: swatches_as_variant_image_already_shown,
+                        variant_image_size: 'square'
+                      %}
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+
+              {% comment %} first 250 variants of product {% endcomment %}
+              <script type="application/json" data-all-variants-no-high>
+                {{ product.variants | json }}
+              </script>
+
+              {% comment %} selected variant of product {% endcomment %}
+              <script type="application/json" data-selected-variant>
+                {{ product.selected_or_first_available_variant | json }}
+              </script>
+            </variant-radios>
+            <button
+              id="ModalBackTo-{{ block.id }}"
+              type="button"
+              class="product-popup-modal__close button button--simple back_to_product focus-inset"
+              aria-label="{{ 'accessibility.close' | t }}"
+            >
+              <span>{{ 'products.product.back_to' | t }}</span>
+            </button>
+          </div>
+        </div>
+      </modal-dialog>
+    {% elsif block.settings.picker_type == 'button' %}
+      {% comment %} TODO {% endcomment %}
+      <div class="product-popup-modal__content picker_type-button">
+        <variant-radios
+          id="variant-picker-{{ section.id }}"
+          class="no-js-hidden"
+          data-section="{{ section.id }}"
+          data-url="{{ product.url }}"
+          data-is-high-variant-product="{{ is_high_variant_product }}"
+          data-update-url="{{ need_update_page_url }}"
+          {{ block.shopify_attributes }}
+          data-variant-media-display="{{ section.settings.variant_media_display }}"
+        >
+          {%- for option in product.options_with_values -%}
+            {% liquid
+              assign color_trigger = settings.trigger_swatch | append: '<br />' | append: settings.trigger_swatch_other | strip | newline_to_br | split: '<br />'
+              assign name_option = option.name | handle | strip
+
+              assign is_color_option = false
+              assign color_option_match_with_color_trigger = false
+
+              if settings.color_swatch
+                for item in color_trigger
+                  assign item_temp = item | handle | strip
+                  if name_option == item_temp
+                    assign is_color_option = true
+                  endif
+                endfor
+
+                for value in option.values
+                  if value.swatch.color != blank
+                    assign is_color_option = true
+                  endif
+                endfor
+              endif
+
+              # check if this option has variants with images (for image-based swatches)
+              assign option_has_variant_images = false
+              assign option_index = option.position | minus: 1
+              for variant in product.variants
+                if variant.options[option_index] != blank and variant.image != blank
+                  assign option_has_variant_images = true
+                  break
+                endif
+              endfor
+
+              # show image swatches for color options OR any option with variant images
+              assign show_image_swatch = false
+              if block.settings.swatch_type == 'variant_image'
+                if is_color_option or option_has_variant_images
+                  assign show_image_swatch = true
+                endif
+              endif
+
+              assign is_variant_image_option = false
+              if block.settings.swatch_type == 'variant_image' and color_option_match_with_color_trigger and swatches_as_variant_image_already_shown == false
+                assign is_variant_image_option = true
+              endif
+            %}
+            <div
+              class="fieldset product-form__controls{% if is_color_option or show_image_swatch %} product-form__controls--colors{% endif %}"
+              id="SingleOptionSelector-{{ forloop.index0 }}"
+              {% if is_variant_image_option -%}
+                data-is-variant-image-swatch="true"
+              {%- endif %}
+            >
+              <span class="hidden_option_name product-form__group-name secondary_text">
+                {{- option.name -}}
+              </span>
+              <div
+                id="{{ section.id }}-product-form"
+                class="product-form__group-wrapper"
+              >
+                <div class="product-form__controls-group">
+                  {% render 'product-variant-options',
+                    product: product,
+                    option: option,
+                    block: block,
+                    section_obj: section,
+                    section_id: section.id,
+                    show_color_swatch: is_color_option,
+                    show_image_swatch: show_image_swatch,
+                    swatch_type: block.settings.swatch_type,
+                    prevent_variant_image: swatches_as_variant_image_already_shown,
+                    variant_image_size: 'square'
+                  %}
+
+                  {% liquid
+                    if color_option_match_with_color_trigger and swatches_as_variant_image_already_shown == false
+                      assign swatches_as_variant_image_already_shown = true
+                    endif
+                  %}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+
+          {% comment %} first 250 variants of product {% endcomment %}
+          <script type="application/json" data-all-variants-no-high>
+            {{ product.variants | json }}
+          </script>
+
+          {% comment %} selected variant of product {% endcomment %}
+          <script type="application/json" data-selected-variant>
+            {{ product.selected_or_first_available_variant | json }}
+          </script>
+        </variant-radios>
+      </div>
+    {% else %}
+      <variant-selects
+        id="variant-picker-{{ section.id }}"
+        class="no-js-hidden variant-picker-{{ section.id }}"
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+        {{ block.shopify_attributes }}
+        data-is-high-variant-product="{{ is_high_variant_product }}"
+        data-update-url="{{ need_update_page_url }}"
+        data-variant-media-display="{{ section.settings.variant_media_display }}"
+      >
+        {%- for option in product.options_with_values -%}
+          <fieldset
+            class="product-form__controls product-form__controls--dropdown"
+            id="SingleOptionSelector-{{ forloop.index0 }}"
+            data-option-position="{{ option.position }}"
+          >
+            <label
+              for="Option-{{ section.id }}-{{ forloop.index0 }}"
+              class="product-form__group-name secondary_text"
+            >
+              {{ option.name }}
+            </label>
+            <div
+              id="{{ section.id }}-product-form"
+              class="product-form__group-wrapper"
+            >
+              <div class="product-form__controls-group">
+                <div
+                  class="select dropdown-select"
+                  form="{{ product_form_id }}"
+                >
+                  <div class="select-label secondary_text">
+                    <span>{{- option.selected_value }}</span>
+                  </div>
+                  <div class="select-wrapper">
+                    <ul class="product-form__controls-group">
+                      {% render 'product-variant-options',
+                        product: product,
+                        option: option,
+                        block: block,
+                        section_obj: section,
+                        section_id: section.id,
+                        show_color_swatch: is_color_option,
+                        show_image_swatch: show_image_swatch,
+                        swatch_type: block.settings.swatch_type,
+                        prevent_variant_image: swatches_as_variant_image_already_shown,
+                        variant_image_size: 'square'
+                      %}
+                    </ul>
+                  </div>
+
+                  {% render 'icon-caret' %}
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        {% endfor %}
+        {% comment %} first 250 variants of product {% endcomment %}
+        <script type="application/json" data-all-variants-no-high>
+          {{ product.variants | json }}
+        </script>
+
+        {% comment %} selected variant of product {% endcomment %}
+        <script type="application/json" data-selected-variant>
+          {{ product.selected_or_first_available_variant | json }}
+        </script>
+      </variant-selects>
+    {% endif %}
+  {% endunless %}
+
+  <noscript class="product-form__noscript-wrapper-{{ section.id }}">
+    <fieldset class="product-form__controls {% if product.has_only_default_variant %} hidden{% endif %}" data-option-position="{{ option.position }}">
+      <div class="product-form__group-wrapper">
+        <label
+          for="Variants-{{ section.id }}"
+          class="product-form__group-name"
+        >
+          {{- 'products.product.product_variants' | t -}}
+        </label>
+        <div class="product-form__controls-group">
+          <div class="select">
+            <select
+              name="id"
+              id="Variants-{{ section.id }}"
+              class="select__select"
+              form="{{ product_form_id }}"
+            >
+              {%- for variant in product.variants -%}
+                <option
+                  {% if variant == product.selected_or_first_available_variant
+                  %}
+                    selected="selected"
+                  {% endif %}
+                  {% if variant.available == false %}
+                    disabled
+                  {% endif %}
+                  value="{{ variant.id }}"
+                >
+                  {%- liquid
+                    echo variant.title
+                    if settings.currency_code_enabled
+                      echo variant.price | money_with_currency | strip_html | prepend: ' - '
+                    else
+                      echo variant.price | money | strip_html | prepend: ' - '
+                    endif
+                    if variant.available == false
+                      echo 'products.product.sold_out' | t | prepend: ' - '
+                    endif
+                    if variant.quantity_rule.increment > 1
+                      echo 'products.product.quantity.multiples_of' | t: quantity: variant.quantity_rule.increment | prepend: ' - '
+                    endif
+                    if variant.quantity_rule.min > 1
+                      echo 'products.product.quantity.minimum_of' | t: quantity: variant.quantity_rule.min | prepend: ' - '
+                    endif
+                    if variant.quantity_rule.max != null
+                      echo 'products.product.quantity.maximum_of' | t: quantity: variant.quantity_rule.max | prepend: ' - '
+                    endif
+                    assign cart_quantity = cart | item_count_for_variant: variant.id
+                    if cart_quantity > 0
+                      echo 'products.product.quantity.in_cart_html' | t: quantity: cart_quantity | prepend: ' - '
+                    endif
+                  -%}
+                </option>
+              {%- endfor -%}
+            </select>
+            {% render 'icon-caret' %}
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </noscript>
+</div>

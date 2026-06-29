@@ -36,8 +36,8 @@
 
 <div
   class="popup-main popup popup--{{ section.settings.position }} popup-main-image--{{ section.settings.image_layout }} {% if section.settings.image == blank %} popup-main--no-image{% endif %}"
-  {% if section.settings.popup-id != blank %} 
-    id="{{ section.settings.popup-id }}" 
+  {% if section.settings['popup-id'] != blank %}
+    id="{{ section.settings.popup-id }}"
   {% endif %}
   data-limit-display="{{ section.settings.limit-display }}"
   data-limit-lifetime="{{ section.settings.limit-cache }}"
@@ -45,7 +45,7 @@
   data-open-delay-number="{{ section.settings.trigger-open-delay }}"
   data-open-scroll-position="{{ section.settings.open-scroll-position }}"
   data-open-scroll-type="{{ section.settings.open-scroll-type }}"
-  {% if section.settings.manual-selector != blank %}
+  {% if section.settings['manual-selector'] != blank %}
     data-open-manual-selector="{{ section.settings.manual-selector }}"
   {% endif %}
   data-close-trigger="{{ section.settings.trigger-close }}"
@@ -67,16 +67,16 @@
     <div class="popup-container">
       <div class="popup-outer {%- if section.settings.image != blank %} popup-outer_image {% endif %}">
         {% if section.settings.image != blank %}
-        <div class="popup-thumbnail">
-          {% capture style %}
+          <div class="popup-thumbnail">
+            {% capture style %}
             object-fit: {{ section.settings.image_fit }};
           {% endcapture %}
-          {{
-            section.settings.image
-            | image_url: width: section.settings.image.width
-            | image_tag: loading: 'lazy', widths: '120, 275, 550, 750', style: style
-          }}
-        </div>
+            {{
+              section.settings.image
+              | image_url: width: section.settings.image.width
+              | image_tag: loading: 'lazy', widths: '120, 275, 550, 750', style: style
+            }}
+          </div>
         {% endif %}
         <div class="popup-content{{ no_text_content_class }}">
           <div class="popup-wraper-text {{ section.settings.content_alignment }}">
@@ -84,9 +84,9 @@
               {%- case block.type -%}
                 {%- when 'popup_heading' -%}
                   {% if block.settings.heading != blank %}
-                    <h2 class="popup-heading" {{ block.shopify_attributes }}>
+                    <{{ block.settings.heading_tag }} class="popup-heading" {{ block.shopify_attributes }}>
                       {{ block.settings.heading }}
-                    </h2>
+                    </{{ block.settings.heading_tag }}>
                   {% endif %}
                 {%- when 'popup_description' -%}
                   {% if block.settings.description != blank %}
@@ -152,7 +152,7 @@
                       </small>
                     {%- endif -%}
                     {%- if form.posted_successfully? -%}
-                      <h3
+                      <{{ block.settings.heading_tag }}
                         class="newsletter-form__message newsletter-form__message--success form__message"
                         id="Newsletter-success--{{ section.id }}"
                         tabindex="-1"
@@ -160,7 +160,7 @@
                       >
                         {% render 'icon-success' -%}
                         {{- 'newsletter.success' | t }}
-                      </h3>
+                      </{{ block.settings.heading_tag }}>
                     {%- endif -%}
                   {% endform %}
                 {%- when 'social_links' -%}
@@ -381,7 +381,7 @@
     {
       "type": "select",
       "id": "image_fit",
-			"label": "t:sections.all.card.image_fit.label",
+      "label": "t:sections.all.card.image_fit.label",
       "options": [
         {
           "value": "contain",
@@ -414,41 +414,41 @@
       "id": "position",
       "options": [
         {
-					"value": "top-left",
-					"label": "t:sections.overlay-group.all.settings.position.options__1.label"
-				},
+          "value": "top-left",
+          "label": "t:sections.overlay-group.all.settings.position.options__1.label"
+        },
         {
-					"value": "top",
-					"label": "t:sections.overlay-group.all.settings.position.options__2.label"
-				},
+          "value": "top",
+          "label": "t:sections.overlay-group.all.settings.position.options__2.label"
+        },
         {
-					"value": "top-right",
-					"label": "t:sections.overlay-group.all.settings.position.options__3.label"
-				},
+          "value": "top-right",
+          "label": "t:sections.overlay-group.all.settings.position.options__3.label"
+        },
         {
-					"value": "left",
-					"label": "t:sections.overlay-group.all.settings.position.options__4.label"
-				},
+          "value": "left",
+          "label": "t:sections.overlay-group.all.settings.position.options__4.label"
+        },
         {
-					"value": "center",
-					"label": "t:sections.overlay-group.all.settings.position.options__5.label"
-				},
+          "value": "center",
+          "label": "t:sections.overlay-group.all.settings.position.options__5.label"
+        },
         {
-					"value": "right",
-					"label": "t:sections.overlay-group.all.settings.position.options__6.label"
-				},
+          "value": "right",
+          "label": "t:sections.overlay-group.all.settings.position.options__6.label"
+        },
         {
-					"value": "bottom-left",
-					"label": "t:sections.overlay-group.all.settings.position.options__7.label"
-				},
+          "value": "bottom-left",
+          "label": "t:sections.overlay-group.all.settings.position.options__7.label"
+        },
         {
-					"value": "bottom",
-					"label": "t:sections.overlay-group.all.settings.position.options__8.label"
-				},
+          "value": "bottom",
+          "label": "t:sections.overlay-group.all.settings.position.options__8.label"
+        },
         {
-					"value": "bottom-right",
-					"label": "t:sections.overlay-group.all.settings.position.options__9.label"
-				}
+          "value": "bottom-right",
+          "label": "t:sections.overlay-group.all.settings.position.options__9.label"
+        }
       ],
       "default": "center",
       "label": "t:sections.overlay-group.all.settings.position.label"
@@ -470,9 +470,9 @@
       "default": "left"
     },
     {
-			"type": "header",
-			"content": "t:sections.overlay-group.all.settings.trigger.header.content"
-		},
+      "type": "header",
+      "content": "t:sections.overlay-group.all.settings.trigger.header.content"
+    },
     {
       "type": "text",
       "id": "popup-id",
@@ -591,9 +591,9 @@
       "label": "t:sections.overlay-group.all.settings.close-scroll-position.label"
     },
     {
-			"type": "header",
-			"content": "t:sections.overlay-group.all.settings.animation.header.content"
-		},
+      "type": "header",
+      "content": "t:sections.overlay-group.all.settings.animation.header.content"
+    },
     {
       "type": "range",
       "id": "width",
@@ -665,9 +665,9 @@
       "default": true
     },
     {
-			"type": "header",
-			"content": "t:sections.overlay-group.all.settings.advanced.header.content"
-		},
+      "type": "header",
+      "content": "t:sections.overlay-group.all.settings.advanced.header.content"
+    },
     {
       "type": "checkbox",
       "id": "mobile",
@@ -715,6 +715,47 @@
           "id": "heading",
           "default": "t:sections.overlay-group.popup.blocks.popup_heading.settings.heading.default",
           "label": "t:sections.overlay-group.popup.blocks.popup_heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_tag.options__1.label"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_tag.options__2.label"
+            },
+            {
+              "value": "h3",
+              "label": "t:sections.all.heading_tag.options__3.label"
+            },
+            {
+              "value": "h4",
+              "label": "t:sections.all.heading_tag.options__4.label"
+            },
+            {
+              "value": "h5",
+              "label": "t:sections.all.heading_tag.options__5.label"
+            },
+            {
+              "value": "h6",
+              "label": "t:sections.all.heading_tag.options__6.label"
+            },
+            {
+              "value": "div",
+              "label": "t:sections.all.heading_tag.options__7.label"
+            },
+            {
+              "value": "p",
+              "label": "t:sections.all.heading_tag.options__8.label"
+            }
+          ],
+          "default": "h2",
+          "label": "t:sections.all.heading.label__tag",
+          "info": "t:sections.all.heading_tag.info"
         }
       ]
     },

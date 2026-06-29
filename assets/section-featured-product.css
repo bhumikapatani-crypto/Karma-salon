@@ -114,3 +114,6 @@
 .featured-product__wrapper .product .deferred-media__poster-button {
   display: flex;
 }
+.featured-product__wrapper .product__media-placeholder-wrapper .product__media-list {
+  gap: 2.4rem;
+}

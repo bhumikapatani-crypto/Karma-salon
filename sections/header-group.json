@@ -87,8 +87,7 @@
         "aside_additional_menu": "customer-account-main-menu",
         "enable_country_selector": true,
         "enable_language_selector": true,
-        "enable_search": true,
-        "header_layout": "search_center"
+        "enable_search": true
       }
     }
   },

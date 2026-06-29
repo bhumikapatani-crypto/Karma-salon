@@ -329,6 +329,7 @@ class CartItems extends HTMLElement {
 				publish(PUB_SUB_EVENTS.cartUpdate, { source: "cart-items" });
 			})
 			.catch(() => {
+				const items = document.querySelectorAll(".cart-item");
 				this.querySelectorAll(".loading-overlay").forEach((overlay) =>
 					overlay.classList.add("hidden")
 				);
@@ -343,7 +344,7 @@ class CartItems extends HTMLElement {
 						new CustomEvent('cart:error', {
 						  detail: {
 								source: this.dataset.source,
-								productVariantId: items[line - 1].dataset.variantId || line,
+								productVariantId: items[line - 1]?.dataset?.variantId || line,
 								errors: window.cartStrings.error,
 								message: window.cartStrings.error,
 							},

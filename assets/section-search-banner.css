@@ -69,14 +69,13 @@
   background-color: rgb(var(--color-overlay));
 }
 .search-banner__items .search-banner-item__content {
-  max-width: 97rem;
+  max-width: 90rem;
   margin-bottom: 4rem;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   z-index: 1;
 }
-
 .search-banner__items .search-banner-item__heading {
   margin: 0;
   pointer-events: none;
@@ -501,10 +500,4 @@
 
 .shopify-section:first-child.search-banner-section .media-large {
   min-height: calc(100vh - var(--header-height) - var(--announcement-height, "0px"));
-}
-@media(max-width:767px){
-.search-banner__items .search-banner-item__heading {
-    
-    font-size: 25px;
-}
 }
