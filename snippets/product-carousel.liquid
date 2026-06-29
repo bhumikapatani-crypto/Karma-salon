@@ -1,0 +1,145 @@
+<div class="product_carousel product-carousel-main product-{{ section.settings.product_limit }}" id="{{ section.id }}">
+	<div class="swiper product-carousel-swiper swiper-container">
+		<div
+			class="swiper-wrapper product-carousel__wrapper list-unstyled products--{{ section.settings.columns_mobile }}-items-mobile {% if section.settings.card_type == 'type3' %} product-card-overlay {% endif %}"
+			data-count="{{ section.settings.product_limit }}"
+			data-count-mobile="{{ section.settings.columns_mobile }}"
+			data-margin="{{ margin }}"
+		>
+			{%- for product in section.settings.product_list -%}
+				<div
+					class="
+						collection-product-card swiper-slide
+						quickview{%- if settings.quickview_hover -%}--hover{% endif %}
+						{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}
+						focus-inset
+					"
+					{% if settings.animations_reveal_on_scroll %}
+						data-cascade
+						style="--animation-order: {{ forloop.index }};"
+					{% endif %}
+					tabindex="0"
+					aria-label="{{- product.title | escape -}}"
+				>
+					{% if section.settings.card_type == 'type1' %}
+						{% render 'product-card',
+							product_card_product: product,
+							media_size: section.settings.image_ratio,
+							media_fit: section.settings.image_fit,
+							show_secondary_image: section.settings.show_secondary_image,
+							show_vendor: section.settings.show_vendor,
+							show_collection: section.settings.show_collection,
+							show_desc: section.settings.show_desc,
+							section_id: section.id,
+							columns: section.settings.columns_per_row,
+							add_id: forloop.index
+						%}
+					{% elsif section.settings.card_type == 'type2' %}
+						{% render 'product-card-second',
+							product_card_product: product,
+							media_size: section.settings.image_ratio,
+							media_fit: section.settings.image_fit,
+							show_secondary_image: section.settings.show_secondary_image,
+							show_vendor: section.settings.show_vendor,
+							show_collection: section.settings.show_collection,
+							show_inedex: section.settings.show_inedex,
+							show_desc: section.settings.show_desc,
+							section_id: section.id,
+							columns: section.settings.columns_per_row,
+							add_id: forloop.index
+						%}
+					{% else %}
+						{% render 'product-card-overlay',
+							product_card_product: product,
+							media_size: section.settings.image_ratio,
+							media_fit: section.settings.image_fit,
+							show_secondary_image: section.settings.show_secondary_image,
+							show_vendor: section.settings.show_vendor,
+							show_collection: section.settings.show_collection,
+							show_inedex: section.settings.show_inedex,
+							show_desc: section.settings.show_desc,
+							card_opacity_overlay: section.settings.card_opacity_overlay,
+							section_id: section.id,
+							columns: section.settings.columns_per_row,
+							add_id: forloop.index
+						%}
+					{% endif %}
+				</div>
+			{%- else -%}
+				{%- for i in (1..8) -%}
+					<div
+						class="collection-product-card swiper-slide {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+						{% if settings.animations_reveal_on_scroll %}
+							data-cascade
+							style="--animation-order: {{ forloop.index }};"
+						{% endif %}
+						tabindex="0"
+						aria-label="{{ product.title }}"
+					>
+						{% render 'product-card-placeholder',
+							media_size: section.settings.image_ratio, forloop: forloop, show_vendor: section.settings.show_vendor, show_inedex: section.settings.show_inedex, show_collection: section.settings.show_collection, card_opacity_overlay: section.settings.card_opacity_overlay, card_type: section.settings.card_type
+						%}
+					</div>
+				{%- endfor -%}
+			{%- endfor -%}
+		</div>
+	</div>
+	{% if section.settings.show_arrows %}
+		<div class="carousel__button-prev swiper-button swiper-button-prev color-{{ section.settings.color_scheme }}">
+			<div class="svg-embed">{% render 'icon-arrow' %}</div>
+		</div>
+		<div class="carousel__button-next swiper-button swiper-button-next color-{{ section.settings.color_scheme }}">
+			<div class="svg-embed">{% render 'icon-arrow' %}</div>
+		</div>
+
+		<script>
+			(function () {
+				function adjustButtonPosition(height) {
+					document
+						.querySelectorAll(
+							`#shopify-section-{{ section.id }} .swiper-button`
+						)
+						.forEach((button) => {
+							button.style.top = height / 2 + 'px';
+						});
+				}
+
+				function changePosition() {
+					if (window.innerWidth < 1100) return;
+
+					const image = document.querySelector(
+						`#shopify-section-{{ section.id }} .img_tag`
+					);
+
+					if (image) {
+						if (image.tagName === 'IMG') {
+							if (image.complete) {
+								adjustButtonPosition(image.offsetHeight);
+							} else {
+								image.addEventListener('load', function () {
+									adjustButtonPosition(this.offsetHeight);
+								});
+							}
+						} else if (image.tagName === 'svg') {
+							const height = image.getBoundingClientRect().height;
+							adjustButtonPosition(height);
+						}
+					}
+				}
+
+				changePosition();
+
+				document.addEventListener('shopify:section:load', changePosition);
+
+				let resizeTimeout;
+				window.addEventListener('resize', function () {
+					clearTimeout(resizeTimeout);
+					resizeTimeout = setTimeout(changePosition, 100);
+				});
+			})();
+		</script>
+	{% endif %}
+	{% if section.settings.show_bullets %}
+		<div class="product-carousel__pagination swiper-pagination"></div>
+	{% endif %}
+</div>

@@ -1,0 +1,91 @@
+.pagination-wrapper {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4.8rem;
+}
+.pagination__list {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 750px) {
+  .pagination__list {
+    gap: 1rem;
+  }
+}
+.pagination__item {
+  position: relative;
+  padding: 0;
+  color: rgb(var(--color-foreground-secondary));
+  text-decoration: none;
+  border: none;
+  transition: border var(--duration-default);
+  border-radius: var(--border-radius-button);
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  font-size: 1.2rem;
+  min-height: 3.2rem;
+  min-width: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 750px) {
+  .pagination__item {
+    min-height: 4rem;
+    min-width: 4rem;
+  }
+}
+.pagination__item.link:not(.pagination__item--current):hover, .pagination__item.link:focus {
+  color: rgb(var(--color-foreground));
+}
+.pagination__item--current {
+  color: rgb(var(--color-foreground));
+  border: 1px solid rgb(var(--color-foreground));
+  pointer-events: none;
+}
+.pagination__item:not(.link):not(.pagination__item--current) {
+  cursor: default;
+  border: none;
+}
+.pagination__item.link:not(.pagination__item--current):hover {
+  color: rgb(var(--color-foreground));
+  border: 1px solid rgb(var(--color-foreground));
+}
+.pagination__item-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--color-foreground-secondary));
+  transition: opacity var(--duration-default);
+  pointer-events: none;
+  opacity: 0.4;
+}
+.pagination__item-arrow.active {
+  pointer-events: all;
+  opacity: 1;
+}
+.pagination__item--prev {
+  margin-right: 1rem;
+}
+.pagination__item--prev svg {
+  transform: rotate(-180deg);
+  width: 16px;
+  height: 16px;
+}
+.pagination__item--prev:hover svg {
+  animation: 0.35s ease-in-out forwards animateIconInlineSecond;
+}
+.pagination__item--next {
+  margin-left: 1rem;
+}
+.pagination__item--next svg {
+  width: 16px;
+  height: 16px;
+}
+.pagination__item--next:hover svg {
+  animation: 0.35s ease-in-out forwards animateIconInline;
+}

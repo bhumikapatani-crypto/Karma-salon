@@ -1,0 +1,190 @@
+{{ 'blog-slider.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'blog-slider.js' | asset_url }}" defer="defer"></script>
+
+{% assign slides_count = 0 %}
+{% for block in blocks %}
+  {% assign slides_count = slides_count | plus: 1 %}
+
+  {% assign article = block.settings.article %}
+
+  {% unless article.id %}
+    {% assign per_row = per_row | minus: 1 %}
+    {% assign slides_count = slides_count | minus: 1 %}
+  {% endunless %}
+{% endfor %}
+
+{% if slides_count <= per_row %}
+  {% assign duplicate = true %}
+{% else %}
+  {% assign duplicate = false %}
+{% endif %}
+
+{% if slides_count < 3 %}
+  {% assign duplicate = false %}
+{% endif %}
+
+{% assign multiply = 1 %}
+
+{% if duplicate %}
+  {% assign mod = per_row | modulo: slides_count %}
+  {% assign multiply = per_row | minus: mod %}
+  {% assign multiply = multiply | divided_by: slides_count %}
+  {% assign multiply = multiply | plus: 1 %}
+{% endif %}
+
+<div
+	class="blog-slider {{ slide_class }} color-{{ color_scheme }}"
+	data-id="shopify-section-{{ section_id }}"
+	data-autoplay="{{ autoplay }}"
+	data-stop-autoplay="{{ stop_autoplay }}"
+	data-speed="{{ slideshow_speed }}"
+	data-delay="{{ slideshow_delay }}"
+	data-loop="{{ loop }}"
+	data-slide-count="{{ section.blocks.size }}"
+>
+  <div class="blog-slider__swiper swiper">
+    <div class="blog-slider__wrapper swiper-wrapper">
+      {% for i in (1..multiply) %}
+        {%- for block in blocks -%}
+          {% assign article = block.settings.article %}
+          {% if article.id %}
+            <div
+              class="blog-slider-card blog-slider-card--{{ image_ratio }} blog-slider-list__item swiper-slide color-{{ button_color_scheme }}"
+              {{ article.shopify_attributes }}
+            >
+
+              <a href="{{ article.url }}" class="blog-slider__link-general">
+                <div class="blog-slider-card__image-wrapper">
+                  {%- if article.image != blank and show_image -%}
+                    {{
+                      article.image
+                      | image_url: width: 2560
+                        | image_tag:
+                          loading: 'lazy',
+                          sizes: '100vw',
+                          widths: '375, 550, 750, 1100, 1500, 1780, 2560'
+                    }}
+                  {%- else -%}
+                    {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                  <div
+                    class="blog-slider-card--standard-overlay"
+                    style="background: rgba(var(--color-overlay), {{ overlay_opacity }})"
+                  ></div>
+                </div>
+              </a>
+              <div class="blog-slider-card__info container">
+                <div class="blog-slider-card__meta secondary_text">
+                  {%- if show_tags and article.tags != blank -%}
+                    <ul class="blog-slider-card__tags">
+                      {%- for tag in article.tags -%}
+                        <li class="blog-slider-card__tag">
+                          <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="article-card__tag subheading">
+                            <span title="{{ tag }}">
+                              {{- tag }}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+
+                  {%- if show_date -%}
+                    <span class="blog-slider-card__date">
+                      <a href="{{ article.url }}" class="blog-slider__link-general">
+                        {{- article.published_at | date: '%b %d, %Y' -}}
+                      </a>
+                    </span>
+                  {%- endif -%}
+
+                  {%- if show_author -%}
+                    <span class="blog-slider-card__author">
+                      <span>
+                        <a href="{{ article.url }}" class="blog-slider__link-general">{{- article.author -}}</a>
+                      </span>
+                    </span>
+                  {%- endif -%}
+                </div>
+
+                {% assign is_excerpt = false %}
+                {% if show_excerpt and article.excerpt_or_content.size > 0 %}
+                  {% assign is_excerpt = true %}
+                {% endif %}
+
+                {% if article.title != blank or is_excerpt or article.button_label != blank %}
+                  <div class="blog-slider-card__info--mid-wrapper">
+                    {%- if article.title != blank -%}
+                      <div
+                        class="blog-slider-card__heading {{ slider_heading_size }}"
+                        {% if article.button_label != blank and is_excerpt %}
+                          style="margin-bottom: 0;"
+                        {% endif %}
+                      >
+                        <a href="{{ article.url }}" class="blog-slider__link-general">{{ article.title | escape }}</a>
+                      </div>
+                    {%- endif -%}
+    
+                    {%- if is_excerpt -%}
+                      <p class="blog-slider-card__description blog-slider-card__excerpt">
+                        <a href="{{ article.url }}" class="blog-slider__link-general">
+                          {{ article.excerpt_or_content | strip_html | truncate: 150 }}
+                        </a>
+                      </p>
+                    {%- endif -%}
+
+                    {%- if button_label != blank -%}
+                      {% render 'button',
+                        btn_label: button_label,
+                        btn_link: article.url,
+                        btn_style: button_style,
+                        add_classes: 'blog-slider-card__button'
+                      %}
+                    {%- endif -%}
+                  </div>
+                {% endif %}
+                
+                {% comment %}{%- if article.comments_count > 0 and blog.comments_enabled? -%}
+                  <div class="blog-slider-card__title blog-slider-card__title secondary_text_bottom">
+                    <span class="blog-slider-card__comments secondary_text">
+                      <a href="{{ article.url }}" class="blog-slider__link-general">
+                        {{- 'blogs.article.comments' | t: count: article.comments_count -}}
+                      </a>
+                    </span>
+                  </div>
+                {%- endif -%}{% endcomment %}
+              </div>
+              {% if hover_effect %}
+                <a href="{{ article.url }}" class="blog-slider__link-general ">
+                  <div class="blog-slider__link-overlay" style="opacity: {{ overlay_opacity }}"></div>
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+    {% if section.blocks.size > 1 %}
+      <div class="swiper-controls__wrapper no-js-hidden">
+        <div class="container section-full-screen">
+          <div class="swiper-controls__box">
+            {% if section.settings.show_arrows %}
+              <div class="swiper-buttons__wrapper container">
+                <div class="swiper-buttons__box">
+                  <div class="swiper-button swiper-button-prev">
+                    <div class="svg-embed">{% render 'icon-arrow' %}</div>
+                  </div>
+                  <div class="swiper-button swiper-button-next">
+                    <div class="svg-embed">{% render 'icon-arrow' %}</div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  {% if section.settings.show_bullets and section.blocks.size > 1 %}
+    <div class="swiper-pagination swiper-pagination-fraction"></div>
+  {% endif %}
+</div>

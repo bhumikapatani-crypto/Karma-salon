@@ -1,0 +1,33 @@
+{% if settings.enable_search_promo %}
+	{% if settings.search_menu.links.size > 0
+		or settings.search_product != blank
+	%}
+		<div class="search__modal search__modal--hidden color-background-1">
+			<div class="search__container">
+				<div class="search__inner">
+					{% if settings.search_menu.links.size > 0 %}
+						{%
+							render 'promo-menu',
+							heading: settings.search_menu_heading,
+							search_menu: settings.search_menu,
+						%}
+
+					{% endif %}
+
+					{% if settings.search_product != blank %}
+						{% render 'promo-block',
+							heading: settings.search_block_heading,
+							product: settings.search_product,
+							image_ratio: settings.search_media_size,
+							image_fit: settings.search_media_fit,
+							show_secondary_image: settings.predictive_search_show_secondary_image,
+							show_arrows: settings.search_show_arrows,
+							show_bullets: settings.search_show_bullets,
+							search_menu: settings.search_menu,
+						%}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endif %}

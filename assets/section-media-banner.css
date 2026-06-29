@@ -1,0 +1,194 @@
+:root {
+  --vertical-padding: 2rem;
+  --horizontal-padding: 2rem;
+}
+@media screen and (min-width: 990px) {
+  :root {
+    --vertical-padding: 3.6rem;
+    --horizontal-padding: 3.6rem;
+  }
+}
+@media screen and (min-width: 1100px) {
+  :root {
+    --vertical-padding: 7.2rem;
+    --horizontal-padding: 7.2rem;
+  }
+}
+
+.media-banner {
+  background: unset;
+}
+.media-banner__container {
+  position: relative;
+  display: flex;
+  height: 100%;
+  background: rgba(var(--color-background-secondary));
+  width: 100%;
+  justify-content: center;
+}
+.media-banner__wrapper {
+  display: flex;
+  min-height: 100%;
+  width: 100%;
+  align-items: center;
+}
+.media-banner .media-banner__wrapper {
+  gap: 4rem;
+}
+@media screen and (min-width: 990px) {
+  .media-banner__wrapper {
+    gap: 0 !important;
+  }
+}
+.media-banner__content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+@media screen and (max-width: 749px) {
+  .media-banner__content {
+    min-height: 45vh !important;
+  }
+}
+@media screen and (min-width: 990px) {
+  .media-banner__content {
+    width: 50%;
+  }
+  .media-banner__content--only-content {
+    width: 100%;
+  }
+}
+.media-banner__content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  flex-direction: column;
+}
+@media screen and (min-width: 990px) {
+  .media-banner__content-wrapper {
+    flex-direction: row;
+  }
+}
+.media-banner__content-wrapper > div {
+  width: 100%;
+  position: relative;
+  padding: var(--vertical-padding) var(--horizontal-padding);
+  box-sizing: border-box;
+}
+@media screen and (min-width: 990px) {
+  .media-banner__content-wrapper > div {
+    width: 50%;
+    height: 100%;
+  }
+}
+.media-banner__content-wrapper > div > *:not(.media-banner__media, .media-banner__overlay) {
+  position: relative;
+  z-index: 3;
+}
+.media-banner__heading {
+  margin: auto 0 0;
+  overflow-wrap: anywhere;
+  max-width: 47.3rem;
+  color: rgba(var(--color-background), 0.8);
+}
+.media-banner .clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Fallback for non-supporting browsers */
+  max-height: calc(var(--font-heading-line-height) * 3);
+  text-overflow: ellipsis;
+}
+.media-banner__button {
+  z-index: 3;
+}
+.media-banner__button.scroll-trigger.animate--slide-in-text {
+  transform: translate(0, 2rem);
+}
+.media-banner__button.scroll-trigger.animate--slide-in-text.scroll-trigger--visible {
+  transform: translate(0, 0);
+}
+.media-banner__button:not(:first-child) {
+  margin-top: auto;
+}
+.media-banner__promo {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  text-align: center;
+}
+@media screen and (max-width: 749px) {
+  .media-banner__promo {
+    min-height: 45vh !important;
+  }
+}
+.media-banner__promo--heading {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+@media screen and (min-width: 990px) {
+  .media-banner__promo {
+    width: 50%;
+  }
+}
+.media-banner__promo p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.media-banner__promo--description {
+  color: rgb(var(--color-foreground-secondary));
+  max-width: 44rem;
+}
+.media-banner__promo--description:not(:first-child) {
+  margin-top: 0.6rem;
+}
+.media-banner__promo--description p {
+  color: inherit;
+}
+.media-banner__promo--description a:hover {
+  opacity: 0.7;
+}
+.media-banner__media {
+  position: absolute;
+  inset: 0;
+}
+.media-banner__media.placeholder {
+  background-color: rgba(var(--color-background));
+}
+.color-background-1 .media-banner__media.placeholder {
+  background-color: rgba(var(--color-background-secondary));
+}
+.media-banner__media svg,
+.media-banner__media img,
+.media-banner__media video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: relative;
+  z-index: 1;
+}
+.media-banner__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: rgb(var(--color-overlay));
+  transition: opacity var(--duration-default);
+}

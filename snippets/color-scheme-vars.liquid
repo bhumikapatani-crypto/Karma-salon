@@ -1,0 +1,260 @@
+{% style %}
+  {% for scheme in settings.color_schemes -%}
+  {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
+  [data-scheme=dark] .color-{{ scheme.id }} {
+  	--color-background: 31, 31, 31;
+  	--color-overlay: 0, 0, 0;
+  	--gradient-background: rgb(31, 31, 31);
+  	--color-foreground: 255, 255, 255;
+  	--color-foreground-secondary: 169, 169, 169;
+  	--color-foreground-title: 255, 255, 255;
+  	--color-border-input: 53, 53, 53;
+  	--color-border-input-hover: 63, 63, 63;
+  	--color-background-input: 40, 40, 40;
+  	--color-background-input-hover: 53, 53, 53;
+  	--color-border: 53, 53, 53;
+  	--color-announcement-bar: 0, 0, 0;
+  	--color-announcement-bar-background-1: 0, 0, 0;
+  	--alpha-link: 0.5;
+  	--color-button: 31, 31, 31;
+		--color-button-border: 53, 53, 53;
+  	--color-button-hover: 53, 53, 53;
+		--color-button-border-hover: 53, 53, 53;
+  	--color-button-text: 255, 255, 255;
+  	--color-button-text-hover: 255, 255, 255;
+  	--color-button-secondary-border: 255, 255, 255;
+  	--color-button-secondary-border-hover: 63, 63, 63;
+		--color-button-secondary-hover: 53, 53, 53;
+  	--color-button-secondary-text: 255, 255, 255;
+  	--color-button-secondary-text-hover: 255, 255, 255;
+  	--color-button-tertiary: 50, 50, 50;
+  	--color-button-tertiary-hover: 53, 53, 53;
+  	--color-button-tertiary-text: 255, 255, 255;
+  	--color-button-tertiary-text-hover: 255, 255, 255;
+  	--alpha-button-background: 1;
+  	--alpha-button-border: 1;
+  	--color-placeholder-input: 255, 255, 255;
+  	--color-card-price-new: 255, 255, 255;
+  	--color-card-price-old: 169, 169, 169;
+  	--color-error-background: 0, 0, 0;
+  	--color-title-text: 255, 255, 255;
+		--color-arrows-background: 31, 31, 31;
+  	--color-arrows: 255, 255, 255;
+		--color-accent: 255, 255, 255;
+
+		.article-card__layout-4--first-col {
+			--color-foreground-secondary: 255, 255, 255;
+		}
+
+		.card-wrapper.card-wrapper-second .card__collection-title, 
+		.card-wrapper.card-wrapper-second .card_count {
+			color: rgb(0 0 0);
+		}
+
+		.media-banner.color-background-1 .media-banner__heading,
+		.media-banner.color-background-1 .media-banner__promo--description {
+			color: rgba(256, 256, 256, 0.8);
+		}
+
+		.blog-slider .article-card__tag{
+			color: rgb(256, 256, 256);
+		}
+  }
+  @media (prefers-color-scheme: dark) {
+  	[data-scheme=auto] .color-{{ scheme.id }} {
+  		--color-background: 31, 31, 31;
+  		--gradient-background: rgb(31, 31, 31);
+  		--color-overlay: 0, 0, 0;
+  		--color-foreground: 255, 255, 255;
+  		--color-foreground-secondary: 169, 169, 169;
+  		--color-foreground-title: 255, 255, 255;
+  		--color-border-input: 53, 53, 53;
+  		--color-border-input-hover: 63, 63, 63;
+  		--color-background-input: 40, 40, 40;
+  		--color-background-input-hover: 53, 53, 53;
+  		--color-border: 53, 53, 53;
+  		--color-announcement-bar: 0, 0, 0;
+  		--color-announcement-bar-background-1: 0, 0, 0;
+  		--alpha-link: 0.5;
+  		--color-button: 31, 31, 31;
+			--color-button-border: 53, 53, 53;
+  		--color-button-hover: 53, 53, 53;
+			--color-button-border-hover: 53, 53, 53;
+  		--color-button-text: 255, 255, 255;
+  		--color-button-text-hover: 255, 255, 255;
+  		--color-button-secondary-border: 255, 255, 255;
+  		--color-button-secondary-border-hover: 63, 63, 63;
+			--color-button-secondary-hover: 53, 53, 53;
+  		--color-button-secondary-text: 255, 255, 255;
+  		--color-button-secondary-text-hover: 255, 255, 255;
+  		--color-button-tertiary: 50, 50, 50;
+  		--color-button-tertiary-hover: 53, 53, 53;
+  		--color-button-tertiary-text: 255, 255, 255;
+  		--color-button-tertiary-text-hover: 255, 255, 255;
+  		--alpha-button-background: 1;
+  		--alpha-button-border: 1;
+  		--color-placeholder-input: 255, 255, 255;
+  		--color-card-price-new: 255, 255, 255;
+  		--color-card-price-old: 169, 169, 169;
+  		--color-error-background: 0, 0, 0;
+  		--color-title-text: 255, 255, 255;
+			--color-arrows-background: 31, 31, 31;
+			--color-arrows: 255, 255, 255;
+			--color-accent: 255, 255, 255;
+
+			.article-card__layout-4--first-col {
+				--color-foreground-secondary: 255, 255, 255;
+			}
+
+			.card-wrapper.card-wrapper-second .card__collection-title, 
+			.card-wrapper.card-wrapper-second .card_count {
+				color: rgb(0 0 0);
+			}
+
+			.media-banner.color-background-1 .media-banner__heading,
+			.media-banner.color-background-1 .media-banner__promo--description{ 
+				color: rgba(256, 256, 256, 0.8);
+			}
+
+			.blog-slider .article-card__tag{
+				color: rgb(256, 256, 256);
+			}
+  	}
+  }
+  {% endfor %}
+  [data-scheme=dark] {
+  	--color-background: 31, 31, 31;
+  	--color-background-secondary: 40, 40, 40;
+  	--gradient-background: rgb(31, 31, 31);
+  	--color-overlay: 0, 0, 0;
+  	--color-foreground: 255, 255, 255;
+  	--color-foreground-secondary: 169, 169, 169;
+  	--color-foreground-title: 255, 255, 255;
+  	--color-border-input: 53, 53, 53;
+		--color-border-input-hover: 63, 63, 63;
+		--color-background-input: 40, 40, 40;
+		--color-background-input-hover: 53, 53, 53;
+  	--color-border: 53, 53, 53;
+  	--color-announcement-bar: 0, 0, 0;
+  	--color-announcement-bar-background-1: 0, 0, 0;
+  	--alpha-link: 0.5;
+  	--color-button: 31, 31, 31;
+		--color-button-border: 53, 53, 53;
+  	--color-button-hover: 53, 53, 53;
+		--color-button-border-hover: 53, 53, 53;
+  	--color-button-text: 255, 255, 255;
+  	--color-button-text-hover: 255, 255, 255;
+  	--color-button-secondary-border: 255, 255, 255;
+  	--color-button-secondary-border-hover: 63, 63, 63;
+		--color-button-secondary-hover: 53, 53, 53;
+  	--color-button-secondary-text: 255, 255, 255;
+  	--color-button-secondary-text-hover: 255, 255, 255;
+  	--color-button-tertiary: 50, 50, 50;
+  	--color-button-tertiary-hover: 53, 53, 53;
+  	--color-button-tertiary-text: 255, 255, 255;
+  	--color-button-tertiary-text-hover: 255, 255, 255;
+  	--alpha-button-background: 1;
+  	--alpha-button-border: 1;
+  	--color-placeholder-input: 255, 255, 255;
+  	--color-card-price-new: 255, 255, 255;
+  	--color-card-price-old: 169, 169, 169;
+  	--color-error-background: 0, 0, 0;
+  	--color-title-text: 255, 255, 255;
+		--color-arrows-background: 31, 31, 31;
+  	--color-arrows: 255, 255, 255;
+		--color-accent: 255, 255, 255;
+
+  	.color-background-1 {
+  		--color-background: 31, 31, 31;
+   	}
+  	.color-background-2 {
+  		--color-background: 40, 40, 40;
+  		--gradient-background: rgb(40, 40, 40);
+  	}
+		.article-card__layout-4--first-col {
+			--color-foreground-secondary: 255, 255, 255;
+		}
+
+		.card-wrapper.card-wrapper-second .card__collection-title, 
+		.card-wrapper.card-wrapper-second .card_count {
+			color: rgb(0 0 0);
+		}
+
+		.media-banner.color-background-1 .media-banner__heading,
+		.media-banner.color-background-1 .media-banner__promo--description {
+			color: rgba(256, 256, 256, 0.8);
+		}
+
+		.blog-slider .article-card__tag{
+			color: rgb(256, 256, 256);
+		}
+  }
+  @media (prefers-color-scheme: dark) {
+  	[data-scheme=auto] {
+  		--color-background: 31, 31, 31;
+  		--color-background-secondary: 40, 40, 40;
+  		--gradient-background: rgb(31, 31, 31);
+  		--color-overlay: 0, 0, 0;
+  		--color-foreground: 255, 255, 255;
+  		--color-foreground-secondary: 169, 169, 169;
+  		--color-foreground-title: 255, 255, 255;
+  		--color-border-input: 53, 53, 53;
+  		--color-border-input-hover: 63, 63, 63;
+  		--color-background-input: 40, 40, 40;
+  		--color-background-input-hover: 53, 53, 53;
+  		--color-border: 53, 53, 53;
+  		--color-announcement-bar: 0, 0, 0;
+  		--color-announcement-bar-background-1: 0, 0, 0;
+  		--alpha-link: 0.5;
+  		--color-button: 31, 31, 31;
+			--color-button-border: 53, 53, 53;
+  		--color-button-hover: 53, 53, 53;
+			--color-button-border-hover: 53, 53, 53;
+  		--color-button-text: 255, 255, 255;
+  		--color-button-text-hover: 255, 255, 255;
+  		--color-button-secondary-border: 255, 255, 255;
+  		--color-button-secondary-border-hover: 63, 63, 63;
+			--color-button-secondary-hover: 53, 53, 53;
+			--color-button-secondary-hover: 53, 53, 53;
+  		--color-button-secondary-text: 255, 255, 255;
+  		--color-button-secondary-text-hover: 255, 255, 255;
+  		--color-button-tertiary: 50, 50, 50;
+  		--color-button-tertiary-hover: 53, 53, 53;
+  		--color-button-tertiary-text: 255, 255, 255;
+  		--color-button-tertiary-text-hover: 255, 255, 255;
+  		--alpha-button-background: 1;
+  		--alpha-button-border: 1;
+  		--color-placeholder-input: 255, 255, 255;
+  		--color-card-price-new: 255, 255, 255;
+  		--color-card-price-old: 169, 169, 169;
+  		--color-error-background: 0, 0, 0;
+  		--color-title-text: 255, 255, 255;
+			--color-arrows-background: 31, 31, 31;
+			--color-arrows: 255, 255, 255;
+			--color-accent: 255, 255, 255;
+
+  		.color-background-1 {
+  			--color-background: 31, 31, 31;
+  		}
+  		.color-background-2 {
+  			--color-background: 40, 40, 40;
+  			--gradient-background: rgb(40, 40, 40);
+  		}
+			.article-card__layout-4--first-col {
+				--color-foreground-secondary: 255, 255, 255;
+			}
+			.card-wrapper.card-wrapper-second .card__collection-title, 
+			.card-wrapper.card-wrapper-second .card_count {
+				color: rgb(0 0 0);
+			}
+			.media-banner.color-background-1 .media-banner__heading,
+		  .media-banner.color-background-1 .media-banner__promo--description {
+				color: rgba(256, 256, 256, 0.8);
+			}
+
+			.blog-slider .article-card__tag{
+				color: rgb(256, 256, 256);
+			}
+  	}
+  }
+{% endstyle %}

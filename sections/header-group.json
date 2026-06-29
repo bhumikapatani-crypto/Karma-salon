@@ -1,0 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "t:sections.header.settings.header-group.label",
+  "sections": {
+    "header": {
+      "type": "header",
+      "blocks": {
+        "menu_1": {
+          "type": "aside_mega_menu",
+          "settings": {
+            "menu_label": "FURNITURE",
+            "menu_link": "",
+            "icon": "table",
+            "button_function": "popup",
+            "collection_list": [
+              "barber-chairs-1",
+              "shampoo-units",
+              "beauty-beds-1",
+              "makeup-chairs-1",
+              "salon-chairs-1",
+              "stools-1",
+              "trolleys-1",
+              "waiting-lounges-1",
+              "work-stations-1"
+            ],
+            "images_shape": "square",
+            "desc": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "menu_2": {
+          "type": "aside_mega_menu",
+          "settings": {
+            "menu_label": "Accessories",
+            "menu_link": "shopify://collections/accessories",
+            "icon": "sofa",
+            "button_function": "link",
+            "collection_list": [],
+            "images_shape": "square",
+            "desc": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "menu_3": {
+          "type": "aside_mega_menu",
+          "settings": {
+            "menu_label": "Electrical",
+            "menu_link": "",
+            "icon": "bath",
+            "button_function": "popup",
+            "collection_list": [
+              "lighting",
+              "hot-towel-cabinets",
+              "facial-steamers",
+              "beauty-machine"
+            ],
+            "images_shape": "square",
+            "desc": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "menu_1",
+        "menu_2",
+        "menu_3"
+      ],
+      "settings": {
+        "enable_border": true,
+        "logo": "shopify://shop_images/Logo.jpg",
+        "logo_width": 170,
+        "menu": "main-menu",
+        "sticky_header_type": "on-scroll-up",
+        "enable_aside_menu": true,
+        "aside_additional_menu": "customer-account-main-menu",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_search": true,
+        "header_layout": "search_center"
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

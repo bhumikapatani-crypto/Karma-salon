@@ -1,0 +1,32 @@
+{% if btn_label != blank %}
+  <a
+    {% if btn_link != blank %}
+      href="{{ btn_link }}"
+      data-button-text="{{ btn_label | escape }}"
+    {% endif %}
+    class="button button--{{ btn_style }} focus-inset{% if btn_position %} button--{{ btn_position }}{% endif %} {% if add_classes != blank %} {{ add_classes }}{% endif %}"
+    {% if data-cascade %}
+      data-cascade
+    {% endif %}
+    {% if btn_link == blank %}
+      aria-disabled="true"
+    {% endif %}
+    aria-label="{{ btn_label | escape }}"
+    {% if tabindex != blank %}
+      tabindex="{{ tabindex }}"
+    {% else %}
+      tabindex="0"
+    {% endif %}
+  >
+    <span>
+      {{ btn_label | escape }}
+    </span>
+    {% unless btn_style == 'simple' %}
+      <div class="button-circle">
+        <div class="svg-embed">
+          {% render 'icon-small-arrow' %}
+        </div>
+      </div>
+    {% endunless %}
+  </a>
+{% endif %}

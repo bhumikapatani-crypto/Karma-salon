@@ -1,0 +1,156 @@
+<search-modal-mobile class="header__search" id="search-modal-mobile">
+  <div class="search__content color-background-1">
+    <div class="search__main">
+      {%- if settings.predictive_search_enabled -%}
+        <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+      {%- endif -%}
+      <div class="search__container">
+        <form
+          action="{{ routes.search_url }}"
+          method="get"
+          id="searchModalForm"
+          role="search"
+          class="search search__form"
+        >
+          <div class="search__header">
+            <div class="field">
+              <button
+                class="search__button button focus-inset"
+                aria-label="{{ 'general.search.search' | t }}"
+              >
+                {% render 'icon-search' %}
+              </button>
+              <input
+                class="search__input field__input"
+                id="Search-In-Modal-2"
+                type="search"
+                dir="ltr"
+                name="q"
+                value="{{ search.terms | escape }}"
+                placeholder="{{ 'general.search.placeholder' | t }}"
+                {%- if settings.predictive_search_enabled -%}
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-owns="mobile-predictive-search-results-list"
+                  aria-controls="mobile-predictive-search-results-list"
+                  aria-haspopup="listbox"
+                  aria-autocomplete="list"
+                  autocorrect="off"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                {%- endif -%}
+              >
+              <span class="search__input--icon-clear focus-inset" tabindex="0" aria-label="{{ 'accessibility.close' | t }}">
+                {% render 'icon-close' %}
+              </span>
+              <label class="visually-hidden" for="Search-In-Modal-2">{{ 'general.search.search' | t }}</label>
+              <input type="hidden" name="options[prefix]" value="last">
+            </div>
+            <div class="search__header-wrapper">
+              <button
+                type="button"
+                class="search-modal__close-button search__close modal__close-button link link--text focus-inset modal-close-button"
+                aria-label="{{ 'accessibility.close' | t }}"
+                id="search-modal-close"
+              >
+                {% render 'icon-close' %}
+              </button>
+            </div>
+          </div>
+
+          {%- if settings.predictive_search_enabled -%}
+            <div
+              class="predictive-search predictive-search--header color-background-1"
+              tabindex="-1"
+              data-predictive-search
+              id="predictive-search-mobile-{{ section.id }}"
+            >
+              <div class="predictive-search__loading-state">
+                {% render 'icon-spinner' %}
+              </div>
+            </div>
+
+            <div
+              id="predictive-search-option-search-keywords"
+              class="predictive-search__search-for-button predictive-search__search-for-button-mobile"
+            >
+              <button
+                class="predictive-search__item predictive-search__item--term button button--simple"
+                tabindex="0"
+                role="option"
+                aria-selected="false"
+                aria-label="{{- 'templates.search.view_all' | t -}}"
+              >
+                <span >
+                  {{- 'templates.search.view_all' | t -}}
+                </span>
+              </button>
+            </div>
+
+            <span
+              class="predictive-search-status visually-hidden"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          {%- endif -%}
+        </form>
+      </div>
+      {%- if settings.predictive_search_enabled -%}
+        </predictive-search>
+      {%- endif -%}
+      {% if settings.enable_search_promo %}
+        <div class="search__modal search__modal--hidden color-background-1">
+          <div class="search__container">
+            <div class="search__inner">
+              {% if settings.search_menu.links.size > 0 %}
+                {%
+                  render 'promo-menu',
+                  heading: settings.search_menu_heading,
+                  search_menu: settings.search_menu,
+                %}
+              {% endif %}
+    
+              {% if settings.search_product != blank %}
+                <div class="product-carousel">
+                  {% if settings.search_block_heading != blank %}
+                    <span class="promo-block__heading subheading">
+                      {{- settings.search_block_heading -}}
+                    </span>
+                  {% endif %}
+                  <div class="product-carousel-main product-4">
+                    <div class=" product-carousel-swiper swiper-container">
+                      <div class=" product-carousel__wrapper list-unstyled products--{{ columns_mobile }}-items-mobile">
+                        {%- for product in settings.search_product -%}
+                          <div class="
+                              collection-product-card
+                              quickview{%- if settings.quickview_hover -%}--hover{% endif %}
+                            ">
+                            {% render 'product-card',
+                              product_card_product: product,
+                              media_size: settings.search_media_size,
+                              media_fit: settings.search_media_fit,
+                              show_secondary_image: settings.predictive_search_show_secondary_image,
+                              section_id: block.id,
+                              columns: settings.columns_per_row,
+                              add_id: forloop.index
+                            %}
+                          </div>
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div
+  id="SearchModal-Overlay"
+  class="burger-menu__overlay search-modal__overlay"
+  ></div>
+</search-modal-mobile>
+

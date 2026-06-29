@@ -1,0 +1,29 @@
+.totals {
+  display: flex;
+}
+
+.totals > * {
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.totals * {
+  line-height: 120%;
+}
+
+.totals > * + * {
+  margin-left: 0.5rem;
+}
+
+.totals__subtotal-value {
+  color: rgb(var(--color-foreground-secondary));
+  font-family: var(--font-heading-card-family);
+  font-style: var(--font-heading-card-style);
+  font-weight: var(--font-heading-card-weight);
+  font-size: calc(var(--font-heading-card-scale) * 1.2rem);
+  letter-spacing: calc(var(--font-card-letter-spacing) * 0.1);
+  line-height: var(--font-body-line-height);
+  margin: 0;
+}

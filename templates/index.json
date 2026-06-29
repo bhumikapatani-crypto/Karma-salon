@@ -1,0 +1,1106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "search_banner_WFxMmN": {
+      "type": "search-banner",
+      "custom_css": [
+        ".search {display: none;}",
+        ".search-banner-main.container.layout_simple {margin-bottom: 3%;}"
+      ],
+      "name": "t:sections.search-banner.presets.name",
+      "settings": {
+        "header_overlay": false,
+        "color_scheme": "",
+        "layout": "simple",
+        "desktop_media_ratio": "adapt",
+        "parallax_image": "shopify://shop_images/Image_2.png",
+        "opacity_overlay": 0,
+        "image_parallax": false,
+        "heading": "KARMA SALON FURNITURE",
+        "description": "ALL SALONS NEED GOOD KARMA",
+        "is_animated_heading": true,
+        "heading_animation_speed": 150,
+        "collection_list": [],
+        "featured_image": "shopify://shop_images/Hero_image.jpg",
+        "images_shape": "square",
+        "search_menu_heading": "Popular Searches",
+        "search_menu": "",
+        "search_block_heading": "Popular Products",
+        "search_product": [],
+        "predictive_search_show_secondary_image": true,
+        "search_show_arrows": true,
+        "search_show_bullets": true,
+        "search_media_size": "3/4",
+        "search_media_fit": "cover",
+        "margin_top": "m",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "image_slider_new_GhGECK": {
+      "type": "image-slider-new",
+      "blocks": {
+        "image_slider_item_bYiiJy": {
+          "type": "image_slider_item",
+          "settings": {
+            "image": "shopify://shop_images/Hero_image.jpg",
+            "overlay_opacity": 0
+          }
+        },
+        "image_slider_item_cN8rKN": {
+          "type": "image_slider_item",
+          "settings": {
+            "image": "shopify://shop_images/2nd_banner.jpg",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_slider_item_bYiiJy",
+        "image_slider_item_cN8rKN"
+      ],
+      "disabled": true,
+      "name": "t:sections.image-slider.name",
+      "settings": {
+        "section_heading": "KARMA SALON FURNITURE",
+        "section_heading_size": "h1",
+        "heading_custom_size": "extra-large",
+        "is_animated_heading": true,
+        "heading_animation_speed": 150,
+        "heading_alignment": "center",
+        "section_description": "All salons need good karma",
+        "subheading_custom_size": "large",
+        "section_button_label": "",
+        "section_button_link": "",
+        "section_button_style": "secondary",
+        "image_size": "21/9",
+        "is_loop": true,
+        "is_autoplay": false,
+        "is_hover_stop_autoplay": true,
+        "show_arrows": true,
+        "show_bullets": true,
+        "image_slider_speed": 1.5,
+        "image_slider_delay": 3,
+        "color_scheme": "",
+        "slide_effects": "slide",
+        "margin_top": "m",
+        "margin_bottom": "m"
+      }
+    },
+    "ticker_WWHdpE": {
+      "type": "ticker",
+      "blocks": {
+        "column_Tczx8Q": {
+          "type": "column",
+          "settings": {
+            "icon": "heart",
+            "ticker_heading": "Quality Made Furniture",
+            "ticker_text": ""
+          }
+        },
+        "column_PMfN6F": {
+          "type": "column",
+          "settings": {
+            "icon": "lightning",
+            "ticker_heading": "Upgrade Your Space",
+            "ticker_text": ""
+          }
+        },
+        "column_VRYkbG": {
+          "type": "column",
+          "settings": {
+            "icon": "star",
+            "ticker_heading": "Australian Owned & Operated",
+            "ticker_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_Tczx8Q",
+        "column_PMfN6F",
+        "column_VRYkbG"
+      ],
+      "name": "t:sections.ticker.presets.name",
+      "settings": {
+        "color_scheme": "background-1",
+        "default_padding": "small",
+        "notebook_bg": false,
+        "text_size": "h4",
+        "image_size": "s",
+        "ticker_speed": 1,
+        "ticker_pause_hover": true,
+        "ticker_direction": "left_to_right",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "categories_list_fxzCd8": {
+      "type": "categories-list",
+      "blocks": {
+        "collection_item_x9AcXw": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "barber-chairs-1",
+            "image": "shopify://shop_images/ChatGPT_Image_May_13_2026_10_41_56_AM.png"
+          }
+        },
+        "collection_item_ye3N4i": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "salon-chairs-1",
+            "image": "shopify://shop_images/wmremove-transformed.png"
+          }
+        },
+        "collection_item_QEPHeh": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "waiting-lounges-1"
+          }
+        },
+        "collection_item_pKYTPL": {
+          "type": "collection_item",
+          "disabled": true,
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/122x122_2_jpg.jpg"
+          }
+        },
+        "collection_item_rbQwEj": {
+          "type": "collection_item",
+          "disabled": true,
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/122x122_3.jpg"
+          }
+        },
+        "collection_item_gDBfKz": {
+          "type": "collection_item",
+          "disabled": true,
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/122x122_4.jpg"
+          }
+        },
+        "collection_item_tVTH7e": {
+          "type": "collection_item",
+          "disabled": true,
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/122x122_5.jpg"
+          }
+        },
+        "collection_item_kp3Tdx": {
+          "type": "collection_item",
+          "disabled": true,
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/122x122_6.jpg"
+          }
+        },
+        "collection_item_DmgrbV": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "beauty-beds-1",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-07_at_07.08.39.jpg"
+          }
+        },
+        "collection_item_CfBpB9": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "stools-1",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-07_at_07.11.29.jpg"
+          }
+        },
+        "collection_item_xiQEWE": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "makeup-chairs-1",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-07_at_07.11.06.jpg"
+          }
+        },
+        "collection_item_kU33rw": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "trolleys-1"
+          }
+        },
+        "collection_item_LHRrpz": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "work-stations-1",
+            "image": "shopify://shop_images/Gemini_Generated_Image_ydzwbtydzwbtydzw_1.jpg"
+          }
+        },
+        "collection_item_776fcX": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "barber-poles-1",
+            "image": "shopify://shop_images/Gemini_Generated_Image_eus0h1eus0h1eus0.jpg"
+          }
+        },
+        "collection_item_4giNyW": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "electrical",
+            "image": "shopify://shop_images/DRiEN2Ng.jpg"
+          }
+        },
+        "collection_item_gKCbEB": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "shampoo-units"
+          }
+        },
+        "collection_item_WPPKC9": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "anti-fatigue-mats-1",
+            "image": "shopify://shop_images/dcdd482b-d7c7-4924-ad7b-381a9c2ecdb3.png"
+          }
+        },
+        "collection_item_jeKV7M": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "accessories"
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_x9AcXw",
+        "collection_item_ye3N4i",
+        "collection_item_QEPHeh",
+        "collection_item_pKYTPL",
+        "collection_item_rbQwEj",
+        "collection_item_gDBfKz",
+        "collection_item_tVTH7e",
+        "collection_item_kp3Tdx",
+        "collection_item_DmgrbV",
+        "collection_item_CfBpB9",
+        "collection_item_xiQEWE",
+        "collection_item_kU33rw",
+        "collection_item_LHRrpz",
+        "collection_item_776fcX",
+        "collection_item_4giNyW",
+        "collection_item_gKCbEB",
+        "collection_item_WPPKC9",
+        "collection_item_jeKV7M"
+      ],
+      "name": "t:sections.categories-list.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "columns_per_row": 12,
+        "enable_background": false,
+        "notebook_bg": false,
+        "columns_mobile": "1",
+        "show_arrows": true,
+        "show_bullets": true,
+        "color_scheme": "",
+        "images_shape": "square",
+        "image_ratio": "1/1",
+        "object_fit": "cover",
+        "img_hover": false,
+        "heading_big": "",
+        "section_heading": "",
+        "section_heading_size": "h1",
+        "description": "",
+        "heading_direction": "row",
+        "is_animated_big_heading": true,
+        "big_heading_animation_speed": 150,
+        "section_button_label": "",
+        "section_button_link": "",
+        "section_button_style": "tertiary",
+        "margin_top": "no-indent",
+        "margin_bottom": "m",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent"
+      }
+    },
+    "product_carousel_feCbw9": {
+      "type": "product-carousel",
+      "custom_css": [
+        "dd.price__compare {display: NONE;}"
+      ],
+      "name": "t:sections.product-carousel.presets.name",
+      "settings": {
+        "product_limit": 6,
+        "product_list": [],
+        "collection_list": [
+          "best-sellers"
+        ],
+        "product_count": 8,
+        "slider": true,
+        "show_arrows": true,
+        "show_bullets": true,
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "section_heading": "Most Loved Designs",
+        "section_heading_size": "h2",
+        "section_description": "Browse bestsellers and find the ideal furniture that complements your home and lifestyle.",
+        "section_button_label": "Shop All",
+        "section_button_link": "shopify://collections/best-sellers",
+        "section_button_style": "primary",
+        "card_type": "type1",
+        "image_ratio": "1/1",
+        "image_fit": "contain",
+        "card_opacity_overlay": 0.1,
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_collection": false,
+        "show_desc": false,
+        "show_inedex": false,
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "image_banner_khA6jk": {
+      "type": "image-banner",
+      "disabled": true,
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "image": "shopify://shop_images/2nd_banner_4835cb06-8899-42a4-be9d-7cadeb1d80ab.jpg",
+        "image_ratio": "21/9",
+        "overlay_opacity": 0.2,
+        "layout": "row",
+        "content_position": "left",
+        "heading": "Where style meets comfort & every piece tells a story",
+        "heading_size": "h1",
+        "heading_2": "50% Off",
+        "description": "<p>On Limited Items</p>",
+        "is_animated_heading": true,
+        "heading_animation_speed": 150,
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/all",
+        "button_style": "secondary",
+        "margin_top": "s",
+        "margin_bottom": "m"
+      }
+    },
+    "product_carousel_JAxzm7": {
+      "type": "product-carousel",
+      "disabled": true,
+      "name": "t:sections.product-carousel.presets.name",
+      "settings": {
+        "product_limit": 6,
+        "product_list": [],
+        "collection_list": [
+          "shampoo-units",
+          "salon-chairs-1"
+        ],
+        "product_count": 8,
+        "slider": true,
+        "show_arrows": true,
+        "show_bullets": true,
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "section_heading": "Customer Favorites",
+        "section_heading_size": "h2",
+        "section_description": "Explore top-rated products that customers love for their quality and style.",
+        "section_button_label": "Shop All",
+        "section_button_link": "",
+        "section_button_style": "primary",
+        "card_type": "type1",
+        "image_ratio": "1/1",
+        "image_fit": "contain",
+        "card_opacity_overlay": 0.1,
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_collection": false,
+        "show_desc": false,
+        "show_inedex": false,
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "countdown_dkqeeH": {
+      "type": "countdown",
+      "disabled": true,
+      "name": "t:sections.countdown.presets.name",
+      "settings": {
+        "main_color_scheme": "background-2",
+        "layout": "overlay",
+        "enable_mock_timer": false,
+        "date_picker": "2026-06-01",
+        "time_picker": "00:00",
+        "mock_date_picker_day": 2,
+        "mock_date_picker_hours": 3,
+        "completed_countdown": "show_text",
+        "icon": false,
+        "countdown_heading": "Sale has ended",
+        "desktop_image": "shopify://shop_images/ChatGPT_Image_May_13_2026_03_11_56_PM.png",
+        "desktop_height": "adapt",
+        "content_alignment": "center",
+        "full_width": false,
+        "opacity_overlay": 0.2,
+        "heading_big": "",
+        "heading": "Sleek Spaces, Exclusive Savings",
+        "heading_size": "h1",
+        "text": "Final Hours to Save Big",
+        "is_animated_big_heading": true,
+        "big_heading_animation_speed": 150,
+        "is_animated_heading": true,
+        "heading_animation_speed": 120,
+        "button_label": "Shop Now",
+        "button_style": "secondary",
+        "button_link": "shopify://collections/all",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "banner_grid_9zKC4Q": {
+      "type": "banner-grid",
+      "blocks": {
+        "card_XFFpXY": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-07_at_06.53.16.jpg",
+            "button_label": "Beauty beds",
+            "button_link": "shopify://collections/beauty-beds-1"
+          }
+        },
+        "card_6jNdmV": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/ae8805bc-a735-41e9-be1f-91a5b7f87693.png",
+            "button_label": "Barber Chairs",
+            "button_link": "shopify://collections/barber-chairs-1"
+          }
+        },
+        "card_wmdreH": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/521cbc2f-3724-4113-95d5-15c615c46b1f.png",
+            "button_label": "BARBER POLES",
+            "button_link": "shopify://collections/barber-poles-1"
+          }
+        },
+        "card_UFDFWx": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-07_at_06.53.15.jpg",
+            "button_label": "Salon chairs",
+            "button_link": "shopify://collections/salon-chairs-1"
+          }
+        }
+      },
+      "block_order": [
+        "card_XFFpXY",
+        "card_6jNdmV",
+        "card_wmdreH",
+        "card_UFDFWx"
+      ],
+      "name": "t:sections.banner-grid.presets.name",
+      "settings": {
+        "columns_per_row": 2,
+        "image_ratio": "1/1",
+        "section_heading": "PREMIUM SALON FURNITURE COLLECTION",
+        "section_heading_size": "h2",
+        "section_description": "Upgrade your salon with luxury barber chairs, styling stations, shampoo units, and salon essentials designed for comfort, durability, and modern style.",
+        "section_button_label": "Shop Sale",
+        "section_button_link": "",
+        "section_button_style": "secondary",
+        "image": "shopify://shop_images/ChatGPT_Image_May_13_2026_02_43_28_PM.png",
+        "overlay_opacity": 0.1,
+        "color_scheme": "",
+        "image_position": "left",
+        "image_parallax": true,
+        "heading": "MODERN SALON FURNITURE",
+        "heading_max_width": "medium",
+        "text": "Transform your salon into a premium professional space with high-quality furniture crafted for style and performance.",
+        "text_position": "bottom",
+        "is_animated_heading": true,
+        "heading_animation_speed": 150,
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "video_banner_XkeTgN": {
+      "type": "video-banner",
+      "disabled": true,
+      "name": "t:sections.video-banner.presets.name",
+      "settings": {
+        "header_overlay": false,
+        "scroll_animation": true,
+        "color_scheme": "",
+        "heading": "Innovative Style, Classic Comfort",
+        "heading_size": "h1",
+        "text": "The perfect combination of contemporary style and long-lasting comfort - furniture that will add a touch of style to any home.",
+        "button_label": "Shop Collection",
+        "button_link": "",
+        "button_style": "secondary",
+        "video": "shopify://files/videos/166e3cc6c1274e16b3bd9ea9359ae59c.HD-1080p-7.2Mbps-53586387.mp4",
+        "autoplay_video": true,
+        "muted_video": true,
+        "loop_video": true,
+        "show_icon_play": true,
+        "show_icon_sound": true,
+        "video_fit": "cover",
+        "opacity_overlay": 0.2,
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "featured_product_AFmfai": {
+      "type": "featured-product",
+      "blocks": {
+        "title_U8MAdf": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h3",
+            "additional_text": "Reliable quality, thoughtful design."
+          }
+        },
+        "price_iMhC94": {
+          "type": "price",
+          "settings": {
+            "show_tax_info": false,
+            "show_shipping": false,
+            "show_sku": true
+          }
+        },
+        "variant_picker_RULzNL": {
+          "type": "variant_picker",
+          "settings": {
+            "variant_picker_heading": "Choose Your Design",
+            "option_icons": false,
+            "picker_type": "popup",
+            "swatch_type": "variant_image"
+          }
+        },
+        "inventory_YMJfC4": {
+          "type": "inventory",
+          "settings": {}
+        },
+        "buy_buttons_jWAgpW": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_quantity": true,
+            "show_gift_card_recipient": false,
+            "notification_modal": false,
+            "modal_button_label": "Notify Me",
+            "heading": "Availability Notification",
+            "description": "We'll notify you as soon as the item is back in stock."
+          }
+        }
+      },
+      "block_order": [
+        "title_U8MAdf",
+        "price_iMhC94",
+        "variant_picker_RULzNL",
+        "inventory_YMJfC4",
+        "buy_buttons_jWAgpW"
+      ],
+      "name": "t:sections.featured-product.name",
+      "settings": {
+        "product_item": "3x-karma-gold-coast-barber-chair-04030103-gold",
+        "desktop_alignment": "left",
+        "mobile_alignment": "before",
+        "gallery_type": "static_column_aside",
+        "image_ratio": "1/1",
+        "image_fit": "contain",
+        "section_heading": "Must-Have Piece",
+        "section_heading_size": "h2",
+        "section_description": "Explore the featured item — carefully selected for its design, quality, and style.",
+        "section_button_label": "",
+        "section_button_link": "",
+        "section_button_style": "secondary",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "product_carousel_qpAFTb": {
+      "type": "product-carousel",
+      "disabled": true,
+      "name": "t:sections.product-carousel.presets.name",
+      "settings": {
+        "product_limit": 3,
+        "product_list": [],
+        "collection_list": [
+          "barber-chairs-1"
+        ],
+        "product_count": 8,
+        "slider": true,
+        "show_arrows": true,
+        "show_bullets": true,
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "section_heading": "Now Trending",
+        "section_heading_size": "h2",
+        "section_description": "Discover the newest pieces, fresh and ready to transform your space.",
+        "section_button_label": "Shop All",
+        "section_button_link": "",
+        "section_button_style": "primary",
+        "card_type": "type2",
+        "image_ratio": "1/1",
+        "image_fit": "cover",
+        "card_opacity_overlay": 0.1,
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_collection": false,
+        "show_desc": true,
+        "show_inedex": true,
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "content_banner_KwjBcd": {
+      "type": "content-banner",
+      "disabled": true,
+      "name": "t:sections.content-banner.presets.name",
+      "settings": {
+        "color_scheme": "background-2",
+        "animated_text": true,
+        "enable_background": false,
+        "notebook_bg": false,
+        "layout": "overlay",
+        "content_alignment": "left",
+        "button_position": "center",
+        "image": "shopify://shop_images/936f657f-5c1a-4eda-b4b6-f08e9b77135b.png",
+        "overlay_opacity": 0.2,
+        "heading": "Create a refined salon experience with high-quality furniture tailored for beauty professionals and contemporary workspaces.",
+        "heading_size": "h1",
+        "button_label": "SHOP COLLECTION",
+        "button_link": "shopify://collections",
+        "button_style": "simple",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "product_carousel_VzxWPD": {
+      "type": "product-carousel",
+      "disabled": true,
+      "name": "t:sections.product-carousel.presets.name",
+      "settings": {
+        "product_limit": 6,
+        "product_list": [],
+        "collection_list": [
+          "trolleys-1"
+        ],
+        "product_count": 8,
+        "slider": true,
+        "show_arrows": true,
+        "show_bullets": true,
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "section_heading": "Crafted for Your Life",
+        "section_heading_size": "h2",
+        "section_description": "From modern minimalism to classic elegance, explore furniture that balances design with practicality.",
+        "section_button_label": "See All",
+        "section_button_link": "",
+        "section_button_style": "primary",
+        "card_type": "type1",
+        "image_ratio": "1/1",
+        "image_fit": "cover",
+        "card_opacity_overlay": 0.1,
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_collection": false,
+        "show_desc": false,
+        "show_inedex": false,
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "collection_carousel_MLf9zB": {
+      "type": "collection-carousel",
+      "blocks": {
+        "collection_item_LRQxqP": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "bedroom",
+            "image": "shopify://shop_images/collection_15_1.jpg",
+            "heading": "",
+            "show_collection_desc": false,
+            "text": "",
+            "button_label": "Shop collection",
+            "overlay_link": true
+          }
+        },
+        "collection_item_tYmEEb": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "living-room",
+            "image": "shopify://shop_images/collection_14_1.jpg",
+            "heading": "",
+            "show_collection_desc": false,
+            "text": "",
+            "button_label": "Shop collection",
+            "overlay_link": true
+          }
+        },
+        "collection_item_c4jLim": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "dining-room",
+            "image": "shopify://shop_images/collection_15_1.jpg",
+            "heading": "",
+            "show_collection_desc": false,
+            "text": "",
+            "button_label": "Shop collection",
+            "overlay_link": true
+          }
+        },
+        "collection_item_LQiaff": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "hall",
+            "image": "shopify://shop_images/collection_13_1.jpg",
+            "heading": "",
+            "show_collection_desc": false,
+            "text": "",
+            "button_label": "Shop collection",
+            "overlay_link": true
+          }
+        },
+        "collection_item_ALezda": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "coffee-tables",
+            "heading": "",
+            "show_collection_desc": false,
+            "text": "",
+            "button_label": "Shop collection",
+            "overlay_link": true
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_LRQxqP",
+        "collection_item_tYmEEb",
+        "collection_item_c4jLim",
+        "collection_item_LQiaff",
+        "collection_item_ALezda"
+      ],
+      "disabled": true,
+      "name": "t:sections.collection-carousel.presets.name",
+      "settings": {
+        "columns_per_row": 4,
+        "color_scheme": "background-2",
+        "section_heading": "Shop By room",
+        "section_heading_size": "h2",
+        "description": "Design your dream interior for every corner of your home.",
+        "section_button_label": "",
+        "section_button_link": "",
+        "section_button_style": "secondary",
+        "heading_size": "h3",
+        "button_style": "secondary",
+        "overlay_opacity": 0.1,
+        "card_layout": "layout-1",
+        "show_btn_on_hover": true,
+        "image_ratio": "3/4",
+        "object_fit": "cover",
+        "show_arrows": true,
+        "show_bullets": true,
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "image_banner_naaXFf": {
+      "type": "image-banner",
+      "disabled": true,
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "image": "shopify://shop_images/banner_image_3_1.jpg",
+        "image_ratio": "large",
+        "overlay_opacity": 0.2,
+        "layout": "bottom",
+        "content_position": "left",
+        "heading": "Sophistication in Every Touch, Comfort in Every Space",
+        "heading_size": "h1",
+        "heading_2": "",
+        "description": "",
+        "is_animated_heading": true,
+        "heading_animation_speed": 150,
+        "button_label": "Shop Collection",
+        "button_link": "",
+        "button_style": "secondary",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "featured_blog_iBY3jT": {
+      "type": "featured-blog",
+      "disabled": true,
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "columns_per_row": 3,
+        "content_layout": "layout1",
+        "overlay_opacity": 0.2,
+        "show_image": true,
+        "show_tags": true,
+        "show_date": true,
+        "show_author": false,
+        "show_excerpt": false,
+        "columns_mobile": "1",
+        "enable_swiper": false,
+        "show_arrows": true,
+        "show_bullets": true,
+        "image_ratio": "16/9",
+        "section_heading": "Our Journal",
+        "section_heading_size": "h2",
+        "section_description": "Explore the latest trends, expert tips, and inspiring stories on furniture design.",
+        "section_button_label": "Read All",
+        "section_button_link": "",
+        "section_button_style": "primary",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "collapsible_content_nNYTVR": {
+      "type": "collapsible-content",
+      "blocks": {
+        "faq_iBAtFG": {
+          "type": "faq",
+          "settings": {
+            "heading": "FAQ",
+            "description": "Find answers to your questions.",
+            "icon": "info",
+            "popup_info": "<h1><span style=\"text-decoration:underline\"><strong>Ordering & Payments </strong></span></h1><p><strong>What payment methods do you accept? </strong></p><p>- We accept major credit cards, PayPal, bank transfer, and selected Buy Now Pay  Later options including Afterpay ZipPay & Klarna. All payments are processed  securely through trusted payment providers. </p><p><strong>Can I receive a tax invoice? </strong></p><p>- Absolutely. A tax invoice will be emailed to you once your order has been  processed. </p><p><strong>Do you offer finance options? </strong></p><p>- We may offer flexible payment or lay buy solutions on selected purchases.  Please contact our team to discuss available options for your salon setup. </p><h1><span style=\"text-decoration:underline\"><strong>Shipping & Delivery </strong></span></h1><p><strong>Do you ship Australia-wide? </strong></p><p>- Yes, we deliver salon furniture and equipment across Australia, including metro,  regional, and remote areas. </p><p><strong>How long does delivery take? </strong></p><p>- Delivery times vary depending on your location and the item ordered. Most in stock items are dispatched within 1–3 business days, with delivery generally  taking: </p><p>Metro areas: 2–7 business days  </p><p>Regional areas: 5–10 business days  </p><p>Bulky or rural freight items may require additional transit time. </p><p><strong>How much does shipping cost? </strong></p><p>- Shipping costs are calculated based on your location and the size of your items.  </p><p><strong>Can I track my order? </strong></p><p>- Yes. Once your order has been dispatched, you will receive tracking details via  email so you can monitor your delivery. </p><p><strong>Do you deliver to residential addresses? </strong></p><p>- Yes, we deliver to both residential and commercial addresses Australia-wide.</p><p><strong>Will the delivery company unpack and set up my furniture? </strong></p><p>- Our standard delivery service is a door-to-door service only. This means your  order will be delivered to the entrance of your salon, business, or home. Delivery  drivers are unable to move furniture into rooms, carry items up staircases or  small lifts, unpack products, or remove packaging and rubbish. </p><h1><span style=\"text-decoration:underline\"><strong>Product Information </strong></span></h1><p><strong>Are your salon chairs commercial-grade? </strong></p><p>- Yes. Our salon and barber furniture is designed for professional commercial use  and built to withstand the demands of busy salon environments. </p><p><strong>Are your salon chairs hydraulic? </strong></p><p>- Many of our salon chairs feature professional hydraulic pump systems for  smooth height adjustment. Product specifications are listed on each product  page. </p><p><strong>What materials are your salon chairs made from? </strong></p><p>- Our chairs are manufactured using high-quality materials including heavy-duty  frames, premium vinyl upholstery, and high-density foam cushioning for comfort  and durability. </p><p><strong>Do your products come assembled? </strong></p><p>- Assembly requirements vary depending on the product. Some items arrive fully  assembled, while others require minor assembly. Assembly details are included  on each product listing on our website. </p><p><strong>Are replacement parts available? </strong></p><p>- Yes, replacement parts are available for many of our products. Please contact  our support team with your order details and product information for assistance. </p><p><strong>Are your basins compatible with Australian plumbing? </strong></p><p>- Yes, our salon basins are designed to suit Australian plumbing standards. We  recommend installation by a licensed plumber to ensure correct setup and  compliance. Please note that failure to use a licensed plumber may void the  product warranty.</p><h1><span style=\"text-decoration:underline\"><strong>Returns & Warranty </strong></span></h1><p><strong>Do your products come with a warranty? </strong></p><p>- Yes, all our products are backed by a manufacturer’s warranty for added peace  of mind. Warranty periods may vary depending on the product, and full warranty  details can be found on each individual product page. </p><p><strong>What is your return policy? </strong></p><p>- We accept returns on eligible items in accordance with Australian Consumer  Law. Returned items must be unused, in their original, unopened packaging, and  returned within the specified return period. Return shipping costs are the  responsibility of the buyer unless the item is faulty or incorrect. </p><p><strong>Can I return an item if I change my mind? </strong></p><p>- Change-of-mind returns may be accepted on selected items, subject to approval  and a restocking fee will apply. Freight charges are non-refundable and freight  costs back to us are the responsibility of the buyer.  </p><p><strong>What should I do if my product has a fault? </strong></p><p>- Please contact us via the warranty page on our website as soon as possible with  photos and a description of the issue. We’ll assess the problem and provide a  suitable solution promptly. </p><h1><span style=\"text-decoration:underline\"><strong>General Questions</strong></span><strong> </strong></h1><p><strong>Can I visit your showroom? </strong></p><p>- We welcome customers to visit our showroom located in Nerang, Gold Coast. Please contact us to confirm if there is a particular item you wish to view so we  can ensure we have the stock on show and in stock.  </p><p><strong>Why choose Salon Furniture Australia? </strong></p><p>- We’re committed to supplying high-quality salon furniture at competitive prices,  backed by reliable customer service and Australia-wide delivery. Our goal is to  help salon owners create professional, stylish, and functional spaces with  confidence. </p><p><strong>Do you sell to the public or trade only? </strong></p><p>- We supply both salon professionals and individual customers across Australia.</p><p><strong>How do I set up a trade account?  </strong></p><p>- To set up a trade account, please head to the <strong>Account </strong>section on our website  and select <strong>Trade Account </strong>during the registration process. Once submitted, our  team will review your application and contact you if any additional information is  required. </p><p><strong>Do you offer wholesale or reseller partnerships? </strong></p><p>- Yes, we welcome partnerships with wholesalers, online retailers, and  businesses looking to list and sell our products through their own website or  store. We offer wholesale pricing and ongoing supply support for approved  reseller accounts. If you are interested in becoming a reseller or listing our  products online, please contact our team to discuss partnership opportunities  and account eligibility.</p>"
+          }
+        },
+        "info_WVHPqJ": {
+          "type": "info",
+          "settings": {
+            "heading": "Contact Us",
+            "description": "Get in touch with us.",
+            "icon": "envelope_2",
+            "description_popup": "Get in touch with us for any questions or support. We're here to help.",
+            "popup_info": "<p><strong> Address</strong><br/>71 Lawrence Drive, Nerang, Gold Coast 4211</p><p><strong>Phone Number</strong><br/>+61 459 954 931</p><p><strong>Email</strong></p><p><a href=\"mailto:sales@salonfurnitureaustralia.com.au\">sales@salonfurnitureaustralia.com.au</a></p>",
+            "socials_description": "You can write us in any social media.",
+            "show_social": true
+          }
+        },
+        "info_zczbQF": {
+          "type": "info",
+          "settings": {
+            "heading": "Call Us",
+            "description": "Call us for quick assistance.",
+            "icon": "phone",
+            "description_popup": "Feel free to give us a call for any questions, support, or inquiries. We’re here to assist you.",
+            "popup_info": "<p><strong>Phone Number</strong><br/>+61 459 954 931</p>",
+            "socials_description": "You can write us in any social media.",
+            "show_social": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_iBAtFG",
+        "info_WVHPqJ",
+        "info_zczbQF"
+      ],
+      "name": "t:sections.collapsible-content.name",
+      "settings": {
+        "color_scheme": "",
+        "image": "shopify://shop_images/chair-karma.jpg",
+        "image_ratio": "16/9",
+        "image_parallax": true,
+        "notebook_bg": false,
+        "section_heading": "Have Any Questions?",
+        "section_heading_size": "h2",
+        "section_description": "Find all the information you need, gathered in one convenient spot.",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent",
+        "padding_top": "m",
+        "padding_bottom": "m"
+      }
+    },
+    "image_collage_NWcGde": {
+      "type": "image-collage",
+      "blocks": {
+        "image_collage_card_UEi3xE": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/Ali_Barbers_Mackay.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_Qy9Qm3": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/Ronnie_and_Family_Barbershop.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_N8E7zf": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/Nxt_Lvl_Fades.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_PMmr98": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/Seven_and_one_Studio.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_KT7ryB": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/Studio_Seventeen_7_Front.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "background-2",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_MBkrtm": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/Studio_Seventeen_7_1.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_NxTBPp": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/Sarges_Barbershop.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "background-2",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_8xFUmX": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/Zavian_Hair_Boutique.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "background-2",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_acWfe8": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/HMB_Barbers.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "background-2",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_6PqWKt": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/Hair_Co.webp",
+            "overlay_opacity": 0,
+            "color_scheme": "background-2",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_collage_card_UEi3xE",
+        "image_collage_card_Qy9Qm3",
+        "image_collage_card_N8E7zf",
+        "image_collage_card_PMmr98",
+        "image_collage_card_KT7ryB",
+        "image_collage_card_MBkrtm",
+        "image_collage_card_NxTBPp",
+        "image_collage_card_8xFUmX",
+        "image_collage_card_acWfe8",
+        "image_collage_card_6PqWKt"
+      ],
+      "name": "t:sections.image-collage.name",
+      "settings": {
+        "section_heading": "Follow Us on Instagram",
+        "section_heading_size": "h2",
+        "h_direction": "column",
+        "section_description": "Stay inspired and explore our latest collections on Instagram. Get a closer look at our unique designs.",
+        "section_button_label": "karmasalon_furniture",
+        "section_button_link": "https://www.instagram.com/karmasalon_furniture/",
+        "section_button_style": "primary",
+        "color_scheme": "",
+        "swiper": true,
+        "columns_per_row": 5,
+        "gap": true,
+        "columns_mobile": "2",
+        "image_ratio": "3/4",
+        "padding_top": "m",
+        "padding_bottom": "no-indent",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "rich_text_gMWxnK": {
+      "type": "rich-text",
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "section_layout": "column",
+        "heading": "",
+        "heading_size": "h2",
+        "text": "<p>Discover our wide range of <a href=\"/collections/barber-chairs-1\" target=\"_blank\" title=\"Barber Chairs\">Barber Chairs</a>, <a href=\"/collections/salon-chairs-1\" target=\"_blank\" title=\"Salon chairs\">Salon Chairs</a>, <a href=\"/collections/beauty-beds-1\" target=\"_blank\" title=\"Beauty beds\">Beauty Beds</a>, and <a href=\"/collections/shampoo-units\" target=\"_blank\" title=\"Basin Units\">Basin Units</a>. All our pieces are designed to  bring both style and practicality to any salon space. From contemporary designs to aesthetically pleasing statement pieces, our furniture adds a personal touch to your salon while enhancing both comfort and functionality. Karma Salon Furniture has carefully crafted a range that balances style, comfort, and practicality to suit every space and aesthetic.</p>",
+        "margin_top": "l",
+        "margin_bottom": "l"
+      }
+    }
+  },
+  "order": [
+    "search_banner_WFxMmN",
+    "image_slider_new_GhGECK",
+    "ticker_WWHdpE",
+    "categories_list_fxzCd8",
+    "product_carousel_feCbw9",
+    "image_banner_khA6jk",
+    "product_carousel_JAxzm7",
+    "countdown_dkqeeH",
+    "banner_grid_9zKC4Q",
+    "video_banner_XkeTgN",
+    "featured_product_AFmfai",
+    "product_carousel_qpAFTb",
+    "content_banner_KwjBcd",
+    "product_carousel_VzxWPD",
+    "collection_carousel_MLf9zB",
+    "image_banner_naaXFf",
+    "featured_blog_iBY3jT",
+    "collapsible_content_nNYTVR",
+    "image_collage_NWcGde",
+    "rich_text_gMWxnK"
+  ]
+}

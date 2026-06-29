@@ -1,0 +1,182 @@
+{% comment %}
+	Renders a product card placeholder
+	Usage:
+	{% render 'product-card-placeholder' %}
+{% endcomment %}
+
+{% if card_type == 'type2' %}
+	<div class="card-wrapper card-wrapper-second">
+		{% liquid
+			assign aspect_ratio = media_size | split: '/'
+			assign temp = aspect_ratio[0] | append: '.0'
+			assign padding_bottom = aspect_ratio[1] | divided_by: temp | times: 100 | round: 2
+		%}
+		<div
+			class="card card--product card--product-placeholder"
+			tabindex="-1"
+			style="--card-aspect-ratio: {{ padding_bottom }}%"
+		>
+			<div class="card__inner">
+				<div class="card_inner-top">
+					{%- if show_inedex -%}
+						<p class="card_count">
+							{% if forloop.index < 10 %}
+								0{{ forloop.index }}
+							{% else %}
+								{{ forloop.index }}
+							{% endif %}
+						</p>
+					{%- endif -%}
+
+					{%- if show_collection -%}
+						<div class="card__collection">
+							<div class="card__collection-title secondary_text full-unstyled-link">
+								<span>{{ 'general.card.collection_name' | t }}</span>
+							</div>
+						</div>
+					{%- endif -%}
+				</div>
+				<div
+					class="media media--transparent media--hover-effect"
+					style="aspect-ratio: {{ media_size }};"
+				>
+					{% assign product_index = forloop.index | modulo: 4 | plus: 1 %}
+					{{
+						'product-apparel-'
+						| append: product_index
+						| placeholder_svg_tag: 'img_tag'
+					}}
+				</div>
+				<div class="card__information-top"></div>
+			</div>
+		</div>
+
+		<div class="card-information">
+			<div class="card-information__wrapper">
+				<div class="card-information__group">
+					{% if show_vendor %}
+						<span class="visually-hidden">
+							{{- 'accessibility.vendor' | t -}}
+						</span>
+						<div class="caption-with-letter-spacing card__subtitle card__vendor">
+							{{ 'products.product.vendor' | t }}
+						</div>
+					{% endif %}
+					<div class="card__middle">
+						<h3 class="card__title">
+							{{ 'products.product.product_heading' | t }}
+						</h3>
+						{% render 'price' %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% elsif card_type == 'type3' %}
+	<div class="card-wrapper card-wrapper-overlay">
+		{% liquid
+			assign aspect_ratio = media_size | split: '/'
+			assign temp = aspect_ratio[0] | append: '.0'
+			assign padding_bottom = aspect_ratio[1] | divided_by: temp | times: 100 | round: 2
+		%}
+		<div
+			class="card card--product card--product-placeholder"
+			tabindex="-1"
+			style="--card-aspect-ratio: {{ padding_bottom }}%; --card-opacity-overlay: {{ card_opacity_overlay }}"
+		>
+			<div class="card__inner">
+				<span class="card-overlay color-background-2"></span>
+
+				<div
+					class="media media--transparent media--hover-effect"
+					style="aspect-ratio: {{ media_size }};"
+				>
+					{% assign product_index = forloop.index | modulo: 4 | plus: 1 %}
+					{{
+						'product-apparel-'
+						| append: product_index
+						| placeholder_svg_tag: 'img_tag'
+					}}
+				</div>
+				<div class="card__information-top"></div>
+				<div class="card-information color-background-2">
+					<div class="card-information__wrapper">
+						<div class="card_inner-top">
+							{%- if show_inedex -%}
+								<p class="card_count color-background-1">
+									{% if forloop.index < 10 %}
+										0{{ forloop.index }}
+									{% else %}
+										{{ forloop.index }}
+									{% endif %}
+								</p>
+							{%- endif -%}
+
+							{%- if show_collection -%}
+								<div class="card__collection">
+									<div class="card__collection-title secondary_text full-unstyled-link color-background-1">
+										<span>{{ 'general.card.collection_name' | t }}</span>
+									</div>
+								</div>
+							{%- endif -%}
+						</div>
+						<div class="card-information__group">
+							{% if show_vendor %}
+								<span class="visually-hidden">
+									{{- 'accessibility.vendor' | t -}}
+								</span>
+								<div class="caption-with-letter-spacing card__subtitle card__vendor">
+									{{ 'products.product.vendor' | t }}
+								</div>
+							{% endif %}
+							<div class="card__middle">
+								<h3 class="card__title">
+									{{ 'products.product.product_heading' | t }}
+								</h3>
+								{% render 'price' %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div class="card-wrapper">
+		<div class="card card--product card--product-placeholder" tabindex="-1">
+			<div class="card__inner">
+				<div
+					class="media media--transparent media--hover-effect"
+					style="aspect-ratio: {{ media_size }};"
+				>
+					{% assign product_index = forloop.index | modulo: 4 | plus: 1 %}
+					{{
+						'product-apparel-'
+						| append: product_index
+						| placeholder_svg_tag: 'img_tag'
+					}}
+				</div>
+				<div class="card__information-top"></div>
+			</div>
+		</div>
+
+		<div class="card-information">
+			<div class="card-information__wrapper">
+				<div class="card-information__group">
+					{% if show_vendor %}
+						<span class="visually-hidden">
+							{{- 'accessibility.vendor' | t -}}
+						</span>
+						<div class="caption-with-letter-spacing card__subtitle card__vendor">
+							{{ 'products.product.vendor' | t }}
+						</div>
+					{% endif %}
+					<h3 class="card__title">
+						{{ 'products.product.product_heading' | t }}
+					</h3>
+					{% render 'price' %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

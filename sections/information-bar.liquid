@@ -1,0 +1,1583 @@
+{{ 'section-information-bar.css' | asset_url | stylesheet_tag }} 
+<script src="{{ 'information-bar.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+	assign is_section_icon = false
+	if section.settings.custom_icon != blank or section.settings.custom_icon_dm != blank or section.settings.icon != 'none'
+		assign is_section_icon = true
+	endif
+
+	assign is_icon_or_text = false
+	if is_section_icon or section.settings.text != blank
+		assign is_icon_or_text = true
+	endif
+
+	assign is_countdown = false
+	if section.settings.date_picker != blank or section.settings.completed_countdown != "hide_section"
+		assign is_countdown = true
+	endif
+
+	assign is_countdown_block = false
+	if is_section_icon or section.settings.text != blank or is_countdown
+		assign is_countdown_block = true
+	endif
+%}
+
+{% unless template == 'index' %}
+	{% style %}
+		.information-bar{
+			border-bottom: 1px solid rgb(var(--color-border));
+		}
+	{% endstyle %}
+{% endunless %}
+
+<div class="information-bar background">
+  <div class="information-bar__wrapper container">
+		<div class="information-bar__menu">
+			{%- for block in section.blocks -%}
+				<div class="information-bar__item">
+					{% if block.settings.link != blank %}
+						<a href="{{ block.settings.link }}" class="information-bar__item-link">
+					{% endif %}
+						{%- if block.settings.custom_icon != blank or block.settings.custom_icon_dm != blank or block.settings.icon != 'none' %}
+							<div class="information-bar__icon information-bar__image-wrapper">
+								{%- if block.settings.custom_icon != blank or block.settings.custom_icon_dm != blank -%}
+									{% if block.settings.custom_icon != blank %}
+										{%- assign height = 24
+											| divided_by: block.settings.custom_icon.aspect_ratio
+											| round: 2
+										-%}
+										{{
+											block.settings.custom_icon
+											| image_url: width: 96
+											| image_tag:
+												width: 24,
+												height: height,
+												widths: '24, 48, 72, 96',
+												class: 'custom_icon'
+										}}
+									{% endif %}
+									{% if block.settings.custom_icon_dm != blank %}
+										{%- assign dm_height = 24
+											| divided_by: block.settings.custom_icon_dm.aspect_ratio
+											| round: 2
+										-%}
+										{{
+											block.settings.custom_icon_dm
+											| image_url: width: 96
+											| image_tag:
+												width: 24,
+												height: dm_height,
+												widths: '24, 48, 72, 96',
+												class: 'custom_icon--dm'
+										}}
+									{% endif %}
+								{%- elsif block.settings.icon != 'none' -%}
+									{% render 'icon-pack',
+										icon: block.settings.icon
+									%}
+								{%- endif -%}
+							</div>
+						{% endif %}
+
+						{% if block.settings.heading != blank %}
+							<div class="information-bar__text h4">{{ block.settings.heading | escape }}</div>
+						{% endif %}
+						{% if block.settings.link != blank %}
+							</a>
+						{% endif %}
+						{% if block.settings.menu_image != blank or block.settings.aside_additional_menu %}
+							<div class="information-bar__item__menu">
+								{% if block.settings.menu_image != blank %}
+									<div class="information-bar__item__menu--right-side">
+										{% if block.settings.menu_image != blank %}
+											<div class="information-bar__item__image">
+												{% if block.settings.button_link != blank %}
+													<a href="{{ block.settings.button_link }}" aria-label="{{ block.settings.button_label | escape }}" class="information-bar__item__menu--right--overlay-link overlay_link"></a>
+												{% endif %}
+												{{
+														block.settings.menu_image
+														| image_url: width: '163'
+														| image_tag:
+															width: '163',
+															height: '218',
+															widths: '163, 250'
+													}}
+											</div>
+										{% endif %}
+
+										{% if block.settings.button_label != blank %}
+											{% render 'button',
+												btn_label: block.settings.button_label,
+												btn_link: block.settings.button_link,
+												btn_style: block.settings.button_style,
+												add_classes: 'information-bar__item__menu__button' %}
+										{% endif %}
+
+										{% if block.settings.button_link != blank %}
+											<a href="{{ block.settings.button_link }}" aria-label="{{ block.settings.button_label | escape }}" class="information-bar__item__menu--right--overlay-link overlay_link"></a>
+										{% endif %}
+									</div>
+								{% endif %}
+
+								{% if block.settings.aside_additional_menu != blank %}
+									<ul
+										class="information-bar__item__menu--list"
+										role="list"
+									>
+										{%- for link in block.settings.aside_additional_menu.links -%}
+												<li class="information-bar__item__menu--list--item">
+													{%- if link.title != blank -%}
+														<a
+															href="{{ link.url }}"
+															class="aside-menu__link"
+															{% if link.current %}
+																aria-current="page"
+															{% endif %}
+														>
+															<span>
+																{{ link.title | escape }}
+															</span>
+															{% if link.links != blank %}
+																{% render 'icon-small-arrow' %}
+															{% endif %}	
+														</a>
+
+														{% if link.links != blank %}
+															<ul
+																class="information-bar__item__submenu{% if block.settings.menu_image != blank %} information-bar__item__submenu--image{% endif %}"
+																role="list"
+															>
+																{% for childLink in link.links %}
+																	<li class="information-bar__item__submenu--item">
+																		<a
+																			href="{{ childLink.url }}"
+																			class="aside-menu__link"
+																			{% if childLink.current %}
+																				aria-current="page"
+																			{% endif %}
+																		>
+																			<span>
+																				{{ childLink.title | escape }}
+																			</span>
+																		</a>
+																		{% if childLink.links != blank %}
+																			<ul class="information-bar__item__submenu information-bar__item__submenu_2" role="list">
+																				{% for grandchildlink in childLink.links %}
+																					<li class="information-bar__item__submenu--item">
+																						<a
+																							href="{{ grandchildlink.url }}"
+																							class="aside-menu__link"
+																							{% if grandchildlink.current %}
+																								aria-current="page"
+																							{% endif %}
+																						>
+																							<span>
+																								{{ grandchildlink.title | escape }}
+																							</span>
+																						</a>    
+																					</li>
+																				{% endfor %}
+																			</ul>
+																		{% endif %}
+																	</li>
+																{% endfor %}
+															</ul>
+														{% endif %}
+													{% endif %}
+												</li>
+										{% endfor %}
+									</ul>
+								{% endif %}
+							</div>
+						{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+		{% if is_countdown_block %}
+			<div class="information-bar__countdown--wrapper {% if section.settings.link != blank %} has-link{% endif %}">
+				{%- if is_section_icon %}
+					<div class="information-bar__countdown__icon information-bar__image-wrapper">
+						{%- if section.settings.custom_icon != blank or section.settings.custom_icon_dm != blank -%}
+							{% if section.settings.custom_icon != blank %}
+								{%- assign height = 24
+									| divided_by: section.settings.custom_icon.aspect_ratio
+									| round: 2
+								-%}
+								{{
+									section.settings.custom_icon
+									| image_url: width: 96
+									| image_tag:
+										width: 24,
+										height: height,
+										widths: '24, 48, 72, 96',
+										class: 'custom_icon'
+								}}
+							{% endif %}
+							{% if section.settings.custom_icon_dm != blank %}
+								{%- assign dm_height = 24
+									| divided_by: section.settings.custom_icon_dm.aspect_ratio
+									| round: 2
+								-%}
+								{{
+									section.settings.custom_icon_dm
+									| image_url: width: 96
+									| image_tag:
+										width: 24,
+										height: dm_height,
+										widths: '24, 48, 72, 96',
+										class: 'custom_icon--dm'
+								}}
+							{% endif %}
+						{%- elsif section.settings.icon != 'none' -%}
+							{% render 'icon-pack',
+								icon: section.settings.icon
+							%}
+						{%- endif -%}
+					</div>
+				{% endif %}
+				{% if section.settings.text != blank %}
+					<div class="information-bar__countdown--text">{{ section.settings.text }}</div>
+				{% endif %}
+				{% if is_icon_or_text %}
+					<div class="information-bar__countdown--divider"></div>
+				{% endif %}
+				<countdown-timer 
+					data-date="{{ section.settings.date_picker }}"
+					data-time="{{ section.settings.time_picker }}"
+					data-completed="{{ section.settings.completed_countdown }}"
+					data-enable-mock-timer="{{ section.settings.enable_mock_timer | default: false }}"
+					data-enable-mock-picker-day="{{ section.settings.mock_date_picker_day | default: 2 }}"
+  				data-enable-mock-picker-hours="{{ section.settings.mock_date_picker_hours | default: 3 }}"
+				>
+					{% if section.settings.date_picker != blank %}
+						<div class="information-bar__countdown__main h3">
+							<div class="information-bar__countdown__block">
+								<div class="information-bar__countdown__spacer">
+									<span class="information-bar__countdown__number information-bar__countdown__days">
+									</span>
+								</div>
+								<span class="information-bar__countdown__label h3">
+									{{- 'information_bar.days' | t }}
+								</span>
+							</div>
+							<div class="information-bar__countdown__divider">:</div>
+							<div class="information-bar__countdown__block">
+								<div class="information-bar__countdown__spacer">
+									<span class="information-bar__countdown__number information-bar__countdown__hours">
+									</span>
+								</div>
+								<span class="information-bar__countdown__label h3">
+									{{- 'information_bar.hours' | t -}}
+								</span>
+							</div>
+							<div class="information-bar__countdown__divider">:</div>
+							<div class="information-bar__countdown__block">
+								<div class="information-bar__countdown__spacer">
+									<span class="information-bar__countdown__number information-bar__countdown__minutes">
+									</span>
+								</div>
+								<span class="information-bar__countdown__label h3">
+									{{- 'information_bar.minutes' | t -}}
+								</span>
+							</div>
+							<div class="information-bar__countdown__divider">:</div>
+							<div class="information-bar__countdown__block">
+								<div class="information-bar__countdown__spacer">
+									<span class="information-bar__countdown__number information-bar__countdown__seconds">
+									</span>
+								</div>
+								<span class="information-bar__countdown__label h3">
+									{{- 'information_bar.seconds' | t -}}
+								</span>
+							</div>
+						</div>
+					{% endif %}
+					{% if section.settings.countdown_heading %}
+						<div class="information-bar__countdown__end">
+							<div class="information-bar__countdown__end-wrapper">
+								<h2 class="h4 information-bar__countdown__end-text">
+									{{ section.settings.countdown_heading }}
+								</h2>
+							</div>
+						</div>
+					{% endif %}
+				</countdown-timer>
+				{% if section.settings.link != blank %}
+					<div class="information-bar__countdown__link-arrow information-bar__image-wrapper">
+						{% render 'icon-small-arrow' %}
+					</div>
+					<a class="information-bar__countdown__link" aria-label="countdown__link" href="{{ section.settings.link }}"></a>
+				{% endif %}
+			</div>
+		{% endif %}
+  </div>
+</div>
+
+<ul class="aside-menu__list list-menu aside-menu__list-first information-bar__list" role="list">
+	{% for block in section.blocks %}
+		{% if block.settings.heading != blank %}
+			<li class="aside-main-menu">
+				<div class="menu-item first_level_details">
+					<div class="menu-trigger aside-menu__item" tabindex="0">
+						<span class="aside-menu__link h3">
+							{%- if block.settings.custom_icon != blank
+								or block.settings.custom_icon_dm != blank
+							-%}
+								{% if block.settings.custom_icon != blank %}
+									{%- assign height = 24
+										| divided_by: block.settings.custom_icon.aspect_ratio
+										| round: 2
+									-%}
+									{{
+										block.settings.custom_icon
+										| image_url: width: 96
+										| image_tag:
+											width: 24,
+											height: height,
+											widths: '24, 48, 72, 96',
+											class: 'aside-menu-link-icon custom_icon'
+									}}
+								{% endif %}
+								{% if block.settings.custom_icon_dm != blank %}
+									{%- assign dm_height = 24
+										| divided_by: block.settings.custom_icon_dm.aspect_ratio
+										| round: 2
+									-%}
+									{{
+										block.settings.custom_icon_dm
+										| image_url: width: 96
+										| image_tag:
+											width: 24,
+											height: dm_height,
+											widths: '24, 48, 72, 96',
+											class: 'aside-menu-link-icon custom_icon--dm'
+									}}
+								{% endif %}
+							{%- elsif block.settings.icon != 'none' -%}
+								{% render 'icon-pack',
+									icon: block.settings.icon
+								%}
+							{%- endif -%}
+							{{ block.settings.heading }}
+						</span>
+						{% render 'icon-arrow' %}
+					</div>
+					<div
+						id="link-{{ block.settings.heading }}"
+						class="submenu aside-menu__submenu aside-menu_first motion-reduce"
+						tabindex="-1"
+					>
+						<div class="aside-menu__top">
+							<h3 class="aside-menu__top-heading">
+								{{ block.settings.heading }}
+							</h3>
+							<button
+								class="aside-menu__toggle aside-menu__toggle--close-btn modal-close-button focus-inset"
+								aria-label="{{ 'accessibility.close' | t }}"
+							>
+								{% render 'icon-close' %}
+								{% render 'icon-arrow' %}
+							</button>
+						</div>
+						<div class="aside-menu__inner-submenu">
+							<ul
+								class="aside-menu__list list-menu"
+								role="list"
+								tabindex="-1"
+							>
+								{%- for link in block.settings.aside_additional_menu.links -%}
+									<li>
+										{%- if link.links == blank -%}
+											<a
+												href="{{ link.url }}"
+												class="aside-menu__item aside-menu__link h3"
+												{% if link.current %}
+													aria-current="page"
+												{% endif %}
+												aria-label="{{ link.title | escape }}"
+											>
+												{{ link.title | escape }}
+											</a>
+										{%- else -%}
+											<div class="menu-item second_level_details">
+												<div class="menu-trigger aside-menu__item" tabindex="0">
+													<span class="aside-menu__link h3">
+														{{ link.title | escape }}
+													</span>
+													{% render 'icon-arrow' %}
+												</div>
+												<div
+													id="link-{{ link.title | escape }}"
+													class="submenu aside-menu__submenu motion-reduce"
+												>
+													<div class="aside-menu__top">
+														<h3 class="aside-menu__top-heading">
+															{{ link.title | escape }}
+														</h3>
+														<button
+															class="aside-menu__toggle aside-menu__toggle--close-btn modal-close-button focus-inset"
+															aria-label="{{ 'accessibility.close' | t }}"
+														>
+															{% render 'icon-close' %}
+															{% render 'icon-arrow' %}
+														</button>
+													</div>
+													<div class="aside-menu__inner-submenu">
+														<ul
+															class="aside-menu__list list-menu"
+															role="list"
+															tabindex="-1"
+														>
+															{%- for childlink in link.links -%}
+																<li>
+																	<a
+																		href="{{ childlink.url }}"
+																		class="aside-menu__item aside-menu__link aside-menu__item--grandchild h3"
+																		{% if childlink.current %}
+																			aria-current="page"
+																		{% endif %}
+																		aria-label="{{ childlink.title | escape }}"
+																	>
+																		{{ childlink.title | escape }}
+																	</a>
+																</li>
+																{%- for grandchildlink in childlink.links -%}
+																	<li class="grandchildlink">
+																		<a
+																			href="{{ grandchildlink.url }}"
+																			class="aside-menu__item aside-menu__link aside-menu__item--grandchild h3"
+																			{% if grandchildlink.current %}
+																				aria-current="page"
+																			{% endif %}
+																			aria-label="{{ grandchildlink.title | escape }}"
+																		>
+																			{{ grandchildlink.title | escape }}
+																		</a>
+																	</li>
+																{%- endfor -%}
+															{%- endfor -%}
+														</ul>
+													</div>
+												</div>
+											</div>
+										{%- endif -%}
+									</li>
+								{%- endfor -%}
+							</ul>
+								{% if block.settings.menu_image != blank %}
+								<div class="information-bar__item__menu--right-side">
+									<div class="information-bar__item__image">
+										{% if block.settings.button_link != blank %}
+											<a href="{{ block.settings.button_link }}" aria-label="{{ block.settings.button_label | escape }}" class="information-bar__item__menu--right--overlay-link overlay_link"></a>
+										{% endif %}
+										{{
+												block.settings.menu_image
+												| image_url: width: '163'
+												| image_tag:
+													width: '163',
+													height: '218',
+													widths: '163, 250'
+											}}
+									</div>
+
+									{% if block.settings.button_label != blank %}
+										{% render 'button',
+											btn_label: block.settings.button_label,
+											btn_link: block.settings.button_link,
+											btn_style: block.settings.button_style,
+											add_classes: 'information-bar__item__menu__button' %}
+									{% endif %}
+
+									{% if block.settings.button_link != blank %}
+										<a href="{{ block.settings.button_link }}" aria-label="{{ block.settings.button_label | escape }}" class="information-bar__item__menu--right--overlay-link overlay_link"></a>
+									{% endif %}
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</li>
+		{% endif %}
+	{% endfor %}
+</ul>
+
+{% schema %}
+{
+  "name": "t:sections.information-bar.name",
+  "class": "information-bar-section",
+  "tag": "section",
+  "limit": 1,
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+		{
+      "type": "paragraph",
+      "content": "t:sections.information-bar.settings.info"
+    },
+		{
+			"type": "select",
+			"id": "icon",
+			"options": [
+				{
+					"value": "none",
+					"label": "t:sections.all.icon_pack.options__1.label"
+				},
+				{
+					"value": "audiobook",
+					"label": "t:sections.all.icon_pack.options__73.label"
+				},
+				{
+					"value": "bag",
+					"label": "t:sections.all.icon_pack.options__25.label"
+				},
+				{
+					"value": "ball",
+					"label": "t:sections.all.icon_pack.options__109.label"
+				},
+				{
+					"value": "basket",
+					"label": "t:sections.all.icon_pack.options__28.label"
+				},
+				{
+					"value": "basket_2",
+					"label": "t:sections.all.icon_pack.options__75.label"
+				},
+				{
+					"value": "bath",
+					"label": "t:sections.all.icon_pack.options__8.label"
+				},
+				{
+					"value": "book",
+					"label": "t:sections.all.icon_pack.options__74.label"
+				},
+				{
+					"value": "books",
+					"label": "t:sections.all.icon_pack.options__61.label"
+				},
+				{
+					"value": "books_2",
+					"label": "t:sections.all.icon_pack.options__69.label"
+				},
+				{
+					"value": "box",
+					"label": "t:sections.all.icon_pack.options__70.label"
+				},
+				{
+					"value": "box_2",
+					"label": "t:sections.all.icon_pack.options__85.label"
+				},
+				{
+					"value": "cactus",
+					"label": "t:sections.all.icon_pack.options__59.label"
+				},
+				{
+					"value": "calendar",
+					"label": "t:sections.all.icon_pack.options__68.label"
+				},
+				{
+					"value": "cart",
+					"label": "t:sections.all.icon_pack.options__78.label"
+				},
+				{
+					"value": "chat_help",
+					"label": "t:sections.all.icon_pack.options__86.label"
+				},
+				{
+					"value": "check",
+					"label": "t:sections.all.icon_pack.options__27.label"
+				},
+				{
+					"value": "clock",
+					"label": "t:sections.all.icon_pack.options__57.label"
+				},
+				{
+					"value": "cup",
+					"label": "t:sections.all.icon_pack.options__58.label"
+				},
+				{
+					"value": "discount",
+					"label": "t:sections.all.icon_pack.options__26.label"
+				},
+				{
+					"value": "disco",
+					"label": "t:sections.all.icon_pack.options__94.label"
+				},
+				{
+					"value": "door",
+					"label": "t:sections.all.icon_pack.options__9.label"
+				},
+				{
+					"value": "drawer",
+					"label": "t:sections.all.icon_pack.options__6.label"
+				},
+				{
+					"value": "drawer_2",
+					"label": "t:sections.all.icon_pack.options__7.label"
+				},
+				{
+					"value": "dress",
+					"label": "t:sections.all.icon_pack.options__107.label"
+				},
+				{
+					"value": "donut",
+					"label": "t:sections.all.icon_pack.options__95.label"
+				},
+				{
+					"value": "envelope",
+					"label": "t:sections.all.icon_pack.options__71.label"
+				},
+				{
+					"value": "envelope_2",
+					"label": "t:sections.all.icon_pack.options__92.label"
+				},
+				{
+					"value": "eraser",
+					"label": "t:sections.all.icon_pack.options__55.label"
+				},
+				{
+					"value": "file_folder",
+					"label": "t:sections.all.icon_pack.options__67.label"
+				},
+				{
+					"value": "flower",
+					"label": "t:sections.all.icon_pack.options__29.label"
+				},
+				{
+					"value": "fridge",
+					"label": "t:sections.all.icon_pack.options__3.label"
+				},
+				{
+					"value": "gift",
+					"label": "t:sections.all.icon_pack.options__32.label"
+				},
+				{
+					"value": "glasses",
+					"label": "t:sections.all.icon_pack.options__33.label"
+				},
+				{
+					"value": "globe",
+					"label": "t:sections.all.icon_pack.options__87.label"
+				},
+				{
+					"value": "gradient_swirl",
+					"label": "t:sections.all.icon_pack.options__96.label"
+				},
+				{
+					"value": "gradient_heart",
+					"label": "t:sections.all.icon_pack.options__97.label"
+				},
+				{
+					"value": "gradient_sparkle",
+					"label": "t:sections.all.icon_pack.options__98.label"
+				},
+				{
+					"value": "gradient_leaf",
+					"label": "t:sections.all.icon_pack.options__99.label"
+				},
+				{
+					"value": "gradient_star",
+					"label": "t:sections.all.icon_pack.options__100.label"
+				},
+				{
+					"value": "gradient_asterisk",
+					"label": "t:sections.all.icon_pack.options__101.label"
+				},
+				{
+					"value": "gradient_glimmer",
+					"label": "t:sections.all.icon_pack.options__102.label"
+				},
+				{
+					"value": "gradient_new",
+					"label": "t:sections.all.icon_pack.options__103.label"
+				},
+				{
+					"value": "gradient_wow",
+					"label": "t:sections.all.icon_pack.options__104.label"
+				},
+				{
+					"value": "gradient_omg",
+					"label": "t:sections.all.icon_pack.options__105.label"
+				},
+				{
+					"value": "hands",
+					"label": "t:sections.all.icon_pack.options__47.label"
+				},
+				{
+					"value": "hands_2",
+					"label": "t:sections.all.icon_pack.options__48.label"
+				},
+				{
+					"value": "hands_3",
+					"label": "t:sections.all.icon_pack.options__49.label"
+				},
+				{
+					"value": "hands_4",
+					"label": "t:sections.all.icon_pack.options__50.label"
+				},
+				{
+					"value": "hands_5",
+					"label": "t:sections.all.icon_pack.options__51.label"
+				},
+				{
+					"value": "hanger",
+					"label": "t:sections.all.icon_pack.options__22.label"
+				},
+				{
+					"value": "hat",
+					"label": "t:sections.all.icon_pack.options__108.label"
+				},
+				{
+					"value": "heart",
+					"label": "t:sections.all.icon_pack.options__16.label"
+				},
+				{
+					"value": "info",
+					"label": "t:sections.all.icon_pack.options__91.label"
+				},
+				{
+					"value": "label",
+					"label": "t:sections.all.icon_pack.options__23.label"
+				},
+				{
+					"value": "lamp",
+					"label": "t:sections.all.icon_pack.options__13.label"
+				},
+				{
+					"value": "lamp_2",
+					"label": "t:sections.all.icon_pack.options__88.label"
+				},
+				{
+					"value": "laptop",
+					"label": "t:sections.all.icon_pack.options__53.label"
+				},
+				{
+					"value": "lightning",
+					"label": "t:sections.all.icon_pack.options__15.label"
+				},
+				{
+					"value": "notebook",
+					"label": "t:sections.all.icon_pack.options__72.label"
+				},
+				{
+					"value": "notes",
+					"label": "t:sections.all.icon_pack.options__64.label"
+				},
+				{
+					"value": "package",
+					"label": "t:sections.all.icon_pack.options__24.label"
+				},
+				{
+					"value": "package_2",
+					"label": "t:sections.all.icon_pack.options__77.label"
+				},
+				{
+					"value": "package_3",
+					"label": "t:sections.all.icon_pack.options__89.label"
+				},
+				{
+					"value": "pants",
+					"label": "t:sections.all.icon_pack.options__106.label"
+				},
+				{
+					"value": "pen",
+					"label": "t:sections.all.icon_pack.options__63.label"
+				},
+				{
+					"value": "pencil",
+					"label": "t:sections.all.icon_pack.options__80.label"
+				},
+				{
+					"value": "person",
+					"label": "t:sections.all.icon_pack.options__34.label"
+				},
+				{
+					"value": "person_2",
+					"label": "t:sections.all.icon_pack.options__35.label"
+				},
+				{
+					"value": "person_3",
+					"label": "t:sections.all.icon_pack.options__36.label"
+				},
+				{
+					"value": "person_4",
+					"label": "t:sections.all.icon_pack.options__37.label"
+				},
+				{
+					"value": "person_5",
+					"label": "t:sections.all.icon_pack.options__38.label"
+				},
+				{
+					"value": "person_6",
+					"label": "t:sections.all.icon_pack.options__39.label"
+				},
+				{
+					"value": "person_7",
+					"label": "t:sections.all.icon_pack.options__40.label"
+				},
+				{
+					"value": "person_8",
+					"label": "t:sections.all.icon_pack.options__41.label"
+				},
+				{
+					"value": "person_11",
+					"label": "t:sections.all.icon_pack.options__44.label"
+				},
+				{
+					"value": "person_12",
+					"label": "t:sections.all.icon_pack.options__45.label"
+				},
+				{
+					"value": "phone",
+					"label": "t:sections.all.icon_pack.options__90.label"
+				},
+				{
+					"value": "plant",
+					"label": "t:sections.all.icon_pack.options__14.label"
+				},
+				{
+					"value": "plant_2",
+					"label": "t:sections.all.icon_pack.options__60.label"
+				},
+				{
+					"value": "price_tags",
+					"label": "t:sections.all.icon_pack.options__76.label"
+				},
+				{
+					"value": "printer",
+					"label": "t:sections.all.icon_pack.options__56.label"
+				},
+				{
+					"value": "roller",
+					"label": "t:sections.all.icon_pack.options__2.label"
+				},
+				{
+					"value": "ruler",
+					"label": "t:sections.all.icon_pack.options__82.label"
+				},
+				{
+					"value": "scissors",
+					"label": "t:sections.all.icon_pack.options__66.label"
+				},
+				{
+					"value": "shopping_bag",
+					"label": "t:sections.all.icon_pack.options__79.label"
+				},
+				{
+					"value": "shopping_cart",
+					"label": "t:sections.all.icon_pack.options__31.label"
+				},
+				{
+					"value": "shorts",
+					"label": "t:sections.all.icon_pack.options__110.label"
+				},
+				{
+					"value": "smartphone",
+					"label": "t:sections.all.icon_pack.options__54.label"
+				},
+				{
+					"value": "smiley",
+					"label": "t:sections.all.icon_pack.options__18.label"
+				},
+				{
+					"value": "sofa",
+					"label": "t:sections.all.icon_pack.options__10.label"
+				},
+				{
+					"value": "sofa_2",
+					"label": "t:sections.all.icon_pack.options__11.label"
+				},
+				{
+					"value": "stapler",
+					"label": "t:sections.all.icon_pack.options__65.label"
+				},
+				{
+					"value": "star",
+					"label": "t:sections.all.icon_pack.options__17.label"
+				},
+				{
+					"value": "stars",
+					"label": "t:sections.all.icon_pack.options__19.label"
+				},
+				{
+					"value": "store",
+					"label": "t:sections.all.icon_pack.options__93.label"
+				},
+				{
+					"value": "t_shirt",
+					"label": "t:sections.all.icon_pack.options__20.label"
+				},
+				{
+					"value": "t_shirt_2",
+					"label": "t:sections.all.icon_pack.options__21.label"
+				},
+				{
+					"value": "table",
+					"label": "t:sections.all.icon_pack.options__12.label"
+				},
+				{
+					"value": "tape",
+					"label": "t:sections.all.icon_pack.options__62.label"
+				},
+				{
+					"value": "truck",
+					"label": "t:sections.all.icon_pack.options__30.label"
+				},
+				{
+					"value": "wardrobe",
+					"label": "t:sections.all.icon_pack.options__4.label"
+				},
+				{
+					"value": "wardrobe_2",
+					"label": "t:sections.all.icon_pack.options__5.label"
+				}
+			],
+			"default": "none",
+			"label": "t:sections.all.icon_pack.label",
+			"info": "t:sections.information-bar.blocks.item.settings.icon.info"
+		},
+		{
+			"type": "image_picker",
+			"id": "custom_icon",
+			"label": "t:sections.all.custom_icon.label",
+			"info": "t:sections.all.custom_icon.info"
+		},
+		{
+			"type": "image_picker",
+			"id": "custom_icon_dm",
+			"label": "t:sections.all.custom_icon_dm.label"
+		},
+		{
+      "type": "text",
+      "id": "text",
+      "default": "t:sections.countdown.settings.heading.default",
+      "label": "t:sections.all.text.label__2"
+    },
+		{
+			"type": "url",
+			"id": "link",
+			"label": "t:sections.all.overlay_link.label"
+		},
+    {
+			"type": "header",
+			"content": "t:sections.information-bar.settings.countdown.header"
+		},
+		{
+			"type": "checkbox",
+			"id": "enable_mock_timer",
+			"default": false,
+			"label": "t:sections.countdown.settings.enable_mock_timer.label",
+			"info": "t:sections.countdown.settings.enable_mock_timer.info"
+		},
+		{
+			"type": "range",
+			"id": "mock_date_picker_day",
+			"min": 0,
+			"max": 31,
+			"step": 1,
+			"default": 2,
+			"label": "t:sections.countdown.settings.mock_date_picker_day.label",
+			"visible_if": "{{ section.settings.enable_mock_timer }}"
+		},
+		{
+			"type": "range",
+			"id": "mock_date_picker_hours",
+			"min": 1,
+			"max": 23,
+			"step": 1,
+			"default": 3,
+			"label": "t:sections.countdown.settings.mock_date_picker_hours.label",
+			"visible_if": "{{ section.settings.enable_mock_timer }}"
+		},
+		{
+      "type": "text",
+      "id": "date_picker",
+      "default": "2025-09-01",
+      "info": "YYYY-MM-DD",
+      "label": "t:sections.countdown.settings.date_picker.label",
+			"visible_if": "{{ section.settings.enable_mock_timer == false }}"
+    },
+    {
+      "type": "text",
+      "id": "time_picker",
+      "default": "00:00",
+      "info": "hh:mm",
+      "label": "t:sections.countdown.settings.time_picker.label",
+			"visible_if": "{{ section.settings.enable_mock_timer == false }}"
+    },
+    {
+      "type": "select",
+      "id": "completed_countdown",
+      "options": [
+        {
+          "value": "hide_section",
+          "label": "t:sections.countdown.settings.completed_countdown.options_1.label"
+        },
+        {
+          "value": "show_text",
+          "label": "t:sections.countdown.settings.completed_countdown.options_2.label"
+        }
+      ],
+      "default": "show_text",
+      "label": "t:sections.countdown.settings.completed_countdown.label",
+			"visible_if": "{{ section.settings.enable_mock_timer == false }}"
+    },
+		{
+      "type": "inline_richtext",
+      "id": "countdown_heading",
+      "default": "t:sections.countdown.settings.countdown_heading.default",
+      "label": "t:sections.countdown.settings.countdown_heading.label",
+      "info": "t:sections.countdown.settings.countdown_heading.info",
+			"visible_if": "{{ section.settings.enable_mock_timer == false }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+			"limit": 6,
+      "name": "t:sections.information-bar.blocks.item.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+						{
+							"value": "none",
+							"label": "t:sections.all.icon_pack.options__1.label"
+						},
+						{
+							"value": "audiobook",
+							"label": "t:sections.all.icon_pack.options__73.label"
+						},
+						{
+							"value": "bag",
+							"label": "t:sections.all.icon_pack.options__25.label"
+						},
+						{
+							"value": "ball",
+							"label": "t:sections.all.icon_pack.options__109.label"
+						},
+						{
+							"value": "basket",
+							"label": "t:sections.all.icon_pack.options__28.label"
+						},
+						{
+							"value": "basket_2",
+							"label": "t:sections.all.icon_pack.options__75.label"
+						},
+						{
+							"value": "bath",
+							"label": "t:sections.all.icon_pack.options__8.label"
+						},
+						{
+							"value": "book",
+							"label": "t:sections.all.icon_pack.options__74.label"
+						},
+						{
+							"value": "books",
+							"label": "t:sections.all.icon_pack.options__61.label"
+						},
+						{
+							"value": "books_2",
+							"label": "t:sections.all.icon_pack.options__69.label"
+						},
+						{
+							"value": "box",
+							"label": "t:sections.all.icon_pack.options__70.label"
+						},
+						{
+							"value": "box_2",
+							"label": "t:sections.all.icon_pack.options__85.label"
+						},
+						{
+							"value": "cactus",
+							"label": "t:sections.all.icon_pack.options__59.label"
+						},
+						{
+							"value": "calendar",
+							"label": "t:sections.all.icon_pack.options__68.label"
+						},
+						{
+							"value": "cart",
+							"label": "t:sections.all.icon_pack.options__78.label"
+						},
+						{
+							"value": "chat_help",
+							"label": "t:sections.all.icon_pack.options__86.label"
+						},
+						{
+							"value": "check",
+							"label": "t:sections.all.icon_pack.options__27.label"
+						},
+						{
+							"value": "clock",
+							"label": "t:sections.all.icon_pack.options__57.label"
+						},
+						{
+							"value": "cup",
+							"label": "t:sections.all.icon_pack.options__58.label"
+						},
+						{
+							"value": "discount",
+							"label": "t:sections.all.icon_pack.options__26.label"
+						},
+						{
+							"value": "disco",
+							"label": "t:sections.all.icon_pack.options__94.label"
+						},
+						{
+							"value": "door",
+							"label": "t:sections.all.icon_pack.options__9.label"
+						},
+						{
+							"value": "drawer",
+							"label": "t:sections.all.icon_pack.options__6.label"
+						},
+						{
+							"value": "drawer_2",
+							"label": "t:sections.all.icon_pack.options__7.label"
+						},
+						{
+							"value": "dress",
+							"label": "t:sections.all.icon_pack.options__107.label"
+						},
+						{
+							"value": "donut",
+							"label": "t:sections.all.icon_pack.options__95.label"
+						},
+						{
+							"value": "envelope",
+							"label": "t:sections.all.icon_pack.options__71.label"
+						},
+						{
+							"value": "envelope_2",
+							"label": "t:sections.all.icon_pack.options__92.label"
+						},
+						{
+							"value": "eraser",
+							"label": "t:sections.all.icon_pack.options__55.label"
+						},
+						{
+							"value": "file_folder",
+							"label": "t:sections.all.icon_pack.options__67.label"
+						},
+						{
+							"value": "flower",
+							"label": "t:sections.all.icon_pack.options__29.label"
+						},
+						{
+							"value": "fridge",
+							"label": "t:sections.all.icon_pack.options__3.label"
+						},
+						{
+							"value": "gift",
+							"label": "t:sections.all.icon_pack.options__32.label"
+						},
+						{
+							"value": "glasses",
+							"label": "t:sections.all.icon_pack.options__33.label"
+						},
+						{
+							"value": "globe",
+							"label": "t:sections.all.icon_pack.options__87.label"
+						},
+						{
+							"value": "gradient_swirl",
+							"label": "t:sections.all.icon_pack.options__96.label"
+						},
+						{
+							"value": "gradient_heart",
+							"label": "t:sections.all.icon_pack.options__97.label"
+						},
+						{
+							"value": "gradient_sparkle",
+							"label": "t:sections.all.icon_pack.options__98.label"
+						},
+						{
+							"value": "gradient_leaf",
+							"label": "t:sections.all.icon_pack.options__99.label"
+						},
+						{
+							"value": "gradient_star",
+							"label": "t:sections.all.icon_pack.options__100.label"
+						},
+						{
+							"value": "gradient_asterisk",
+							"label": "t:sections.all.icon_pack.options__101.label"
+						},
+						{
+							"value": "gradient_glimmer",
+							"label": "t:sections.all.icon_pack.options__102.label"
+						},
+						{
+							"value": "gradient_new",
+							"label": "t:sections.all.icon_pack.options__103.label"
+						},
+						{
+							"value": "gradient_wow",
+							"label": "t:sections.all.icon_pack.options__104.label"
+						},
+						{
+							"value": "gradient_omg",
+							"label": "t:sections.all.icon_pack.options__105.label"
+						},
+						{
+							"value": "hands",
+							"label": "t:sections.all.icon_pack.options__47.label"
+						},
+						{
+							"value": "hands_2",
+							"label": "t:sections.all.icon_pack.options__48.label"
+						},
+						{
+							"value": "hands_3",
+							"label": "t:sections.all.icon_pack.options__49.label"
+						},
+						{
+							"value": "hands_4",
+							"label": "t:sections.all.icon_pack.options__50.label"
+						},
+						{
+							"value": "hands_5",
+							"label": "t:sections.all.icon_pack.options__51.label"
+						},
+						{
+							"value": "hanger",
+							"label": "t:sections.all.icon_pack.options__22.label"
+						},
+						{
+							"value": "hat",
+							"label": "t:sections.all.icon_pack.options__108.label"
+						},
+						{
+							"value": "heart",
+							"label": "t:sections.all.icon_pack.options__16.label"
+						},
+						{
+							"value": "info",
+							"label": "t:sections.all.icon_pack.options__91.label"
+						},
+						{
+							"value": "label",
+							"label": "t:sections.all.icon_pack.options__23.label"
+						},
+						{
+							"value": "lamp",
+							"label": "t:sections.all.icon_pack.options__13.label"
+						},
+						{
+							"value": "lamp_2",
+							"label": "t:sections.all.icon_pack.options__88.label"
+						},
+						{
+							"value": "laptop",
+							"label": "t:sections.all.icon_pack.options__53.label"
+						},
+						{
+							"value": "lightning",
+							"label": "t:sections.all.icon_pack.options__15.label"
+						},
+						{
+							"value": "notebook",
+							"label": "t:sections.all.icon_pack.options__72.label"
+						},
+						{
+							"value": "notes",
+							"label": "t:sections.all.icon_pack.options__64.label"
+						},
+						{
+							"value": "package",
+							"label": "t:sections.all.icon_pack.options__24.label"
+						},
+						{
+							"value": "package_2",
+							"label": "t:sections.all.icon_pack.options__77.label"
+						},
+						{
+							"value": "package_3",
+							"label": "t:sections.all.icon_pack.options__89.label"
+						},
+						{
+							"value": "pants",
+							"label": "t:sections.all.icon_pack.options__106.label"
+						},
+						{
+							"value": "pen",
+							"label": "t:sections.all.icon_pack.options__63.label"
+						},
+						{
+							"value": "pencil",
+							"label": "t:sections.all.icon_pack.options__80.label"
+						},
+						{
+							"value": "person",
+							"label": "t:sections.all.icon_pack.options__34.label"
+						},
+						{
+							"value": "person_2",
+							"label": "t:sections.all.icon_pack.options__35.label"
+						},
+						{
+							"value": "person_3",
+							"label": "t:sections.all.icon_pack.options__36.label"
+						},
+						{
+							"value": "person_4",
+							"label": "t:sections.all.icon_pack.options__37.label"
+						},
+						{
+							"value": "person_5",
+							"label": "t:sections.all.icon_pack.options__38.label"
+						},
+						{
+							"value": "person_6",
+							"label": "t:sections.all.icon_pack.options__39.label"
+						},
+						{
+							"value": "person_7",
+							"label": "t:sections.all.icon_pack.options__40.label"
+						},
+						{
+							"value": "person_8",
+							"label": "t:sections.all.icon_pack.options__41.label"
+						},
+						{
+							"value": "person_11",
+							"label": "t:sections.all.icon_pack.options__44.label"
+						},
+						{
+							"value": "person_12",
+							"label": "t:sections.all.icon_pack.options__45.label"
+						},
+						{
+							"value": "phone",
+							"label": "t:sections.all.icon_pack.options__90.label"
+						},
+						{
+							"value": "plant",
+							"label": "t:sections.all.icon_pack.options__14.label"
+						},
+						{
+							"value": "plant_2",
+							"label": "t:sections.all.icon_pack.options__60.label"
+						},
+						{
+							"value": "price_tags",
+							"label": "t:sections.all.icon_pack.options__76.label"
+						},
+						{
+							"value": "printer",
+							"label": "t:sections.all.icon_pack.options__56.label"
+						},
+						{
+							"value": "roller",
+							"label": "t:sections.all.icon_pack.options__2.label"
+						},
+						{
+							"value": "ruler",
+							"label": "t:sections.all.icon_pack.options__82.label"
+						},
+						{
+							"value": "scissors",
+							"label": "t:sections.all.icon_pack.options__66.label"
+						},
+						{
+							"value": "shopping_bag",
+							"label": "t:sections.all.icon_pack.options__79.label"
+						},
+						{
+							"value": "shopping_cart",
+							"label": "t:sections.all.icon_pack.options__31.label"
+						},
+						{
+							"value": "shorts",
+							"label": "t:sections.all.icon_pack.options__110.label"
+						},
+						{
+							"value": "smartphone",
+							"label": "t:sections.all.icon_pack.options__54.label"
+						},
+						{
+							"value": "smiley",
+							"label": "t:sections.all.icon_pack.options__18.label"
+						},
+						{
+							"value": "sofa",
+							"label": "t:sections.all.icon_pack.options__10.label"
+						},
+						{
+							"value": "sofa_2",
+							"label": "t:sections.all.icon_pack.options__11.label"
+						},
+						{
+							"value": "stapler",
+							"label": "t:sections.all.icon_pack.options__65.label"
+						},
+						{
+							"value": "star",
+							"label": "t:sections.all.icon_pack.options__17.label"
+						},
+						{
+							"value": "stars",
+							"label": "t:sections.all.icon_pack.options__19.label"
+						},
+						{
+							"value": "store",
+							"label": "t:sections.all.icon_pack.options__93.label"
+						},
+						{
+							"value": "t_shirt",
+							"label": "t:sections.all.icon_pack.options__20.label"
+						},
+						{
+							"value": "t_shirt_2",
+							"label": "t:sections.all.icon_pack.options__21.label"
+						},
+						{
+							"value": "table",
+							"label": "t:sections.all.icon_pack.options__12.label"
+						},
+						{
+							"value": "tape",
+							"label": "t:sections.all.icon_pack.options__62.label"
+						},
+						{
+							"value": "truck",
+							"label": "t:sections.all.icon_pack.options__30.label"
+						},
+						{
+							"value": "wardrobe",
+							"label": "t:sections.all.icon_pack.options__4.label"
+						},
+						{
+							"value": "wardrobe_2",
+							"label": "t:sections.all.icon_pack.options__5.label"
+						}
+          ],
+          "default": "none",
+          "label": "t:sections.all.icon_pack.label",
+					"info": "t:sections.information-bar.blocks.item.settings.icon.info"
+        },
+				{
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "t:sections.all.custom_icon.label",
+          "info": "t:sections.all.custom_icon.info"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon_dm",
+          "label": "t:sections.all.custom_icon_dm.label"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "t:sections.countdown.settings.menu.default",
+          "label": "t:sections.all.button.button_label.label"
+        },
+				{
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+				{
+					"type": "header",
+					"content": "t:sections.information-bar.blocks.item.settings.menu_options.label"
+				},
+				{
+          "type": "image_picker",
+          "id": "menu_image",
+          "label": "t:sections.all.image.label"
+        },
+				{
+					"type": "link_list",
+					"id": "aside_additional_menu",
+					"default": "main-menu",
+					"label": "t:sections.header.settings.menu.label"
+				},
+				{
+					"type": "header",
+					"content": "t:sections.all.button.header_button.content"
+				},
+				{
+					"type": "paragraph",
+					"content": "t:sections.information-bar.settings.button_content"
+				},
+				{
+          "type": "text",
+          "id": "button_label",
+          "default": "t:sections.all.button.button_label.default_4",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            },
+						{
+							"value": "simple",
+							"label": "t:sections.all.layout.options.options__3.label"
+						}
+          ],
+          "default": "simple",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.information-bar.name",
+      "blocks": [
+        {
+          "type": "column",
+					"settings": {
+						"icon": "books"
+					}
+        },
+        {
+          "type": "column",
+					"settings": {
+						"icon": "stapler"
+					}
+        },
+        {
+          "type": "column",
+					"settings": {
+						"icon": "donut"
+					}
+        },
+        {
+          "type": "column",
+					"settings": {
+						"icon": "cactus"
+					}
+        },
+				{
+          "type": "column",
+					"settings": {
+						"icon": "disco"
+					}
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,544 @@
+{% comment %}
+		Renders a product card
+		Accepts:
+		- product_card_product: {Object} Product Liquid object (optional)
+		- media_size: {String} Size of the product image card. Values are "square" and "portrait". Default is "square" (optional)
+		- show_secondary_image: {Boolean} Show the secondary image on hover. Default: false (optional)
+		- show_vendor: {Boolean} Show the product vendor. Default: true
+		- show_desc: {Boolean} Show the product vendor. Default: false
+		- section_id: {String} The ID of the section that contains this card.
+		Usage:
+	{% render 'product-card-second', show_vendor: section.settings.show_vendor %}
+{% endcomment %}
+
+{%- if settings.quickview_show or settings.show_on_mobile -%}
+	{%- assign first_3d_model = product_card_product.media
+		| where: 'media_type', 'model'
+		| first
+	-%}
+	{%- if first_3d_model -%}
+		{{ 'component-product-model.css' | asset_url | stylesheet_tag }}
+		<link
+			id="ModelViewerStyle"
+			rel="stylesheet"
+			href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+			media="print"
+			onload="this.media='all'"
+		>
+		<link
+			id="ModelViewerOverride"
+			rel="stylesheet"
+			href="{{ 'component-model-viewer-ui.css' | asset_url }}"
+			media="print"
+			onload="this.media='all'"
+		>
+	{%- endif -%}
+
+	{%- if first_3d_model -%}
+		<script type="application/json" id="ProductJSON-{{ product.id }}">
+			{{ product_card_product.media | where: 'media_type', 'model' | json }}
+		</script>
+
+		<script src="{{ 'product-model.js' | asset_url }}" defer></script>
+	{%- endif -%}
+{%- endif -%}
+
+<div
+	class="card-wrapper card-wrapper-second js-color-swatches-wrapper"
+	data-product="{{ product_card_product.handle }}"
+>
+	<span class="visually-hidden">{{ product_card_product.title | escape }}</span>
+	{% liquid
+			assign aspect_ratio = media_size | split: '/'
+			assign temp = aspect_ratio[0] | append: '.0'
+			assign padding_bottom = aspect_ratio[1] | divided_by: temp | times: 100 | round: 2
+	%}
+	<div
+		class="card card--product"
+		tabindex="-1"
+		style="--card-aspect-ratio: {{ padding_bottom }}%"
+	>
+		<div class="card__inner full-unstyled-link">
+			{%- liquid
+				assign featured_media_aspect_ratio = product_card_product.featured_media.aspect_ratio
+
+				if product_card_product.featured_media.aspect_ratio == null
+					assign featured_media_aspect_ratio = 1
+				endif
+			-%}
+
+			<div class="card_inner-top">
+				{%- if show_inedex -%}
+					<p class="card_count">
+						{% if add_id < 10 %}
+							0{{ add_id }}
+						{% else %}
+							{{ add_id }}
+						{% endif %}
+					</p>
+				{%- endif -%}
+
+				{%- if show_collection -%}
+					<div class="card__collection{% if settings.show_first_collection %} only_fiirst{% endif %}">
+						{%- for collection in product_card_product.collections -%}
+							<a
+								href="{{ collection.url }}"
+								class="card__collection-title secondary_text full-unstyled-link"
+							>
+							<span>{{- collection.title | escape -}}</span>
+							</a>
+						{%- endfor -%}
+					</div>
+				{%- endif -%}
+			</div>
+
+			<div
+				class="media {% if media_fit == "cover" %}media--transparent{% endif %} media--hover-effect"
+				style="aspect-ratio: {{ media_size }};"
+			>
+				{%- if product_card_product.featured_media -%}
+					{% liquid
+						assign aspect_ratio = media_size | split: '/'
+						assign temp = aspect_ratio[0] | append: '.0'
+
+						assign aspect_ratio_settings = aspect_ratio[1] | divided_by: temp
+						assign aspect_ratio_img_width = product_card_product.featured_media.height | plus: 0.0 | divided_by: product_card_product.featured_media.width | round: 2
+						assign aspect_ratio_img_height = product_card_product.featured_media.width | plus: 0.0 | divided_by: product_card_product.featured_media.height | round: 2
+
+						assign width_ratio = 1
+						if aspect_ratio_settings < 1
+							if aspect_ratio_settings < aspect_ratio_img_width and aspect_ratio_img_width > 1
+								assign width_ratio = aspect_ratio_img_width
+							elsif aspect_ratio_settings < aspect_ratio_img_width and aspect_ratio_img_width < 1
+								assign width_ratio = aspect_ratio_img_height
+							elsif aspect_ratio_settings > aspect_ratio_img_width and aspect_ratio_img_width < 1
+								assign width_ratio = aspect_ratio_img_height
+							else
+
+							endif
+						else
+							if aspect_ratio_settings < aspect_ratio_img_width and aspect_ratio_img_width > 1
+								assign width_ratio = aspect_ratio_img_width
+							elsif aspect_ratio_settings > aspect_ratio_img_width and aspect_ratio_img_width > 1
+								assign width_ratio = aspect_ratio_settings
+							elsif aspect_ratio_settings > aspect_ratio_img_width and aspect_ratio_img_width < 1
+								assign width_ratio = aspect_ratio_img_height | times: aspect_ratio_settings | round: 2 | plus: aspect_ratio_img_width
+							else
+								assign width_ratio = aspect_ratio_settings | plus: 0.25
+							endif
+						endif
+					%}
+
+					{% if columns %}
+						{% capture sizes %}
+              {% if columns == 4 %}
+                (min-width: 1100px) calc(((100vw - 64px) / 4) * {{ width_ratio }}),
+              {% endif %}
+              {% if columns >= 3 %}
+                (min-width: 990px) calc(((100vw - 40px) / 3) * {{ width_ratio }}),
+              {% endif %}
+              (min-width: 750px) calc(((100vw - 40px) / 2) * {{ width_ratio }}),
+              calc((100vw - 40px))
+            {% endcapture %}
+					{% else %}
+						{% capture sizes %}
+              (min-width: 1100px) calc(535px * {{ width_ratio }}), (min-width: 750px) calc(((100vw - 128px) / 2) * {{ width_ratio }}), calc((100vw - 40px))
+            {% endcapture %}
+					{% endif %}
+
+					{% capture style %}
+            {%- if media_fit == 'contain' -%}
+              object-fit: contain;
+            {%- endif -%}
+            {%- if media_fit == 'cover' -%}
+              object-fit: cover;
+            {%- endif -%}
+          {% endcapture %}
+
+					{{
+						product_card_product.featured_media
+						| image_url: width: product_card_product.featured_media.width
+						| image_tag:
+							loading: 'lazy',
+							class: 'motion-reduce media--first img_tag',
+							widths: '360, 533, 720, 940, 1066, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600',
+							sizes: sizes,
+							style: style
+					}}
+
+					{%- if product_card_product.media[1] != null
+						and show_secondary_image
+					-%}
+						{{
+							product_card_product.media[1]
+							| image_url: width: product_card_product.media[1].width
+							| image_tag:
+								loading: 'lazy',
+								class: 'motion-reduce media--second img_tag',
+								widths: '360, 533, 720, 940, 1066, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600',
+								sizes: sizes,
+								style: style
+						}}
+					{%- endif -%}
+				{%- else -%}
+					{{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg img_tag' }}
+				{%- endif -%}
+			</div>
+			{% liquid
+				assign quick_add = false
+				if settings.add_to_cart_enabled
+					assign quick_add = true
+				endif
+
+				assign quick_view = false
+				if settings.quickview_show
+					assign quick_view = true
+				endif
+
+				if settings.add_to_cart_enabled == false and settings.quickview_show == false and settings.show_on_mobile
+					assign quick_add = true
+					assign quick_view = true
+					assign hide_desktop = true
+				endif
+			%}
+			{%- if quick_add
+				and product_card_product.selected_or_first_available_variant.available
+				and product_card_product.has_only_default_variant
+				or product_card_product.options.size == 1
+				and product_card_product.options[0] == settings.trigger_swatch
+			-%}
+				{%- assign product_form_id = 'quick-add-'
+					| append: section_id
+					| append: product_card_product.id
+				-%}
+				<product-form class="card__add-to-cart card__button {% if hide_desktop %} hide-desktop {% endif %}" data-source="{{ section_id }}">
+					{%- form 'product',
+						product_card_product,
+						id: product_form_id,
+						class: 'form',
+						novalidate: 'novalidate',
+						data-type: 'add-to-cart-form'
+					-%}
+						<input
+							type="hidden"
+							name="id"
+							value="{{ product_card_product.selected_or_first_available_variant.id }}"
+							disabled
+						>
+						<button
+							id="{{ product_form_id }}-submit"
+							type="submit"
+							class="card__link button button--primary button--primary-size mobile-button--primary card__link--{{ settings.quickview_button_layout }} {% if settings.show_on_mobile -%}card__link--show{%- endif %} card-focused"
+							name="add"
+							aria-label="{{ 'general.card.quick__add' | t }}"
+							aria-haspopup="dialog"
+							aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ product_card_product.id }}"
+							aria-live="polite"
+							data-sold-out-message="true"
+							{% if product_card_product.selected_or_first_available_variant.available
+									== false
+							%}
+								disabled
+							{% endif %}
+							data-button-text="{{- 'general.card.quick__add' | t -}}"
+						>
+							<span class="card__quickview-text">
+								{{- 'general.card.quick__add' | t -}}
+							</span>
+
+							<span class="sold-out-message hidden">
+								{{ 'products.product.sold_out' | t }}
+							</span>
+							<div class="loading-overlay__spinner hidden">
+								{% render 'icon-spinner' %}
+							</div>
+						</button>
+					{%- endform -%}
+				</product-form>
+			{%- elsif quick_view -%}
+				<div class="quick-add no-js-hidden {% if hide_desktop %} hide-desktop {% endif %}">
+					{%- assign product_form_id = 'quick-add-'
+						| append: section_id
+						| append: product_card_product.id
+					-%}
+					<modal-opener data-modal="#QuickAdd-{{ product_card_product.id }}">
+						<button
+							id="{{ product_form_id }}-submit"
+							type="submit"
+							name="add"
+							class="card__link button button--primary button--primary-size mobile-button--primary card__link--{{ settings.quickview_button_layout }} {%- if settings.show_on_mobile -%}card__link--show{%- endif %} card-focused"
+							aria-label="{{ 'general.card.quick__view' | t }}"
+							aria-haspopup="dialog"
+							aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ product_card_product.id }}"
+							data-product-url="{{ product_card_product.url }}"
+							data-button-text="{{- 'general.card.quick__view' | t -}}"
+						>
+							<span class="card__quickview-text">
+								{{- 'general.card.quick__view' | t -}}
+							</span>
+
+							<div class="loading-overlay__spinner hidden">
+								{% render 'icon-spinner' %}
+							</div>
+						</button>
+					</modal-opener>
+					<quick-add-modal
+						id="QuickAdd-{{ product_card_product.id }}"
+						class="quick-add-modal"
+					>
+						<div
+							role="dialog"
+							aria-label="{{ 'products.product.choose_product_options' | t: product_name: product_card_product.title | escape }}"
+							aria-modal="true"
+							class="quick-add-modal__content global-settings-popup"
+						>
+							<button
+								id="ModalClose-{{ product_card_product.id }}"
+								type="button"
+								class="quick-add-modal__toggle modal-close-button focus-inset"
+								aria-label="{{ 'accessibility.close' | t }}"
+								tabindex="0"
+							>
+								{% render 'icon-close' %}
+							</button>
+							<div class="quick-add-modal__content-wrapper">
+								<div
+									id="QuickAddInfo-{{ product_card_product.id }}"
+									class="quick-add-modal__content-info"
+								></div>
+							</div>
+						</div>
+						<div class="quick-add-modal__overlay"></div>
+					</quick-add-modal>
+				</div>
+			{%- endif -%}
+		</div>
+	</div>
+
+	<div class="card-information">
+		<div class="card-information__wrapper">
+			<div class="card-information__group">
+				<div class="card__information-top">
+					{%- if settings.badge_sale_show
+						or settings.badge_soldout_show
+						or settings.badge_custom_show
+					-%}
+						<div class="card__badge">
+							{%- if product_card_product.available == false
+								and settings.badge_soldout_show
+							-%}
+								<span
+									class="badge badge--soldout subheading"
+									aria-hidden="true"
+								>
+									{{- 'products.product.sold_out' | t -}}
+								</span>
+							{%- elsif product_card_product.compare_at_price
+									> product_card_product.price
+								and product_card_product.available
+								and settings.badge_sale_show
+							-%}
+								<span
+									class="badge badge--sale subheading"
+									aria-hidden="true"
+								>
+									{% if settings.badge_sale_type == 'sale' %}
+										{{- 'products.product.on_sale' | t -}}
+									{% else %}
+										{{- 'products.product.on_sale' | t -}}
+										<span>
+											{{
+												product_card_product.compare_at_price
+												| minus: product_card_product.price
+												| times: 100
+												| divided_by: product_card_product.compare_at_price
+											-}}
+											%
+										</span>
+									{% endif %}
+								</span>
+							{%- endif -%}
+							{% if settings.badge_custom_show
+								and product_card_product.metafields.custom.badges != blank
+							%}
+								{% if product_card_product.metafields.custom.badges.list? %}
+									{% for badge in product_card_product.metafields.custom.badges.value %}
+										<span
+											class="badge badge--custom subheading"
+											aria-hidden="true"
+										>
+											{{ badge }}
+										</span>
+									{% endfor %}
+								{% else %}
+									<span
+										class="badge badge--custom subheading"
+										aria-hidden="true"
+									>
+										{{ product_card_product.metafields.custom.badges }}
+									</span>
+								{% endif %}
+							{% endif %}
+						</div>
+					{%- endif -%}
+				</div>
+				{%- if show_vendor -%}
+					<div class="card__subtitles">
+						{%- if show_vendor and product_card_product.vendor -%}
+							<span class="visually-hidden">
+								{{- 'accessibility.vendor' | t -}}
+							</span>
+							<div class="card__subtitle card__vendor">
+								{% if settings.enable_vendor_link %}
+									{{
+										product_card_product.vendor
+										| link_to_vendor: class: 'focus-inset'
+									}}
+								{% else %}
+									{{ product_card_product.vendor }}
+								{% endif %}
+							</div>
+						{%- endif -%}
+					</div>
+				{% endif %}
+
+				<div class="card__middle">
+					<h3 class="card__title">
+						<a
+							class="full-unstyled-link button--link"
+							href="{{ product_card_product.url | default: '#' }}"
+							title="{{ product_card_product.title | escape }}"
+							aria-label="{{ product_card_product.title | escape }}"
+						>
+							{{- product_card_product.title | escape -}}
+							{% render 'icon-small-arrow' %}
+						</a>
+					</h3>
+
+					{%- unless product_card_product.has_only_default_variant -%}
+						<div class="product-parameters">
+							{%- for option in product_card_product.options_with_values -%}
+									{% liquid
+										assign color_trigger = settings.trigger_swatch | strip | newline_to_br | split: '<br />'
+										assign name_option = option.name | handle | strip
+										assign is_color_option = false
+
+										if settings.color_swatch
+											for item in color_trigger
+												assign item_temp = item | handle | strip
+												if name_option == item_temp
+													assign is_color_option = true
+												endif
+											endfor
+
+											for value in option.values
+												if value.swatch.color != blank
+													assign is_color_option = true
+												endif
+											endfor
+										endif
+									%}
+
+									{% if is_color_option and option.values.size > 1 %}
+										<div class="product-card-swatches" data-total-swatches="{{ option.values.size }}">
+											{%- for value in option.values -%}
+												{% liquid
+													if settings.color_swatch
+														if value.swatch.image != blank
+															assign color_image = value.swatch.image | image_url: width: 60
+															assign color_value = 'url(' | append: color_image | append: ') no-repeat center/cover'
+															assign color_variant = 'color_variant-img'
+														elsif value.swatch.color != blank
+															assign color_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+															assign color_variant = 'color_variant-color'
+														else
+															assign init_color_value = value.name | handle | strip
+															assign color_value = init_color_value | remove: '-'
+
+															if settings.custom_colors != blank
+																assign custom_colors_string = settings.custom_colors | strip
+																assign custom_colors_obj = custom_colors_string | newline_to_br | split: '<br />'
+
+																for obj in custom_colors_obj
+																	assign obj_strip = obj | strip
+																	assign obj_key = obj_strip | split: ':' | first
+																	assign obj_value = obj_strip | split: ':' | last
+																	assign obj_color_name = obj_key | handle | strip
+
+																	if init_color_value == obj_color_name
+																		assign obj_color_value = obj_value | strip
+																		if obj_color_value contains 'gradient'
+																			assign color_value = obj_color_value
+																		else
+																			assign color_value = obj_color_value | remove: '-'
+																		endif
+																		break
+																	endif
+																endfor
+															endif
+														endif
+													endif
+
+													if color_value == 'white' or color_value == '#fff' or color_value == '#ffffff' or color_value == '255,255,255' or color_value == 'rgb(255 255 255)'
+														assign is_white = true
+													else
+														assign is_white = false
+													endif
+
+													if color_value == 'black' or color_value == '#000' or color_value == '#000000' or color_value == '0,0,0' or color_value == 'rgb(0 0 0)'
+														assign is_black = true
+													else
+														assign is_black = false
+													endif
+
+													assign option_index = option.position | minus: 1
+													assign variant_image_url = ''
+													assign variant_id = ''
+													assign variant_url = ''
+													for variant in product_card_product.variants
+														if variant.options[option_index] == value
+															if variant.image != blank
+																assign variant_image = variant.image | image_url: width: 60
+																assign variant_image_url = variant.image | image_url: width: 1200
+															endif
+															assign variant_id = variant.id
+															assign variant_url = variant.url
+															break
+														endif
+													endfor
+												%}
+												<button type="button" class="product-card-swatch{% if forloop.index > 4 %} swatch-hidden{% endif %}{% if is_white %} color-white{% endif %}{% if is_black %} color-black{% endif %}" style="--swatch-color: {{ color_value }}; --swatch-border-radius: {{ settings.swatch_border_radius }}px;{% if variant_image %} background-image: url({{ variant_image }});{% endif %}" title="{{ value }}" aria-label="{{ value }}" data-variant-image="{{ variant_image_url }}" data-variant-option="{{ value }}" data-variant-id="{{ variant_id }}" data-variant-url="{{ variant_url }}" data-variant-title="{{ product_card_product.title }} - {{ value }}">
+												</button>
+											{%- endfor -%}
+											{% if option.values.size > 4 %}
+												<button type="button" class="product_color-count secondary_text swatch-show-more" aria-label="Show more colors">+{{ option.values.size | minus: 4 }}</button>
+											{% endif %}
+										</div>
+									{% endif %}
+							{%- endfor -%}
+						</div>
+					{% endunless %}
+
+					{% render 'price', product: product_card_product, price_class: '' %}
+
+					<a
+						href="{{ product_card_product.url | default: '#' }}"
+						class="link link--overlay card-wrapper__link--overlay js-color-swatches-link"
+						aria-label="{{ 'accessibility.product_link' | t }}"
+					></a>
+				</div>
+			</div>
+
+			{%- if show_desc and product_card_product.description != blank -%}
+				<div class="card__description">
+					{{ product_card_product.description | strip_html | truncate: 120 }}
+				</div>
+			{%- endif -%}
+		</div>
+	</div>
+	<a
+		href="{{ product_card_product.url | default: '#' }}"
+		class="link link--overlay card-wrapper__link--overlay js-color-swatches-link"
+		aria-label="{{ 'accessibility.product_link' | t }}"
+	></a>
+</div>

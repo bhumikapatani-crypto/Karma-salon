@@ -1,0 +1,407 @@
+<div class="faq-section-wrapper" id="faq-section-{{ section.id }}">
+  <div class="page-width{% if section.settings.narrow_width %} page-width--narrow{% endif %}">
+    {% if section.settings.heading != blank %}
+      <h2 class="faq-main-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="faq-content">
+      {% assign faq_count = 0 %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'category' %}
+            <h3 class="faq-category-title" {{ block.shopify_attributes }}>{{ block.settings.title }}</h3>
+          {% when 'faq' %}
+            {% assign faq_count = faq_count | plus: 1 %}
+            <div class="faq-item{% if faq_count == 1 %} active{% endif %}" {{ block.shopify_attributes }}>
+              <button class="faq-question" aria-expanded="{% if faq_count == 1 %}true{% else %}false{% endif %}">
+                <span class="faq-question-text">{{ block.settings.question }}</span>
+                <span class="faq-icon">
+                  <svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-inner">
+                    {{ block.settings.answer }}
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  #faq-section-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+  }
+  
+  #faq-section-{{ section.id }} .faq-main-heading {
+    font-family: var(--font-heading-family);
+    font-size: {{ section.settings.heading_size }}px;
+    text-align: {{ section.settings.heading_alignment }};
+    margin-bottom: 3.5rem;
+    font-weight: 400;
+    color: {{ section.settings.heading_color }};
+  }
+
+  #faq-section-{{ section.id }} .faq-category-title {
+    font-family: var(--font-heading-family);
+    font-size: {{ section.settings.category_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 4rem 0 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid {{ section.settings.text_color }};
+    color: {{ section.settings.heading_color }};
+    display: inline-block;
+  }
+
+  .faq-category-title:first-child {
+    margin-top: 0;
+  }
+
+  #faq-section-{{ section.id }} .faq-item {
+    background: transparent;
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+    overflow: hidden;
+  }
+  
+  #faq-section-{{ section.id }} .faq-item:first-of-type {
+    border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+
+  #faq-section-{{ section.id }} .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: {{ section.settings.text_color }};
+    font-family: var(--font-heading-family);
+    transition: color 0.3s ease;
+  }
+
+  #faq-section-{{ section.id }} .faq-question:hover {
+    color: {{ section.settings.heading_color }};
+  }
+
+  #faq-section-{{ section.id }} .faq-question-text {
+    font-size: {{ section.settings.question_size }}px;
+    font-weight: 500;
+    padding-right: 2rem;
+    line-height: 1.4;
+  }
+
+  .faq-icon {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .faq-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item.active .faq-answer-wrapper {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-answer-content {
+    overflow: hidden;
+  }
+
+  #faq-section-{{ section.id }} .faq-answer-inner {
+    padding: 0 0 1.5rem;
+    color: {{ section.settings.text_color }};
+    font-family: var(--font-body-family);
+    line-height: 1.7;
+    font-size: {{ section.settings.answer_size }}px;
+    font-weight: 400;
+    opacity: 0.85;
+  }
+
+  .faq-answer-inner p {
+    margin: 0;
+  }
+  
+  .faq-answer-inner p + p {
+    margin-top: 1rem;
+  }
+  
+  #faq-section-{{ section.id }} .faq-answer-inner a {
+    color: {{ section.settings.heading_color }};
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: opacity 0.2s ease;
+  }
+  
+  .faq-answer-inner a:hover {
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 768px) {
+    #faq-section-{{ section.id }} .faq-main-heading {
+      margin-bottom: 2.5rem;
+      font-size: calc({{ section.settings.heading_size }}px * 0.75);
+    }
+    #faq-section-{{ section.id }} .faq-question-text {
+      font-size: calc({{ section.settings.question_size }}px * 0.85);
+    }
+    #faq-section-{{ section.id }} .faq-answer-inner {
+      font-size: calc({{ section.settings.answer_size }}px * 0.9);
+    }
+    #faq-section-{{ section.id }} .faq-category-title {
+      font-size: calc({{ section.settings.category_size }}px * 0.85);
+      margin: 3rem 0 1rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqContainer = document.querySelector('#faq-section-{{ section.id }}');
+    if (!faqContainer) return;
+
+    const faqItems = faqContainer.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      const button = item.querySelector('.faq-question');
+      
+      button.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all items
+        faqItems.forEach(otherItem => {
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        // Toggle clicked item
+        if (!isActive) {
+          item.classList.add('active');
+          button.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "narrow_width",
+      "label": "Use narrow width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Typography Options (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "label": "Main Heading Size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "category_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Category Title Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "question_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Question Font Size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Answer Font Size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Title",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "Category Name"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your question?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Provide the detailed answer to the question here. This text is easily editable from the theme editor.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "Ordering & Payments"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "<p>We accept all major credit cards, PayPal, and Apple Pay for your convenience.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I modify my order after placing it?",
+            "answer": "<p>Orders can be modified within 1 hour of placement. Please contact our support team immediately.</p>"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Shipping & Delivery"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Standard shipping takes 3-5 business days, while express delivery takes 1-2 business days.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

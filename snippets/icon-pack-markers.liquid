@@ -1,0 +1,29 @@
+{%- if icon != 'none' -%}
+	{% assign size = 64 %}
+	{% if icon == "standard" %}
+		{% assign size = 44 %}
+	{% endif %}
+	<svg width="{{ size }}" height="{{ size }}" viewBox="0 0 {{ size }} {{ size }}" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon icon-pack-markers">
+
+		{%- case icon -%}
+			{%- when 'standard' -%}
+				<rect width="44" height="44" rx="22" fill="currentColor" fill-opacity="0.24"/>
+				<rect x="16" y="16" width="12" height="12" rx="6" fill="currentColor"/>
+			{%- when 'icon-1' -%}
+				<path d="M8.02991 12.714C19.5712 6.97731 31.917 29.0276 31.917 29.0276C31.917 29.0276 46.7267 7.22921 56.7467 12.714C66.7668 18.1988 35.0481 54.215 31.917 52.1534C19.3136 43.855 -2.33376 17.8653 8.02991 12.714Z" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+			{%- when 'icon-2' -%}
+				<path d="M34.6522 3.97668C33.4204 14.8576 27.1998 36.6193 12.1719 36.6193" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+				<path d="M34.6517 60.3317C35.5929 51.3106 40.3455 33.2683 51.8271 33.2683" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+				<path d="M34.6517 3.66846C35.5929 13.5349 40.3455 33.2678 51.8271 33.2678" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+				<path d="M34.6522 60.3317C33.4204 52.5303 27.1998 36.9275 12.1719 36.9275" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+			{%- when 'icon-3' -%}
+				<path d="M31.1538 11.1459C31.1538 11.1459 27.3054 29.0132 31.1538 57.3264" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+				<path d="M15.21 36.0223C26.7551 33.5484 40.9116 36.0223 40.9116 36.0223" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+				<path d="M20.5557 50.8901C30.0542 27.3642 52.3194 8.39722 52.3194 8.39722" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+				<path d="M12.7365 17.0559C22.4949 31.762 49.8762 54.9403 49.8762 54.9403" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+			{%- when 'icon-4' -%}
+				<path d="M20.1254 32.2395C29.594 27.1158 43.9719 28.7271 44.109 35.7066C44.2673 43.7634 32.4554 48.9046 22.1543 48.9046C9.94711 48.9046 1.93296 38.926 8.78372 28.875C16.0152 18.2653 31.6523 14.0374 42.9091 15.3171C55.6552 16.7662 64.5981 30.5716 50.765 45.9048" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+		{%- endcase -%}
+
+	</svg>
+{%- endif -%}

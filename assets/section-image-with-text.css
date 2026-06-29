@@ -1,0 +1,279 @@
+.image-with-text__description {
+  color: rgb(var(--color-foreground-secondary));
+}
+.image-with-text__wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media screen and (min-width: 1100px) {
+  .image-with-text__wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.image-with-text__promo {
+  position: relative;
+  height: auto;
+  width: 100%;
+  border-radius: var(--border-radius-main);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.image-with-text__promo-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.image-with-text__promo-img img,
+.image-with-text__promo-img svg,
+.image-with-text__promo-img video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: relative;
+}
+.image-with-text__promo-content {
+  padding: 3.2rem 2rem;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+@media (min-width: 750px) {
+  .image-with-text__promo-content {
+    padding: 6.4rem 4.8rem;
+  }
+}
+.image-with-text__promo-content__heading {
+  max-width: 90%;
+  margin: 0 auto;
+}
+@media (min-width: 576px) {
+  .image-with-text__promo-content__heading {
+    max-width: 36rem;
+  }
+}
+@media (min-width: 990px) {
+  .image-with-text__promo-content__heading {
+    max-width: 40rem;
+  }
+}
+@media (min-width: 576px) {
+  .image-with-text__promo-content__heading.medium {
+    max-width: 60%;
+  }
+}
+@media (min-width: 750px) {
+  .image-with-text__promo-content__heading.medium {
+    max-width: 90%;
+  }
+}
+@media (min-width: 990px) {
+  .image-with-text__promo-content__heading.medium {
+    max-width: 56rem;
+  }
+}
+.image-with-text__promo-content__text {
+  opacity: 0.8;
+  max-width: 38rem;
+}
+.image-with-text__promo-content.text-bottom .image-with-text__promo-content__heading,
+.image-with-text__promo-content.text-bottom .image-with-text__promo-content__text {
+  margin-top: auto;
+}
+.image-with-text__promo::after {
+  content: "";
+  display: block;
+  width: 0;
+  padding-bottom: calc(100% / (var(--aspect-ratio)));
+}
+.image-with-text__button {
+  width: fit-content;
+  margin: 0 auto;
+}
+.image-with-text__right-block {
+  padding: 1.6rem 0.4rem 1.6rem 2.4rem;
+  text-align: center;
+  gap: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media screen and (min-width: 750px) {
+  .image-with-text__right-block {
+    padding: 2.4rem 2.2rem 2.4rem 4.2rem;
+  }
+}
+@media screen and (min-width: 990px) {
+  .image-with-text__right-block {
+    gap: 4.8rem;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .image-with-text__right-block {
+    padding: 3rem 2.4rem 3rem 7.2rem;
+  }
+}
+@media screen and (min-width: 1360px) {
+  .image-with-text__right-block {
+    padding: 5.6rem 6.2rem 5.6rem 11rem;
+  }
+}
+.image-with-text__blocks {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem 3.2rem;
+}
+.image-with-text__blocks.one-block {
+  grid-template-columns: 1fr;
+}
+.image-with-text__blocks.one-block .image-with-text__card {
+  margin: 0 auto;
+}
+@media screen and (min-width: 750px) {
+  .image-with-text__blocks {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.image-with-text__title:not(:last-child) {
+  margin-bottom: 0.6rem;
+}
+.image-with-text__card {
+  position: relative;
+  max-width: min(35.4rem, 100%);
+  margin: 0 auto;
+}
+@media screen and (min-width: 750px) {
+  .image-with-text__card {
+    margin: 0;
+  }
+}
+.image-with-text__card__text {
+  color: rgb(var(--color-foreground-secondary));
+}
+.image-with-text__card__heading {
+  margin-top: 0;
+}
+.image-with-text__card__heading:not(:last-child) {
+  margin-bottom: 0.6rem;
+}
+.image-with-text__card-img {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  margin: 0 auto;
+}
+@media screen and (min-width: 1360px) {
+  .image-with-text__card-img {
+    width: 12rem;
+    height: 12rem;
+  }
+}
+.image-with-text__card-img:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.image-with-text__card-img--s {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+.image-with-text__card-img--m {
+  width: 7.2rem;
+  height: 7.2rem;
+}
+.image-with-text__card-img--l {
+  width: 10rem;
+  height: 10rem;
+}
+@media screen and (min-width: 1360px) {
+  .image-with-text__card-img--l {
+    width: 12rem;
+    height: 12rem;
+  }
+}
+.image-with-text__card-img img,
+.image-with-text__card-img svg {
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: var(--border-radius-main);
+}
+.image-with-text__card-img img.icon.icon-pack,
+.image-with-text__card-img svg.icon.icon-pack {
+  color: rgb(var(--color-accent));
+}
+.image-with-text__card-link {
+  margin-top: 1.4rem;
+  position: relative;
+  z-index: 3;
+}
+
+
+/* Reduce image height for about page image-with-text section */
+
+/* Desktop: Remove forced aspect ratio and show full image */
+@media screen and (min-width: 750px) {
+  .image-with-text__promo {
+    max-height: 650px;
+  }
+
+  .image-with-text__promo::after {
+    padding-bottom: 0 !important;
+  }
+
+  .image-with-text__promo-img {
+    position: relative !important;
+    height: auto !important;
+  }
+
+  .image-with-text__promo-img img,
+  .image-with-text__promo-img svg,
+  .image-with-text__promo-img video {
+    position: relative !important;
+    object-fit: contain !important;
+    max-height: 650px;
+  }
+}
+
+/* Mobile: Keep normal aspect ratio behavior but use contain */
+@media screen and (max-width: 749px) {
+  .image-with-text__promo-img img,
+  .image-with-text__promo-img svg,
+  .image-with-text__promo-img video {
+    object-fit: contain !important;
+  }
+}
+
+/* Reduce padding for smaller section */
+.image-with-text__right-block {
+  padding: 2rem 1.5rem !important;
+}
+
+@media screen and (min-width: 750px) {
+  .image-with-text__right-block {
+    padding: 3rem 2rem !important;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .image-with-text__right-block {
+    padding: 4rem 5rem !important;
+  }
+}

@@ -1,0 +1,92 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:sections.footer.settings.footer-group.label",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "footer-0": {
+          "type": "logo_info",
+          "settings": {
+            "logo": "shopify://shop_images/Logo.jpg",
+            "logo_width": 120,
+            "description": "<p>“All Salons Need Good Karma”</p><p>Quality and reliable furniture pieces to suit any space.</p>"
+          }
+        },
+        "footer-1": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "shop",
+            "default_open": false
+          }
+        },
+        "footer-2": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Collections",
+            "menu": "collections",
+            "default_open": false
+          }
+        },
+        "link_list_eT69zn": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Company",
+            "menu": "company",
+            "default_open": false
+          }
+        },
+        "link_list_nk8nfe": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Services",
+            "menu": "services",
+            "default_open": false
+          }
+        },
+        "footer-4": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Subscribe to our newsletter",
+            "description": "",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "footer-0",
+        "footer-1",
+        "footer-2",
+        "link_list_eT69zn",
+        "link_list_nk8nfe",
+        "footer-4"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "show_border": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "show_social": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "enable_copyright_date": true,
+        "enable_copyright_shopname": true,
+        "enable_follow_on_shop": true,
+        "menu": ""
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

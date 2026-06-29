@@ -1,0 +1,339 @@
+:root {
+  --ib-padding: 2rem;
+}
+
+@media screen and (min-width: 1360px) {
+  :root {
+    --ib-padding: 3.2rem;
+  }
+}
+.information-bar-section .information-bar__list {
+  display: none;
+}
+
+.information-bar {
+  display: none;
+}
+@media screen and (min-width: 1100px) {
+  .information-bar {
+    display: block;
+  }
+}
+.information-bar-section {
+  position: relative;
+  z-index: 11;
+}
+.information-bar__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+}
+@media screen and (min-width: 1360px) {
+  .information-bar__wrapper {
+    gap: 4.8rem;
+  }
+}
+.information-bar__menu {
+  display: flex;
+  align-items: center;
+  gap: 0 var(--ib-padding);
+  flex-wrap: wrap;
+  z-index: 1;
+}
+.information-bar__item, .information-bar__item > a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 6.8rem;
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+}
+@media screen and (min-width: 1360px) {
+  .information-bar__item, .information-bar__item > a {
+    gap: 0.8rem;
+  }
+}
+.information-bar__item .information-bar__text,
+.information-bar__item .information-bar__icon, .information-bar__item > a .information-bar__text,
+.information-bar__item > a .information-bar__icon {
+  transition: opacity var(--duration-default) ease-in;
+}
+.information-bar__item:hover .information-bar__text,
+.information-bar__item:hover .information-bar__icon, .information-bar__item:focus .information-bar__text,
+.information-bar__item:focus .information-bar__icon, .information-bar__item:focus-visible .information-bar__text,
+.information-bar__item:focus-visible .information-bar__icon, .information-bar__item:focus-within .information-bar__text,
+.information-bar__item:focus-within .information-bar__icon, .information-bar__item > a:hover .information-bar__text,
+.information-bar__item > a:hover .information-bar__icon, .information-bar__item > a:focus .information-bar__text,
+.information-bar__item > a:focus .information-bar__icon, .information-bar__item > a:focus-visible .information-bar__text,
+.information-bar__item > a:focus-visible .information-bar__icon, .information-bar__item > a:focus-within .information-bar__text,
+.information-bar__item > a:focus-within .information-bar__icon {
+  opacity: 0.6;
+}
+.information-bar__item:hover > .information-bar__item__menu, .information-bar__item:focus > .information-bar__item__menu, .information-bar__item:focus-visible > .information-bar__item__menu, .information-bar__item:focus-within > .information-bar__item__menu, .information-bar__item > a:hover > .information-bar__item__menu, .information-bar__item > a:focus > .information-bar__item__menu, .information-bar__item > a:focus-visible > .information-bar__item__menu, .information-bar__item > a:focus-within > .information-bar__item__menu {
+  opacity: 1;
+  pointer-events: all;
+}
+.information-bar__item__image, .information-bar__item > a__image {
+  position: relative;
+  width: 16.3rem;
+  height: 21.8rem;
+}
+.information-bar__item__image img,
+.information-bar__item__image svg, .information-bar__item > a__image img,
+.information-bar__item > a__image svg {
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-default) ease-in;
+  border-radius: var(--border-radius-main);
+}
+.information-bar__item__image::after, .information-bar__item > a__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.information-bar__item__menu, .information-bar__item > a__menu {
+  top: 100%;
+  box-sizing: border-box;
+  display: flex;
+  padding: var(--ib-padding) 0;
+  z-index: 1;
+  position: absolute;
+  background: rgb(var(--color-background));
+  border: 1px solid rgb(var(--color-border-input));
+  box-shadow: 0 6px 20px rgba(var(--color-background), 0.05);
+  border-radius: 0 0 var(--border-radius-main) var(--border-radius-main);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-default) ease;
+  cursor: default;
+}
+.information-bar__item__menu:hover, .information-bar__item > a__menu:hover {
+  opacity: 1;
+  pointer-events: all;
+}
+.information-bar__item__menu li > .aside-menu__link, .information-bar__item > a__menu li > .aside-menu__link {
+  transition: opacity var(--duration-default) ease-in;
+}
+.information-bar__item__menu li:hover > .aside-menu__link, .information-bar__item > a__menu li:hover > .aside-menu__link {
+  opacity: 0.6;
+}
+.information-bar__item__menu--right-side, .information-bar__item > a__menu--right-side {
+  margin-left: var(--ib-padding);
+  position: relative;
+}
+.information-bar__item__menu--right-side:last-child, .information-bar__item > a__menu--right-side:last-child {
+  margin-right: var(--ib-padding);
+}
+.information-bar__item__menu--right-side:hover .information-bar__item__image::after, .information-bar__item > a__menu--right-side:hover .information-bar__item__image::after {
+  opacity: 1;
+}
+.information-bar__item__menu--list, .information-bar__item > a__menu--list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.information-bar__item__menu--list--item, .information-bar__item > a__menu--list--item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 28rem;
+}
+.information-bar__item__menu--list--item a, .information-bar__item > a__menu--list--item a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: var(--ib-padding);
+  padding-left: var(--ib-padding);
+}
+.information-bar__item__menu--list--item > a, .information-bar__item > a__menu--list--item > a {
+  width: 100%;
+}
+.information-bar__item__menu--list--item .icon-small-arrow, .information-bar__item > a__menu--list--item .icon-small-arrow {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+.information-bar__item__menu.submenu-opened, .information-bar__item > a__menu.submenu-opened {
+  border-bottom-right-radius: 0;
+}
+.information-bar__item__menu__button, .information-bar__item > a__menu__button {
+  display: inline-flex;
+}
+.information-bar__item__menu__button:not(:first-child), .information-bar__item > a__menu__button:not(:first-child) {
+  margin-top: 1.2rem;
+}
+.information-bar__item__submenu, .information-bar__item > a__submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  position: absolute;
+  top: -1px;
+  left: 100%;
+  min-width: 31rem;
+  list-style: none;
+  padding: var(--ib-padding) 0;
+  min-height: calc(100% + 2px);
+  background: rgb(var(--color-background));
+  border: 1px solid rgb(var(--color-border-input));
+  z-index: 2;
+  position: absolute;
+  background: rgb(var(--color-background));
+  border: 1px solid rgb(var(--color-border-input));
+  box-shadow: 0 6px 20px rgba(var(--color-background), 0.05);
+  border-radius: 0 0 var(--border-radius-main) var(--border-radius-main);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-default) ease;
+  cursor: default;
+  border-bottom-left-radius: 0;
+}
+.information-bar__item__submenu.right-align, .information-bar__item > a__submenu.right-align {
+  left: 0;
+  transform: translateX(-100%);
+}
+.information-bar__item__submenu_2, .information-bar__item > a__submenu_2 {
+  position: relative;
+  left: 0;
+  opacity: 1;
+  padding-top: 1.6rem;
+  padding-bottom: 0;
+  border: none;
+  box-shadow: none;
+}
+.information-bar__item__submenu_2 .information-bar__item__submenu--item, .information-bar__item > a__submenu_2 .information-bar__item__submenu--item {
+  padding: 0 0 0 2rem;
+}
+li:hover > .information-bar__item__submenu, li:focus > .information-bar__item__submenu, li:focus-within > .information-bar__item__submenu, li:focus-visible > .information-bar__item__submenu, li:hover > .information-bar__item > a__submenu, li:focus > .information-bar__item > a__submenu, li:focus-within > .information-bar__item > a__submenu, li:focus-visible > .information-bar__item > a__submenu {
+  opacity: 1;
+  pointer-events: all;
+}
+.information-bar__item__submenu .information-bar__item__submenu, .information-bar__item__submenu .information-bar__item > a__submenu, .information-bar__item > a__submenu .information-bar__item__submenu, .information-bar__item > a__submenu .information-bar__item > a__submenu {
+  z-index: 3;
+}
+.information-bar__icon {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+.information-bar__image-wrapper {
+  position: relative;
+}
+.information-bar__image-wrapper img,
+.information-bar__image-wrapper svg {
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: contain;
+}
+.information-bar__countdown--wrapper {
+  display: flex;
+  position: relative;
+  align-items: center;
+  background: rgb(var(--color-background-secondary));
+  border-radius: var(--border-radius-main);
+  padding: 0.6rem 1.2rem;
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  min-height: 4.4rem;
+}
+.information-bar__countdown--wrapper countdown-timer {
+  max-width: 24rem;
+}
+.information-bar__countdown--wrapper.has-link > * {
+  transition: opacity var(--duration-default);
+}
+.information-bar__countdown--wrapper.has-link:hover > * {
+  opacity: 0.6;
+}
+.information-bar__countdown--wrapper.has-link:hover .information-bar__countdown__link-arrow {
+  animation: 0.35s ease-in-out forwards animateIconInline;
+}
+.information-bar__countdown--text {
+  white-space: nowrap;
+}
+.information-bar__countdown__end {
+  display: none;
+}
+.information-bar__countdown__end-text {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.information-bar__countdown__main {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+@media screen and (min-width: 1360px) {
+  .information-bar__countdown__main {
+    gap: 0.6rem;
+  }
+}
+.information-bar__countdown__block {
+  display: flex;
+  align-items: center;
+}
+.information-bar__countdown__block.no_days {
+  display: none;
+}
+.information-bar__countdown__block.no_days + .information-bar__countdown__divider {
+  display: none;
+}
+.information-bar__countdown__number {
+  display: inline-flex;
+  justify-content: center;
+  min-width: 2.6rem;
+}
+.information-bar__countdown__icon {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+.information-bar__countdown__icon + .information-bar__countdown--text {
+  margin-left: 0.3rem;
+}
+.information-bar__countdown__icon > svg {
+  color: rgb(var(--color-accent));
+}
+.information-bar__countdown--divider:not(:last-child):not(:first-child) {
+  display: inline-block;
+  margin: 0 0.6rem;
+  width: 0;
+  height: 1.6rem;
+  border: 1px solid rgba(var(--color-button-border), 0.2);
+}
+@media screen and (min-width: 1360px) {
+  .information-bar__countdown--divider:not(:last-child):not(:first-child) {
+    margin: 0 1.2rem;
+  }
+}
+.information-bar__countdown__link {
+  display: block !important;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.information-bar__countdown__link-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-left: 0.4rem;
+  color: rgb(var(--color-foreground-secondary));
+}
+.information-bar__countdown__link-arrow:only-child {
+  display: none;
+}

@@ -1,0 +1,534 @@
+{{ 'section-image-collage.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'image-collage.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+  assign indent_value = "2.4rem"
+  assign columns_per_row = section.settings.columns_per_row
+  assign image_ratio = section.settings.image_ratio
+%}
+
+{% assign animated = false %}
+{% if section.settings.swiper and section.blocks.size > 1 %}
+  {% assign animated = true %}
+{% endif %}
+
+{% style %}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+
+  :root {
+    --indent_value: 2.4rem;
+  }
+{% endstyle %}
+
+<div class="image-collage section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="container{% if section.settings.h_direction == "column" %} column{% endif %}">
+    {% render 'section-header',
+			section_heading: section.settings.section_heading,
+			section_description: section.settings.section_description,
+			button_label: section.settings.section_button_label,
+			button_link: section.settings.section_button_link,
+			button_style: section.settings.section_button_style
+		%}
+  </div>
+
+
+  <div class="image-collage__container {% if animated == false %}container{% endif %}">
+    <div class="image-collage__wrapper">
+      <div class="image-collage-list {% if animated %}swiper-container{% endif %}" data-columns="{{ columns_per_row }}">
+        <div class="image-collage-list__wrapper {% if animated %}swiper-wrapper{% endif %}{% if section.settings.gap %} gap{% endif %} image-collage-list__wrapper--{{ columns_per_row }} 
+          image-collage-list__wrapper--{{ section.settings.columns_mobile }}-mobile"
+        >
+          {%- for block in section.blocks -%}
+            
+            {% liquid
+              assign without_border_radius = false
+              if indent_value == "0" and animated
+                assign without_border_radius = true
+              endif
+            %}
+            <div
+              class="image-collage-card {% if animated %}swiper-slide{% endif %}{% if section.settings.gap %} gap{% endif %} color-{{ block.settings.color_scheme }} {% if without_border_radius %} without-border-radius{% endif %}" 
+              data-id="{{ block.id }}"
+              tabindex="0"
+              {{ block.shopify_attributes }}
+              {% if block.settings.overlay_link %}
+                 onclick="window.location.href='{{ block.settings.overlay_link }}'" style="cursor: pointer;"
+              {% endif %}
+            >{% style %}
+              #shopify-section-{{ section.id }} [data-id="{{ block.id }}"] .image-collage-card__image {
+                  {% if image_ratio != 'large' %}
+                    --aspect-ratio: {{ image_ratio }};
+                  {% else %}
+                    --aspect-ratio: {{ section.settings.aspect_ratio }};
+                  {% endif %}
+                }
+            {% endstyle %}
+              {%- if block.settings.overlay_link != blank -%}
+                <a
+                  href="{{ block.settings.overlay_link }}"
+                  class="image-collage-card__link-overlay"
+                  aria-label="Card Link {{ forloop.index }}"
+                ></a>
+              {%- endif -%}
+                <div class="image-collage-card__image {{ image_ratio }}" style="--overlay-opacity: {{ block.settings.overlay_opacity }};">
+                    {%- if block.settings.image != blank
+                      and block.settings.video == blank
+                    -%}
+                      {%- capture sizes -%}
+                        (min-width: 1100px) calc((100vw - 64px * 2)), calc((100vw - 20px * 2))
+                      {%- endcapture -%}
+                      {% liquid 
+                        if columns_per_row > 3
+                          assign widths = '360, 535'
+                        else 
+                          assign widths = '360, 535, 720, 940'
+                        endif
+                      %}
+                      {{
+                        block.settings.image
+                        | image_url: width: block.settings.image.width
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.image.width,
+                          height: block.settings.image.height,
+                          sizes: sizes,
+                          widths: widths
+                       }}
+                    
+                    {%- elsif block.settings.video != blank -%}
+                        {{
+                          block.settings.video
+                          | video_tag:
+                            image_size: '1920x',
+                            class: 'data-alt',
+                            autoplay: true,
+                            loop: true,
+                            controls: false,
+                            muted: true
+                        }}
+                    {%- else %}
+                      {% assign cycle_index = forloop.index | modulo: 3 | plus: 1 %}
+                      {% assign svg_placeholder_name = 'hero-apparel-' | append: cycle_index %}
+                        {{
+                          svg_placeholder_name
+                          | placeholder_svg_tag: 'placeholder-svg'
+                        }}
+                    {%- endif -%}
+                  {%- if block.settings.heading != blank or block.settings.text != blank -%}
+                    <div class="image-collage-card__content">
+                  <div class="image-collage-card__info" {% if block.settings.overlay_link != blank %} onclick="window.location.href='block.settings.overlay_link'"{% endif %}>
+                          {%- if block.settings.heading != blank -%}
+                            <div class="image-collage-card__heading">
+                              {{ block.settings.heading | escape }}
+                            </div>
+                          {%- endif -%}
+                          {%- if block.settings.text != blank -%}
+                            <div class="image-collage-card__text richtext__content secondary_text">
+                              {{ block.settings.text }}
+                            </div>
+                          {%- endif -%}
+                        </div>
+                    </div>
+                  {% endif %}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- if animated -%}
+          <div class="swipe-on-mobile__nav no-js-hidden">
+            <div class="image-collage__pagination swiper-pagination"></div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.image-collage.name",
+  "class": "image-collage-section spaced-section",
+  "tag": "section",
+  "max_blocks": 12,
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+			"type": "header",
+			"content": "t:sections.all.heading.header.content"
+		},
+		{
+			"type": "text",
+			"id": "section_heading",
+			"default": "t:sections.image-collage.settings.section_heading.default",
+			"label": "t:sections.all.heading.label"
+		},
+		{
+			"type": "select",
+			"id": "section_heading_size",
+			"options": [
+				{
+					"value": "h1",
+					"label": "t:sections.all.heading_size.options__1.label"
+				},
+				{
+					"value": "h2",
+					"label": "t:sections.all.heading_size.options__2.label"
+				},
+				{
+					"value": "h3",
+					"label": "t:sections.all.heading_size.options__3.label"
+				}
+			],
+			"default": "h2",
+			"label": "t:sections.all.heading_size.label"
+		},
+    {
+      "type": "select",
+      "id": "h_direction",
+      "options": [
+        {
+          "value": "row",
+          "label": "t:sections.all.content_layout.options.options__1.label"
+        },
+        {
+          "value": "column",
+          "label": "t:sections.all.content_layout.options.options__2.label"
+        }
+      ],
+      "default": "column",
+      "label": "t:sections.all.section_layout.label"
+    },
+		{
+			"type": "textarea",
+			"id": "section_description",
+			"default": "t:sections.image-collage.settings.section_description.default",
+			"label": "t:sections.all.text.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.button.header_button.content"
+		},
+		{
+			"type": "text",
+			"id": "section_button_label",
+			"default": "t:sections.all.button.button_label.default_4",
+			"label": "t:sections.all.button.button_label.label",
+			"info": "t:sections.all.button.button_label.info"
+		},
+		{
+			"type": "url",
+			"id": "section_button_link",
+			"label": "t:sections.all.button.button_link.label"
+		},
+		{
+			"type": "select",
+			"id": "section_button_style",
+			"options": [
+				{
+					"value": "primary",
+					"label": "t:sections.all.button.button_style.options__1.label"
+				},
+				{
+					"value": "secondary",
+					"label": "t:sections.all.button.button_style.options__2.label"
+				},
+				{
+					"value": "tertiary",
+					"label": "t:sections.all.button.button_style.options__3.label"
+				}
+			],
+			"default": "tertiary",
+			"label": "t:sections.all.button.button_style.label"
+		},
+    {
+      "type": "header",
+      "content": "t:sections.all.section_layout.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "swiper",
+      "default": true,
+      "label": "t:sections.image-collage.settings.animation.label",
+      "info": "t:sections.image-collage.settings.animation.info"
+    },
+    {
+      "type": "range",
+      "id": "columns_per_row",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 6,
+      "label": "t:sections.all.columns.label",
+      "info": "t:sections.all.columns.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "gap",
+      "default": true,
+      "label": "t:sections.image-collage.settings.gap.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.mobile_options.header.content"
+    },
+    {
+			"type": "select",
+			"id": "columns_mobile",
+			"default": "1",
+			"label": "t:sections.all.mobile_options.columns.label",
+			"options": [
+				{
+					"value": "1",
+					"label": "t:sections.all.mobile_options.columns.options__1.label"
+				},
+				{
+					"value": "2",
+					"label": "t:sections.all.mobile_options.columns.options__2.label"
+				}
+			]
+		},
+    //{
+    //  "type": "checkbox",
+    //  "id": "swipe_on_mobile",
+    //  "default": false,
+    //  "label": "t:sections.all.mobile_options.swipe.label"
+		//},
+    {
+      "type": "header",
+      "content": "t:sections.all.image.header.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "default": "3/4",
+      "label": "t:sections.all.image.aspect_ratio.label",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "t:sections.all.image.aspect_ratio.options__1.label"
+        },
+        {
+          "value": "3/2",
+          "label": "t:sections.all.image.aspect_ratio.options__2.label"
+        },
+        {
+          "value": "3/4",
+          "label": "t:sections.all.image.aspect_ratio.options__3.label"
+        },
+        {
+          "value": "4/3",
+          "label": "t:sections.all.image.aspect_ratio.options__4.label"
+        },
+        {
+          "value": "9/16",
+          "label": "t:sections.all.image.aspect_ratio.options__10.label"
+        },
+        {
+          "value": "16/9",
+          "label": "t:sections.all.image.aspect_ratio.options__5.label"
+        },
+        {
+          "value": "21/9",
+          "label": "t:sections.all.image.aspect_ratio.options__6.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+		{
+			"type": "select",
+			"id": "padding_top",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				}
+			],
+			"default": "m",
+			"label": "t:sections.all.section-margin.margin_top.label"
+		},
+		{
+			"type": "select",
+			"id": "padding_bottom",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				}
+			],
+			"default": "no-indent",
+			"label": "t:sections.all.section-margin.margin_bottom.label"
+		},
+    {
+			"type": "header",
+			"content": "t:sections.all.section-margin.header.content"
+		},
+		{
+			"type": "select",
+			"id": "margin_top",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				}
+			],
+			"default": "m",
+			"label": "t:sections.all.section-margin.margin_top.label"
+		},
+		{
+			"type": "select",
+			"id": "margin_bottom",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				}
+			],
+			"default": "no-indent",
+			"label": "t:sections.all.section-margin.margin_bottom.label"
+		}
+  ],
+  "blocks": [
+    {
+      "type": "image-collage_card",
+      "name": "t:sections.image-collage.blocks.image-collage_card.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.all.image.label"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:sections.all.video.label",
+          "info": "t:sections.all.video.info"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 1,
+          "default": 0,
+          "step": 0.1,
+          "label": "t:sections.all.card.opacity_overlay.label",
+          "info": "t:sections.all.card.opacity_overlay.info__2"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.all.content_options.header.content"
+        },
+        {
+					"type": "color_scheme",
+					"id": "color_scheme",
+					"default": "background-2",
+					"label": "t:sections.image-collage.blocks.image-collage_card.color_scheme"
+				},
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.all.heading.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "t:sections.all.text.label"
+        },
+        {
+          "type": "url",
+          "id": "overlay_link",
+          "label": "t:sections.all.overlay_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.image-collage.name",
+      "blocks": [
+        {
+          "type": "image-collage_card"
+        },
+        {
+          "type": "image-collage_card"
+        },
+        {
+          "type": "image-collage_card"
+        },
+        {
+          "type": "image-collage_card"
+        },
+        {
+          "type": "image-collage_card"
+        },
+        {
+          "type": "image-collage_card"
+        },
+        {
+          "type": "image-collage_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

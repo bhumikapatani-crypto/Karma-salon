@@ -1,0 +1,215 @@
+<style>
+  :root {
+  	--announcement-height: {{ section.settings.height_mobile }}px;
+  }
+
+  @media screen and (min-width: 765px) {
+  	:root {
+  	  --announcement-height: {{ section.settings.height }}px;
+    }
+  }
+
+  {% if section.settings.sticky_announcement_bar == "always" %}
+    .section-announcement {
+      position: sticky;
+      top: 0;
+      z-index: 13;
+      background-color: rgb(var(--color-background));
+    }
+    /* When announcement bar is above header - header sticks below it */
+    /* Only apply when header is actually sticky (position: sticky) - avoid shifting layout when header has position: relative */
+    /* On-scroll-up: header gets class when revealed */
+    .section-announcement ~ .shopify-section-header.shopify-section-header-sticky {
+      top: var(--announcement-height);
+    }
+    /* Always sticky: header uses inline styles, target via :has() on sticky-header wrapper */
+    .section-announcement ~ .shopify-section-header:has([data-sticky-type="always"]) {
+      top: var(--announcement-height);
+    }
+    /* When announcement bar is below header - announcement bar sticks below header */
+    .shopify-section-header ~ .section-announcement {
+      top: var(--header-height);
+    }
+  {% endif %}
+</style>
+
+{% liquid
+  assign block_count = section.blocks.size
+  assign slideshow_speed = section.settings.slideshow_speed
+  assign slideshow_delay = section.settings.slideshow_delay
+%}
+
+<div
+  class="announcement-bar color-{{ section.settings.color_scheme }} background{% if block_count > 1 %} swiper{% endif %}"
+  role="region"
+  aria-label="{{ 'sections.header.announcement' | t }}"
+  data-speed="{{ slideshow_speed }}"
+	data-delay="{{ slideshow_delay }}"
+>
+  <div class="container{% if block_count > 1 %} swiper-wrapper{% endif %}">
+    {% for block in section.blocks %}
+      <div class="announcement-bar__message{% if block_count > 1 %} swiper-slide{% endif %}">
+        {% if block.settings.text %}
+          <div class="announcement-bar__text subheading">
+            {{ block.settings.text }}
+          </div>
+        {% endif %}
+
+        {%- if block.settings.button_label != blank -%}
+          {% render 'button',
+            btn_label: block.settings.button_label,
+            btn_link: block.settings.button_link,
+            btn_style: block.settings.button_style,
+            add_classes: 'announcement-bar__button'
+          %}
+        {%- endif -%}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="{{ 'announcement.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.name",
+  "class": "section-announcement",
+  "limit": 1,
+  "enabled_on": {
+		"groups": ["header"]
+	},
+  "settings": [
+    {
+      "type": "range",
+      "id": "height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "label": "t:sections.announcement-bar.settings.height.label"
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "min": 40,
+      "max": 160,
+      "step": 5,
+      "default": 50,
+      "label": "t:sections.announcement-bar.settings.height_mobile.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-2",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "select",
+      "id": "sticky_announcement_bar",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.announcement-bar.settings.sticky_announcement_bar.options__1.label"
+        },
+        {
+          "value": "always",
+          "label": "t:sections.announcement-bar.settings.sticky_announcement_bar.options__2.label"
+        }
+      ],
+      "default": "none",
+      "label": "t:sections.announcement-bar.settings.sticky_announcement_bar.label"
+    },
+    {
+			"type": "header",
+			"content": "t:sections.all.slider_options.header.content"
+		},
+    {
+			"type": "range",
+			"id": "slideshow_speed",
+			"min": 0.5,
+			"max": 6,
+			"step": 0.1,
+			"default": 2,
+			"unit": "s",
+			"label": "t:sections.all.slider_options.speed.label"
+		},
+		{
+			"type": "range",
+			"id": "slideshow_delay",
+			"min": 0.5,
+			"max": 8,
+			"step": 0.1,
+			"default": 3,
+			"unit": "s",
+			"label": "t:sections.all.slider_options.delay.label"
+		}
+  ],
+  "blocks": [
+		{
+			"type": "announcement_block",
+			"name": "t:sections.announcement-bar.blocks.name",
+			"limit": 20,
+			"settings": [
+				{
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "t:sections.announcement-bar.settings.text.default",
+          "label": "t:sections.announcement-bar.settings.text.label",
+          "info": "t:sections.announcement-bar.settings.text.info"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.all.button.header_button.content"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "t:sections.all.button.button_label.default_2",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "secondary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+			]
+		}
+  ],
+  "presets": [
+		{
+			"name": "t:sections.announcement-bar.name",
+			"blocks": [
+        {
+					"type": "announcement_block"
+				},
+        {
+          "type": "announcement_block"
+        },
+        {
+          "type": "announcement_block"
+        }
+			]
+		}
+  ]
+}
+{% endschema %}

@@ -1,0 +1,53 @@
+<div class="mega-menu-aside">
+	{% if block.settings.desc != blank %}
+		<p class="mega-menu-aside-desc secondary_text">
+			{{ block.settings.desc }}
+		</p>
+	{% endif %}
+
+	<div class="mega-menu-aside-collection_list">
+		{%- for collection_list in block.settings.collection_list -%}
+			<div class="mega-menu-aside-list">
+				<div class="mega-menu-aside-list__image image-{{ block.settings.images_shape }}">
+					{% if collection_list.featured_image != blank %}
+						{{
+							collection_list.featured_image
+							| image_url: width: collection_list.featured_image.width
+							| image_tag: loading: 'lazy', sizes: '100vw', widths: '160, 240, 360, 535, 720'
+						}}
+					{% else %}
+						{{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+					{% endif %}
+				</div>
+				<a
+					href="{{ collection_list.url }}"
+					class="mega-menu-aside-list__link full-unstyled-link"
+					aria-label="{{ collection_list.title }}"
+				>
+					<span>{{ collection_list.title }}</span>
+				</a>
+
+				<a href="{{ collection_list.url }}" class="overlay_link"></a>
+			</div>
+		{%- endfor -%}
+	</div>
+
+	{% if block.settings.button_label != blank %}
+		<a
+			{% if block.settings.button_link != blank %}
+				href="{{ block.settings.button_link }}"
+				data-button-text="{{ block.settings.button_label | escape }}"
+			{% endif %}
+			class="button button--simple"
+			{% if block.settings.button_link == blank %}
+				aria-disabled="true"
+			{% endif %}
+			aria-label="{{ block.settings.button_label | escape }}"
+			tabindex="0"
+		>
+			<span>
+				{{ block.settings.button_label | escape }}
+			</span>
+		</a>
+	{% endif %}
+</div>

@@ -1,0 +1,511 @@
+{% assign size = 0 %}
+{% for block in section.blocks %}
+	{% if block.type == 'aside_mega_menu' %}
+		{% assign size = size | plus: 1 %}
+	{%- endif -%}
+{% endfor %}
+
+<div class="aside-menu">
+	<div class="aside-menu__overlay color-background-2"></div>
+	<div
+		class="aside-menu__wrapper color-background-1"
+		role="dialog"
+		aria-modal="true"
+		aria-label="{{ 'sections.header.aside_menu' | t }}"
+		tabindex="-1"
+	>
+		<div class="aside-menu__top aside-menu__top_main">
+			{% render 'header-logo' %}
+
+			<button
+				class="aside-menu__toggle aside-menu__toggle--close-btn modal-close-button focus-inset"
+				aria-label="{{ 'accessibility.close' | t }}"
+			>
+				{% render 'icon-close' %}
+			</button>
+		</div>
+
+		<div class="aside-menu__body">
+			<ul
+				class="aside-menu__list list-menu aside-menu__list-main-menu"
+				role="list"
+			>
+				{% assign count = 0 %}
+				{%- if section.settings.menu.links != blank -%}
+					{% assign sale_text = 'sale' | t | downcase %}
+					{%- for link in section.settings.menu.links -%}
+						{% liquid
+            	assign mega_menu = false
+        	  %}
+
+						{% if section.blocks.size > 0 %}
+							{% for block in section.blocks %}
+								{% liquid
+									assign mega_menu_trigger = block.settings.mega_menu_trigger | handle | strip
+	
+									if link.handle == mega_menu_trigger
+									 assign mega_menu = true
+									endif
+								%}
+							{% endfor %}
+						{% endif %}
+						{% assign link_title = link.title | escape | downcase %}
+						<li class="main_menu">
+							{%- if link.links != blank -%}
+								<div class="menu-item first_level_details">
+									<div class="menu-trigger aside-menu__item" tabindex="0">
+										<span	class="aside-menu__link h3 {% if link_title == sale_text %}sale-item{% endif %}">
+											{{ link.title | escape }}
+										</span>
+										{% render 'icon-arrow' %}
+									</div>
+									<div
+										id="link-{{ link.title | escape }}"
+										class="submenu aside-menu__submenu aside-menu_first motion-reduce"
+										tabindex="0"
+									>
+										<div class="aside-menu__top">
+											<h3 class="aside-menu__top-heading">
+												{{ link.title | escape }}
+											</h3>
+											<button
+												class="aside-menu__toggle aside-menu__toggle--close-btn modal-close-button focus-inset"
+												aria-label="{{ 'accessibility.close' | t }}"
+												tabindex="0"
+											>
+												{% render 'icon-close' %}
+												{% render 'icon-arrow' %}
+											</button>
+										</div>
+										<div class="aside-menu__inner-submenu">
+											{% if mega_menu %}
+												{% render 'mega-menu', link: link, blocks: section.blocks %}
+											{% else %}
+												<ul
+													class="aside-menu__list list-menu"
+													role="list"
+													tabindex="-1"
+												>
+													{%- for childlink in link.links -%}
+														<li>
+															{%- if childlink.links == blank -%}
+																<a
+																	href="{{ childlink.url }}"
+																	class="aside-menu__item aside-menu__link h3"
+																	{% if childlink.current %}
+																		aria-current="page"
+																	{% endif %}
+																	aria-label="{{ childlink.title | escape }}"
+																>
+																	{{ childlink.title | escape }}
+																</a>
+															{%- else -%}
+																<div class="menu-item second_level_details">
+																	<div class="menu-trigger aside-menu__item" tabindex="0">
+																		<span class="aside-menu__link h3">
+																			{{ childlink.title | escape }}
+																		</span>
+																		{% render 'icon-arrow' %}
+																	</div>
+																	<div
+																		id="childlink-{{ childlink.title | escape }}"
+																		class="submenu aside-menu__submenu motion-reduce"
+																	>
+																		<div class="aside-menu__top">
+																			<h3 class="aside-menu__top-heading">
+																				{{ childlink.title | escape }}
+																			</h3>
+																			<button
+																				class="aside-menu__toggle aside-menu__toggle--close-btn modal-close-button focus-inset"
+																				aria-label="{{ 'accessibility.close' | t }}"
+																			>
+																				{% render 'icon-close' %}
+																				{% render 'icon-arrow' %}
+																			</button>
+																		</div>
+																		<div class="aside-menu__inner-submenu">
+																			<ul
+																				class="aside-menu__list list-menu"
+																				role="list"
+																				tabindex="-1"
+																			>
+																				{%- for grandchildlink in childlink.links -%}
+																					<li>
+																						<a
+																							href="{{ grandchildlink.url }}"
+																							class="aside-menu__item aside-menu__link aside-menu__item--grandchild h3"
+																							{% if grandchildlink.current %}
+																								aria-current="page"
+																							{% endif %}
+																							aria-label="{{ grandchildlink.title | escape }}"
+																						>
+																							{{ grandchildlink.title | escape }}
+																						</a>
+																					</li>
+																				{%- endfor -%}
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															{%- endif -%}
+														</li>
+													{%- endfor -%}
+												</ul>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							{%- else -%}
+								<a
+									href="{{ link.url }}"
+									{% if link.type == 'http_link' and settings.open_new_tab %}
+										target="_blank"
+									{% endif %}
+									class="aside-menu__item aside-menu__link h3 {% if link_title == sale_text %}sale-item{% endif %}"
+									aria-label="{{ link.title }}"
+								>
+									<span>{{ link.title }}</span>
+								</a>
+							{%- endif -%}
+						</li>
+					{%- endfor -%}
+				{%- endif -%}
+			</ul>
+			{% if size > 0 %}
+				<ul
+					class="aside-menu__list list-menu aside-menu__list-first"
+					role="list"
+				>
+					{%- if section.settings.enable_aside_menu -%}
+						{% for block in section.blocks %}
+							{% if block.type == 'aside_mega_menu' %}
+								{% liquid
+									assign count = count | plus: 1
+								%}
+								{% if block.settings.menu_label != blank %}
+									<li
+										class="aside-main-menu"
+										style="transition-delay: calc({{ count }} * 0.08s);"
+									>
+										{% if block.settings.button_function == 'popup' %}
+											<div class="menu-item first_level_details">
+												<div class="menu-trigger aside-menu__item" tabindex="0">
+													<span class="aside-menu__link h3">
+														{%- if block.settings.custom_icon != blank
+															or block.settings.custom_icon_dm != blank
+														-%}
+															{% if block.settings.custom_icon != blank %}
+																{%- assign height = 24
+																	| divided_by: block.settings.custom_icon.aspect_ratio
+																	| round: 2
+																-%}
+																{{
+																	block.settings.custom_icon
+																	| image_url: width: 96
+																	| image_tag:
+																		width: 24,
+																		height: height,
+																		widths: '24, 48, 72, 96',
+																		class: 'aside-menu-link-icon custom_icon'
+																}}
+															{% endif %}
+															{% if block.settings.custom_icon_dm != blank %}
+																{%- assign dm_height = 24
+																	| divided_by: block.settings.custom_icon_dm.aspect_ratio
+																	| round: 2
+																-%}
+																{{
+																	block.settings.custom_icon_dm
+																	| image_url: width: 96
+																	| image_tag:
+																		width: 24,
+																		height: dm_height,
+																		widths: '24, 48, 72, 96',
+																		class: 'aside-menu-link-icon custom_icon--dm'
+																}}
+															{% endif %}
+														{%- elsif block.settings.icon != 'none' -%}
+															{% render 'icon-pack',
+																icon: block.settings.icon
+															%}
+														{%- endif -%}
+														{{ block.settings.menu_label }}
+													</span>
+													{% render 'icon-arrow' %}
+												</div>
+												<div
+													id="link-{{ block.settings.menu_label }}"
+													class="submenu aside-menu__submenu aside-menu_first {% if aside_mega_menu %}aside-menu__megamenu{% endif %} motion-reduce"
+													tabindex="0"
+												>
+													<div class="aside-menu__top">
+														<h3 class="aside-menu__top-heading">
+															{{ block.settings.menu_label }}
+														</h3>
+														<button
+															class="aside-menu__toggle aside-menu__toggle--close-btn modal-close-button focus-inset"
+															aria-label="{{ 'accessibility.close' | t }}"
+														>
+															{% render 'icon-close' %}
+															{% render 'icon-arrow' %}
+														</button>
+													</div>
+													<div class="aside-menu__inner-submenu">
+														{% render 'aside-mega-menu', block: block %}
+													</div>
+												</div>
+											</div>
+										{% else %}
+											<a
+												{% if block.settings.menu_link != blank %}
+													href="{{ block.settings.menu_link }}"
+												{% endif %}
+												{% if settings.open_new_tab %}
+													target="_blank"
+												{% endif %}
+												{% if block.settings.menu_link == blank %}
+													aria-disabled="true"
+												{% endif %}
+												class="aside-menu__item aside-menu__link h3"
+												aria-label="{{ block.settings.menu_label }}"
+											>
+												<span class="aside-menu__item-icon">
+													{%- if block.settings.custom_icon != blank
+														or block.settings.custom_icon_dm != blank
+													-%}
+														{% if block.settings.custom_icon != blank %}
+															{%- assign height = 24
+																| divided_by: block.settings.custom_icon.aspect_ratio
+																| round: 2
+															-%}
+															{{
+																block.settings.custom_icon
+																| image_url: width: 96
+																| image_tag:
+																	width: 24,
+																	height: height,
+																	widths: '24, 48, 72, 96',
+																	class: 'aside-menu-link-icon custom_icon'
+															}}
+														{% endif %}
+														{% if block.settings.custom_icon_dm != blank %}
+															{%- assign dm_height = 24
+																| divided_by: block.settings.custom_icon_dm.aspect_ratio
+																| round: 2
+															-%}
+															{{
+																block.settings.custom_icon_dm
+																| image_url: width: 96
+																| image_tag:
+																	width: 24,
+																	height: dm_height,
+																	widths: '24, 48, 72, 96',
+																	class: 'aside-menu-link-icon custom_icon--dm'
+															}}
+														{% endif %}
+													{%- elsif block.settings.icon != 'none' -%}
+														{% render 'icon-pack',
+															icon: block.settings.icon
+														%}
+													{%- endif -%}
+													{{ block.settings.menu_label }}
+												</span>
+											</a>
+										{% endif %}
+									</li>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					{%- endif -%}
+				</ul>
+			{% endif %}
+			{% if section.settings.aside_additional_menu != blank
+				and section.settings.enable_aside_menu
+			%}
+				<ul
+					class="aside-menu__list aside-menu__list-second list-menu"
+					role="list"
+				>
+					{%- for link in section.settings.aside_additional_menu.links -%}
+						{% assign count = count | plus: 1 %}
+						<li
+							class="aside-main-menu"
+							style="transition-delay: calc({{ count }} * 0.08s);"
+						>
+							{%- if link != blank -%}
+								<a
+									href="{{ link.url }}"
+									class="aside-menu__link"
+									{% if link.current %}
+										aria-current="page"
+									{% endif %}
+								>
+									<span>
+										{{ link.title | escape }}
+									</span>
+								</a>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+
+		<div class="menu-drawer__bottom">
+			<div class="menu-drawer__bottom_left">
+				{% if shop.customer_accounts_enabled %}
+					<div class="aside-menu-drawer__account">
+						<a
+							href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+							class="aside-menu__account link focus-inset"
+							{%- if customer -%}
+								data-button-text="{{ 'customer.account_fallback' | t }}"
+								aria-label="{{ 'customer.account_fallback' | t }}"
+							{%- else -%}
+								data-button-text="{{ 'customer.log_in' | t }}"
+								aria-label="{{ 'customer.log_in' | t }}"
+							{%- endif -%}
+						>
+							{% render 'icon-account' %}
+						</a>
+					</div>
+				{% endif %}
+				{% render 'color-scheme' %}
+			</div>
+
+			{% if section.settings.enable_aside_menu %}
+				<div class="menu-drawer__localization-wrapper">
+					{%- if section.settings.enable_country_selector
+						and localization.available_countries.size > 1
+					-%}
+						<div class="header__localization menu-drawer__localization header__localization--country{% if section.settings.enable_language_selector and localization.available_languages.size > 1 %} available_languages{% endif %}">
+							<localization-form>
+								{%- form 'localization',
+									id: 'HeaderCountryFormMobile',
+									class: 'localization-form'
+								-%}
+									<div class="no-js-hidden">
+										<div class="disclosure">
+											<button
+												type="button"
+												class="header__localization-button disclosure__button localization-form__select localization-selector link link--text focus-inset secondary_text"
+												aria-expanded="false"
+												aria-controls="HeaderCountryListMobile"
+												aria-describedby="HeaderCountryLabel"
+											>
+												<span class="currency-country">
+													{{ localization.country.name }} (
+													{{- localization.country.currency.iso_code }}
+													{{ localization.country.currency.symbol }})
+												</span>
+												{% render 'icon-caret' %}
+											</button>
+											<ul
+												id="HeaderCountryListMobile"
+												role="list"
+												class="disclosure__list list-unstyled color-background-1"
+												hidden
+											>
+												{%- for country in localization.available_countries -%}
+													<li class="disclosure__item" tabindex="-1">
+														<a
+															class="link link--text disclosure__link disclosure__link--flag {% if country.iso_code == localization.country.iso_code %} disclosure__link--active{% endif %} focus-inset secondary_text"
+															href="#"
+															{% if country.iso_code
+																	== localization.country.iso_code
+															%}
+																aria-current="true"
+															{% endif %}
+															aria-label="{{ country.name }}"
+															data-value="{{ country.iso_code }}"
+															data-flag="{{ country.currency.iso_code }}"
+														>
+															<span>
+																{{ country.name }}
+																<span class="localization-form__currency"
+																	>({{ country.currency.iso_code }}
+																	{{ country.currency.symbol }})</span
+																>
+															</span>
+														</a>
+													</li>
+												{%- endfor -%}
+											</ul>
+										</div>
+										<input
+											type="hidden"
+											name="country_code"
+											value="{{ localization.country.iso_code }}"
+										>
+									</div>
+								{%- endform -%}
+							</localization-form>
+						</div>
+					{%- endif -%}
+					{%- if section.settings.enable_language_selector
+						and localization.available_languages.size > 1
+					-%}
+						<div class="header__localization menu-drawer__localization header__localization--language">
+							<localization-form>
+								{%- form 'localization',
+									id: 'HeaderLanguageFormMobile',
+									class: 'localization-form'
+								-%}
+									<div class="no-js-hidden">
+										<div class="disclosure">
+											<button
+												type="button"
+												class="disclosure__button header__localization-lang-button localization-form__select localization-selector link link--text focus-inset secondary_text"
+												aria-expanded="false"
+												aria-controls="HeaderLanguageListMobile"
+												aria-describedby="HeaderLanguageLabel"
+											>
+												<span class="value">
+													{{ localization.language.endonym_name | capitalize }}
+												</span>
+												{% render 'icon-caret' -%}
+											</button>
+											<ul
+												id="HeaderLanguageListMobile"
+												role="list"
+												class="disclosure__list list-unstyled color-background-1"
+												hidden
+											>
+												{%- for language in localization.available_languages -%}
+													<li class="disclosure__item" tabindex="-1">
+														<a
+															class="link link--text disclosure__link {% if language.iso_code == localization.language.iso_code %} disclosure__link--active{% endif %} focus-inset secondary_text"
+															href="#"
+															hreflang="{{ language.iso_code }}"
+															lang="{{ language.iso_code }}"
+															{% if language.iso_code
+																	== localization.language.iso_code
+															%}
+																aria-current="true"
+															{% endif %}
+															aria-label="{{ language.endonym_name }}"
+															data-value="{{ language.iso_code }}"
+														>
+															<span> 
+																{{ language.endonym_name | capitalize }}
+															</span>
+														</a>
+													</li>
+												{%- endfor -%}
+											</ul>
+										</div>
+										<input
+											type="hidden"
+											name="locale_code"
+											value="{{ localization.language.iso_code }}"
+										>
+									</div>
+								{%- endform -%}
+							</localization-form>
+						</div>
+					{%- endif -%}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>

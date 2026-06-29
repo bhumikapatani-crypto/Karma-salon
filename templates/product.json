@@ -1,0 +1,405 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h2",
+            "additional_text": "Reliable quality, thoughtful design."
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_info": false,
+            "show_shipping": false,
+            "show_sku": true
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "variant_picker_heading": "Choose Your Design",
+            "option_icons": true,
+            "picker_type": "button",
+            "swatch_type": "variant_image"
+          }
+        },
+        "inventory": {
+          "type": "inventory",
+          "settings": {}
+        },
+        "popup": {
+          "type": "popup",
+          "settings": {
+            "product_popup_heading": "How to Get It",
+            "label": "Delivery",
+            "icon": "package_2",
+            "page": "",
+            "heading": "Delivery",
+            "text": "<p>We will contact you about delivery and freight after Checkout.<br/><br/>We use cookies to provide this service. Read more about how we use cookies in <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">our policy</a>. Please note that your location won’t be shared.</p>"
+          }
+        },
+        "custom_liquid_Nqj6Cb": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "<a href=\"/pages/warranty?product_title={{ product.title }}\" class=\"\" id=\"open-warranty\">\n  <span class=\"add-to-cart-text__content\">\n    <span> <span>Warranty Form</span> </span>\n  </span>\n</a>"
+          }
+        },
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_quantity": true,
+            "show_gift_card_recipient": false,
+            "notification_modal": true,
+            "modal_button_label": "Notify Me",
+            "heading": "Availability Notification",
+            "description": "We'll notify you as soon as the item is back in stock."
+          }
+        },
+        "share_Dg4PWe": {
+          "type": "share",
+          "settings": {
+            "show_share_twitter": true,
+            "show_share_facebook": true,
+            "show_share_pinterest": true,
+            "show_share_telegram": false,
+            "show_share_reddit": false,
+            "show_share_copy": true
+          }
+        },
+        "description_btfzQx": {
+          "type": "description",
+          "settings": {
+            "description": ""
+          }
+        },
+        "dropdown_information_t4HAkU": {
+          "type": "dropdown_information",
+          "settings": {
+            "button_function": "popup",
+            "heading": "Specs",
+            "page": "",
+            "description": "{{ product.metafields.custom.specs | metafield_tag }}",
+            "second_description": "",
+            "additional_text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "dropdown_information_iBnKzn": {
+          "type": "dropdown_information",
+          "settings": {
+            "button_function": "popup",
+            "heading": "Dimensions",
+            "page": "",
+            "description": "{{ product.metafields.custom.dimensions | metafield_tag }}",
+            "second_description": "",
+            "additional_text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "dropdown_information_HzbCqk": {
+          "type": "dropdown_information",
+          "settings": {
+            "button_function": "popup",
+            "heading": "Warranty",
+            "page": "",
+            "description": "{{ product.metafields.custom.warranty | metafield_tag }}",
+            "second_description": "",
+            "additional_text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "dropdown_information_tJxYyp": {
+          "type": "dropdown_information",
+          "settings": {
+            "button_function": "popup",
+            "heading": "Assembly Instructions",
+            "page": "",
+            "description": "{{ product.metafields.custom.assembly_instructions | metafield_tag }}",
+            "second_description": "",
+            "additional_text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "complementary_JE7N9h": {
+          "type": "complementary",
+          "settings": {
+            "products_limit": 10,
+            "complementary_heading": "Complementary products",
+            "show_arrows": true,
+            "show_bullets": true,
+            "columns_mobile": "1",
+            "image_ratio": "3/4",
+            "image_fit": "cover",
+            "show_secondary_image": true,
+            "show_vendor": false,
+            "show_collection": false,
+            "show_desc": false
+          }
+        },
+        "floated_form_a8zCNy": {
+          "type": "floated_form",
+          "settings": {
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "variant_picker",
+        "inventory",
+        "popup",
+        "custom_liquid_Nqj6Cb",
+        "pickup_availability",
+        "buy_buttons",
+        "share_Dg4PWe",
+        "description_btfzQx",
+        "dropdown_information_t4HAkU",
+        "dropdown_information_iBnKzn",
+        "dropdown_information_HzbCqk",
+        "dropdown_information_tJxYyp",
+        "complementary_JE7N9h",
+        "floated_form_a8zCNy"
+      ],
+      "settings": {
+        "desktop_alignment": "left",
+        "mobile_alignment": "before",
+        "gallery_type": "thumbs_aside",
+        "variant_media_display": "show_all",
+        "image_ratio": "3/4",
+        "image_fit": "contain",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "image_slider_yGqhPY": {
+      "type": "image-slider",
+      "blocks": {
+        "image_slider_item_YYBnRa": {
+          "type": "image_slider_item",
+          "settings": {
+            "image": "shopify://shop_images/banner_image_3_1.jpg",
+            "overlay_opacity": 0
+          }
+        },
+        "image_slider_item_9NwtYe": {
+          "type": "image_slider_item",
+          "settings": {
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_slider_item_YYBnRa",
+        "image_slider_item_9NwtYe"
+      ],
+      "disabled": true,
+      "name": "t:sections.image-slider.name",
+      "settings": {
+        "section_heading": "Product Gallery",
+        "section_heading_size": "h2",
+        "section_description": "The essence of these designs.",
+        "section_button_label": "",
+        "section_button_link": "",
+        "section_button_style": "secondary",
+        "image_size": "21/9",
+        "is_loop": true,
+        "is_autoplay": false,
+        "is_hover_stop_autoplay": true,
+        "show_arrows": true,
+        "show_bullets": true,
+        "image_slider_speed": 1.5,
+        "image_slider_delay": 3,
+        "color_scheme": "",
+        "slide_effects": "slide",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "card_grid_JY7TNc": {
+      "type": "card-grid",
+      "blocks": {
+        "card_grid_card_bNK7KC": {
+          "type": "card-grid_card",
+          "settings": {
+            "image": "shopify://shop_images/3.jpg",
+            "color_scheme": "",
+            "overlay_opacity": 0.1,
+            "heading": "",
+            "text": "Designed to fit seamlessly into any lifestyle or space, offering flexibility and convenience.",
+            "primary_button_link": ""
+          }
+        },
+        "card_grid_card_RDXjLp": {
+          "type": "card-grid_card",
+          "settings": {
+            "image": "shopify://shop_images/4.jpg",
+            "color_scheme": "",
+            "overlay_opacity": 0.1,
+            "heading": "",
+            "text": "Our products are built to last, ensuring long-term reliability and value.",
+            "primary_button_link": ""
+          }
+        },
+        "card_grid_card_JrW8Kz": {
+          "type": "card-grid_card",
+          "settings": {
+            "image": "shopify://shop_images/5.jpg",
+            "color_scheme": "background-2",
+            "overlay_opacity": 0.1,
+            "heading": "",
+            "text": "We prioritize eco-friendly materials and practices, making your choice better for the environment.",
+            "primary_button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_grid_card_bNK7KC",
+        "card_grid_card_RDXjLp",
+        "card_grid_card_JrW8Kz"
+      ],
+      "disabled": true,
+      "name": "t:sections.card-grid.name",
+      "settings": {
+        "columns_per_row": 3,
+        "layout": "simple",
+        "heading_size": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "image_ratio": "1/1",
+        "section_heading": "Benefits",
+        "section_heading_size": "h2",
+        "section_description": "Experience the perfect blend of quality & style.",
+        "section_button_label": "",
+        "section_button_link": "",
+        "section_button_style": "secondary",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "columns_per_row": 6,
+        "products_limit": 10,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "section_heading": "You Might Be Interested",
+        "section_heading_size": "h2",
+        "section_description": "Discover this selection of pieces specially chosen for you.",
+        "section_button_label": "",
+        "section_button_link": "",
+        "section_button_style": "secondary",
+        "image_ratio": "3/4",
+        "image_fit": "contain",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_collection": false,
+        "show_desc": false,
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "collapsible_content_eJYy7a": {
+      "type": "collapsible-content",
+      "blocks": {
+        "faq_DMfGgT": {
+          "type": "faq",
+          "settings": {
+            "heading": "FAQ",
+            "description": "Find answers to your questions.",
+            "icon": "info",
+            "popup_info": "<h1><span style=\"text-decoration:underline\"><strong>Ordering & Payments </strong></span></h1><p><strong>What payment methods do you accept? </strong></p><p>- We accept major credit cards, PayPal, bank transfer, and selected Buy Now Pay  Later options including Afterpay ZipPay & Klarna. All payments are processed  securely through trusted payment providers. </p><p><strong>Can I receive a tax invoice? </strong></p><p>- Absolutely. A tax invoice will be emailed to you once your order has been  processed. </p><p><strong>Do you offer finance options? </strong></p><p>- We may offer flexible payment or lay buy solutions on selected purchases.  Please contact our team to discuss available options for your salon setup. </p><h1><span style=\"text-decoration:underline\"><strong>Shipping & Delivery </strong></span></h1><p><strong>Do you ship Australia-wide? </strong></p><p>- Yes, we deliver salon furniture and equipment across Australia, including metro,  regional, and remote areas. </p><p><strong>How long does delivery take? </strong></p><p>- Delivery times vary depending on your location and the item ordered. Most in stock items are dispatched within 1–3 business days, with delivery generally  taking: </p><p>Metro areas: 2–7 business days  </p><p>Regional areas: 5–10 business days  </p><p>Bulky or rural freight items may require additional transit time. </p><p><strong>How much does shipping cost? </strong></p><p>- Shipping costs are calculated based on your location and the size of your items.  </p><p><strong>Can I track my order? </strong></p><p>- Yes. Once your order has been dispatched, you will receive tracking details via  email so you can monitor your delivery. </p><p><strong>Do you deliver to residential addresses? </strong></p><p>- Yes, we deliver to both residential and commercial addresses Australia-wide.</p><p><strong>Will the delivery company unpack and set up my furniture? </strong></p><p>- Our standard delivery service is a door-to-door service only. This means your  order will be delivered to the entrance of your salon, business, or home. Delivery  drivers are unable to move furniture into rooms, carry items up staircases or  small lifts, unpack products, or remove packaging and rubbish. </p><h1><span style=\"text-decoration:underline\"><strong>Product Information </strong></span></h1><p><strong>Are your salon chairs commercial-grade? </strong></p><p>- Yes. Our salon and barber furniture is designed for professional commercial use  and built to withstand the demands of busy salon environments. </p><p><strong>Are your salon chairs hydraulic? </strong></p><p>- Many of our salon chairs feature professional hydraulic pump systems for  smooth height adjustment. Product specifications are listed on each product  page. </p><p><strong>What materials are your salon chairs made from? </strong></p><p>- Our chairs are manufactured using high-quality materials including heavy-duty  frames, premium vinyl upholstery, and high-density foam cushioning for comfort  and durability. </p><p><strong>Do your products come assembled? </strong></p><p>- Assembly requirements vary depending on the product. Some items arrive fully  assembled, while others require minor assembly. Assembly details are included  on each product listing on our website. </p><p><strong>Are replacement parts available? </strong></p><p>- Yes, replacement parts are available for many of our products. Please contact  our support team with your order details and product information for assistance. </p><p><strong>Are your basins compatible with Australian plumbing? </strong></p><p>- Yes, our salon basins are designed to suit Australian plumbing standards. We  recommend installation by a licensed plumber to ensure correct setup and  compliance. Please note that failure to use a licensed plumber may void the  product warranty.</p><h1><span style=\"text-decoration:underline\"><strong>Returns & Warranty </strong></span></h1><p><strong>Do your products come with a warranty? </strong></p><p>- Yes, all our products are backed by a manufacturer’s warranty for added peace  of mind. Warranty periods may vary depending on the product, and full warranty  details can be found on each individual product page. </p><p><strong>What is your return policy? </strong></p><p>- We accept returns on eligible items in accordance with Australian Consumer  Law. Returned items must be unused, in their original, unopened packaging, and  returned within the specified return period. Return shipping costs are the  responsibility of the buyer unless the item is faulty or incorrect. </p><p><strong>Can I return an item if I change my mind? </strong></p><p>- Change-of-mind returns may be accepted on selected items, subject to approval  and a restocking fee will apply. Freight charges are non-refundable and freight  costs back to us are the responsibility of the buyer.  </p><p><strong>What should I do if my product has a fault? </strong></p><p>- Please contact us via the warranty page on our website as soon as possible with  photos and a description of the issue. We’ll assess the problem and provide a  suitable solution promptly. </p><h1><span style=\"text-decoration:underline\"><strong>General Questions</strong></span><strong> </strong></h1><p><strong>Can I visit your showroom? </strong></p><p>- We welcome customers to visit our showroom located in Nerang, Gold Coast. Please contact us to confirm if there is a particular item you wish to view so we  can ensure we have the stock on show and in stock.  </p><p><strong>Why choose Salon Furniture Australia? </strong></p><p>- We’re committed to supplying high-quality salon furniture at competitive prices,  backed by reliable customer service and Australia-wide delivery. Our goal is to  help salon owners create professional, stylish, and functional spaces with  confidence. </p><p><strong>Do you sell to the public or trade only? </strong></p><p>- We supply both salon professionals and individual customers across Australia.</p><p><strong>How do I set up a trade account?  </strong></p><p>- To set up a trade account, please head to the <strong>Account </strong>section on our website  and select <strong>Trade Account </strong>during the registration process. Once submitted, our  team will review your application and contact you if any additional information is  required. </p><p><strong>Do you offer wholesale or reseller partnerships? </strong></p><p>- Yes, we welcome partnerships with wholesalers, online retailers, and  businesses looking to list and sell our products through their own website or  store. We offer wholesale pricing and ongoing supply support for approved  reseller accounts. If you are interested in becoming a reseller or listing our  products online, please contact our team to discuss partnership opportunities  and account eligibility.</p>"
+          }
+        },
+        "info_LqBQqb": {
+          "type": "info",
+          "settings": {
+            "heading": "Contact Us",
+            "description": "Get in touch with us.",
+            "icon": "envelope_2",
+            "description_popup": "Get in touch with us for any questions or support. We're here to help.",
+            "popup_info": "<p><strong> Address</strong><br/>71 Lawrence Drive, Nerang, Gold Coast 4211</p><p><strong>Phone Number</strong><br/>+61 459 954 931</p><p><strong>Email</strong></p><p><a href=\"mailto:sales@salonfurnitureaustralia.com.au\">sales@salonfurnitureaustralia.com.au</a></p>",
+            "socials_description": "You can write us in any social media.",
+            "show_social": true
+          }
+        },
+        "info_VAJcWc": {
+          "type": "info",
+          "settings": {
+            "heading": "Call Us",
+            "description": "Call us for quick assistance.",
+            "icon": "phone",
+            "description_popup": "Feel free to give us a call for any questions, support, or inquiries. We’re here to assist you.",
+            "popup_info": "<p><strong>Phone Number</strong><br/>+61 459 954 931</p>",
+            "socials_description": "You can write us in any social media.",
+            "show_social": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_DMfGgT",
+        "info_LqBQqb",
+        "info_VAJcWc"
+      ],
+      "name": "t:sections.collapsible-content.name",
+      "settings": {
+        "color_scheme": "",
+        "image": "shopify://shop_images/chair-karma.jpg",
+        "image_ratio": "16/9",
+        "image_parallax": true,
+        "notebook_bg": false,
+        "section_heading": "Have Any Questions?",
+        "section_heading_size": "h2",
+        "section_description": "Find all the information you need, gathered in one convenient spot.",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent",
+        "padding_top": "m",
+        "padding_bottom": "m"
+      }
+    },
+    "rich_text_m9UJzY": {
+      "type": "rich-text",
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "section_layout": "column",
+        "heading": "",
+        "heading_size": "h2",
+        "text": "<p>Discover our exclusive collections of <a href=\"/collections/sofa-beds\" title=\"Sofa Beds\">sofas</a>, <a href=\"/collections/tabels\" title=\"Tabels\">tables</a>, <a href=\"/collections/chairs\" title=\"Chairs\">chairs</a>, and <a href=\"/collections/lighting\" title=\"Lighting\">lighting</a>, each designed to elevate your living space with style and comfort. From contemporary designs to classic elegance, every piece is crafted to enhance your home’s atmosphere. Create a space that’s both functional and beautiful with our thoughtfully curated selection.</p>",
+        "margin_top": "l",
+        "margin_bottom": "l"
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "image_slider_yGqhPY",
+    "card_grid_JY7TNc",
+    "product-recommendations",
+    "collapsible_content_eJYy7a",
+    "rich_text_m9UJzY"
+  ]
+}
