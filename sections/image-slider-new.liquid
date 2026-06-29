@@ -33,8 +33,9 @@
 	endcase
 %}
 <div
-	class="image-slider {{ slide_class }}"
+	class="image-slider {{ slide_class }} {% if section.settings.heading_custom_size != 'default' %}custom-heading-{{ section.settings.heading_custom_size }}{% endif %} {% if section.settings.subheading_custom_size != 'default' %}custom-subheading-{{ section.settings.subheading_custom_size }}{% endif %}"
 	data-id="shopify-section-{{ section.id }}"
+	data-animation="{{ section.settings.is_animated_heading }}"
 	data-autoplay="{{ autoplay }}"
 	data-stop-autoplay="{{ stop_autoplay }}"
 	data-speed="{{ image_slider_speed }}"
@@ -50,7 +51,12 @@
 			section_description: section.settings.section_description,
 			button_label: section.settings.section_button_label,
 			button_link: section.settings.section_button_link,
-			button_style: section.settings.section_button_style
+			button_style: section.settings.section_button_style,
+			heading_alignment: section.settings.heading_alignment,
+			heading_custom_size: section.settings.heading_custom_size,
+			subheading_custom_size: section.settings.subheading_custom_size,
+			is_animated_heading: section.settings.is_animated_heading,
+			heading_animation_speed: section.settings.heading_animation_speed
 		%}
 	</div>
 	<div class="image-slider__swiper swiper">
@@ -150,7 +156,7 @@
 
 {% schema %}
 {
-	"name": "t:sections.image-slider.name",
+	"name": "new images slider",
 	"tag": "section",
 	"class": "image-slider-section spaced-section",
 	"enabled_on": {
@@ -184,10 +190,87 @@
 			"label": "t:sections.all.heading_size.label"
 		},
 		{
+			"type": "select",
+			"id": "heading_custom_size",
+			"options": [
+				{
+					"value": "default",
+					"label": "Default"
+				},
+				{
+					"value": "extra-large",
+					"label": "Extra Large"
+				},
+				{
+					"value": "super-large",
+					"label": "Super Large"
+				}
+			],
+			"default": "default",
+			"label": "Heading Font Size",
+			"info": "Choose larger font sizes for heading"
+		},
+		{
+			"type": "checkbox",
+			"id": "is_animated_heading",
+			"default": false,
+			"label": "Enable Heading Animation"
+		},
+		{
+			"type": "range",
+			"id": "heading_animation_speed",
+			"min": 50,
+			"max": 300,
+			"step": 50,
+			"label": "Heading Animation Speed",
+			"default": 150
+		},
+		{
+			"type": "select",
+			"id": "heading_alignment",
+			"options": [
+				{
+					"value": "left",
+					"label": "Left"
+				},
+				{
+					"value": "center",
+					"label": "Center"
+				},
+				{
+					"value": "right",
+					"label": "Right"
+				}
+			],
+			"default": "left",
+			"label": "Heading Alignment"
+		},
+		{
 			"type": "textarea",
 			"id": "section_description",
 			"default": "t:sections.image-slider.settings.section_description.default",
 			"label": "t:sections.all.text.label"
+		},
+		{
+			"type": "select",
+			"id": "subheading_custom_size",
+			"options": [
+				{
+					"value": "default",
+					"label": "Default"
+				},
+				{
+					"value": "large",
+					"label": "Large"
+				},
+				{
+					"value": "extra-large",
+					"label": "Extra Large"
+				}
+			],
+			"default": "default",
+			"label": "Subheading Font Size",
+			"info": "Choose larger font sizes for description text"
 		},
 		{
 			"type": "header",

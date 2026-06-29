@@ -483,6 +483,7 @@
   margin: 0 auto;
 }
 .footer__localization .localization-form:only-child {
+  display: inline-flex;
   flex-wrap: wrap;
   flex: initial;
 }

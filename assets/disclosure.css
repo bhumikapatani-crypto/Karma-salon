@@ -54,11 +54,15 @@
 }
 
 .disclosure__link {
-  display: flex;
-  align-items: center;
+  display: block;
   padding: 0.5rem 2.2rem;
   text-decoration: none;
   line-height: 1.4;
+}
+.disclosure__link > span {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 #FooterLanguageList .disclosure__link > span {

@@ -224,3 +224,56 @@
   position: relative;
   z-index: 3;
 }
+
+
+/* Reduce image height for about page image-with-text section */
+
+/* Desktop: Remove forced aspect ratio and show full image */
+@media screen and (min-width: 750px) {
+  .image-with-text__promo {
+    max-height: 650px;
+  }
+
+  .image-with-text__promo::after {
+    padding-bottom: 0 !important;
+  }
+
+  .image-with-text__promo-img {
+    position: relative !important;
+    height: auto !important;
+  }
+
+  .image-with-text__promo-img img,
+  .image-with-text__promo-img svg,
+  .image-with-text__promo-img video {
+    position: relative !important;
+    object-fit: contain !important;
+    max-height: 650px;
+  }
+}
+
+/* Mobile: Keep normal aspect ratio behavior but use contain */
+@media screen and (max-width: 749px) {
+  .image-with-text__promo-img img,
+  .image-with-text__promo-img svg,
+  .image-with-text__promo-img video {
+    object-fit: contain !important;
+  }
+}
+
+/* Reduce padding for smaller section */
+.image-with-text__right-block {
+  padding: 2rem 1.5rem !important;
+}
+
+@media screen and (min-width: 750px) {
+  .image-with-text__right-block {
+    padding: 3rem 2rem !important;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .image-with-text__right-block {
+    padding: 4rem 5rem !important;
+  }
+}

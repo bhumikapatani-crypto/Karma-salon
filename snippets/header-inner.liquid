@@ -1,10 +1,4 @@
 <div class="header__left">
-  {% comment %}
-    {%- if section.settings.menu != blank -%}
-      {% render 'header-drawer' %}
-    {%- endif -%}
-  {% endcomment %}
-
   <button
     class="header__offcanvas-toggle aside-menu__toggle aside-menu__toggle--open-btn button--unstyled focus-inset {% if section.settings.enable_aside_menu %}aside-menu__enable{% endif %}"
     aria-label="{{ 'sections.header.aside_menu' | t }}"
@@ -19,92 +13,186 @@
   </button>
   {%- render 'aside-menu' -%}
 
-  {% render 'header-logo' %}
-
-  {%- if section.settings.enable_search -%}
-    <div
-      class="header__search header__search_desktop search"
-      id="{{ section.id }}"
-      role="dialog"
-      aria-modal="true"
-      aria-label="{{ 'general.search.search' | t }}"
-    >
-      <div class="search__content">
-        <div class="search__main">
-          {%- if settings.predictive_search_enabled -%}
-            <predictive-search class="search-modal__form search-modal__form-desktop" data-loading-text="{{ 'accessibility.loading' | t }}">
-          {%- endif -%}
-          <div class="search__container">
-            <form
-              action="{{ routes.search_url }}"
-              method="get"
-              role="search"
-              class="search search__form"
-            >
-              <div class="field">
-                <button
-                  class="search__button button focus-inset"
-                  aria-label="{{ 'general.search.search' | t }}"
-                >
-                  {% render 'icon-search' %}
-                </button>
-                <input
-                  class="search__input field__input"
-                  id="Search-In-Modal-1"
-                  type="search"
-                  dir="ltr"
-                  name="q"
-                  value="{{ search.terms | escape }}"
-                  placeholder="{{ 'general.search.placeholder' | t }}"
-                  {%- if settings.predictive_search_enabled -%}
-                    role="combobox"
-                    aria-expanded="false"
-                    aria-owns="predictive-search-results-list"
-                    aria-controls="predictive-search-results-list"
-                    aria-haspopup="listbox"
-                    aria-autocomplete="list"
-                    autocorrect="off"
-                    autocomplete="off"
-                    autocapitalize="off"
-                    spellcheck="false"
-                  {%- endif -%}
-                >
-                <span class="search__input--icon-clear focus-inset" tabindex="0" aria-label="{{ 'accessibility.close' | t }}">
-                  {% render 'icon-close' %}
-                </span>
-                <label class="visually-hidden" for="Search-In-Modal-1">{{ 'general.search.search' | t }}</label>
-                <input type="hidden" name="options[prefix]" value="last">
-              </div>
-
-              {%- if settings.predictive_search_enabled -%}
-                <div
-                  class="predictive-search predictive-search--header color-background-1"
-                  id="predictive-search-{{ section.id }}"
-                  tabindex="-1"
-                  data-predictive-search
-                >
-                  <div class="predictive-search__loading-state">
-                    {% render 'icon-spinner' %}
-                  </div>
+  {%- if section.settings.header_layout == 'search_center' -%}
+    {% render 'header-logo' %}
+  {%- else -%}
+     {%- if section.settings.enable_search -%}
+      <div
+        class="header__search header__search_desktop search"
+        id="{{ section.id }}"
+        role="dialog"
+        aria-modal="true"
+        aria-label="{{ 'general.search.search' | t }}"
+      >
+        <div class="search__content">
+          <div class="search__main">
+            {%- if settings.predictive_search_enabled -%}
+              <predictive-search class="search-modal__form search-modal__form-desktop" data-loading-text="{{ 'accessibility.loading' | t }}">
+            {%- endif -%}
+            <div class="search__container">
+              <form
+                action="{{ routes.search_url }}"
+                method="get"
+                role="search"
+                class="search search__form"
+              >
+                <div class="field">
+                  <button
+                    class="search__button button focus-inset"
+                    aria-label="{{ 'general.search.search' | t }}"
+                  >
+                    {% render 'icon-search' %}
+                  </button>
+                  <input
+                    class="search__input field__input"
+                    id="Search-In-Modal-1"
+                    type="search"
+                    dir="ltr"
+                    name="q"
+                    value="{{ search.terms | escape }}"
+                    placeholder="{{ 'general.search.placeholder' | t }}"
+                    {%- if settings.predictive_search_enabled -%}
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-owns="predictive-search-results-list"
+                      aria-controls="predictive-search-results-list"
+                      aria-haspopup="listbox"
+                      aria-autocomplete="list"
+                      autocorrect="off"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                    {%- endif -%}
+                  >
+                  <span class="search__input--icon-clear focus-inset" tabindex="0" aria-label="{{ 'accessibility.close' | t }}">
+                    {% render 'icon-close' %}
+                  </span>
+                  <label class="visually-hidden" for="Search-In-Modal-1">{{ 'general.search.search' | t }}</label>
+                  <input type="hidden" name="options[prefix]" value="last">
                 </div>
 
-                <span
-                  class="predictive-search-status visually-hidden"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
-              {%- endif -%}
+                {%- if settings.predictive_search_enabled -%}
+                  <div
+                    class="predictive-search predictive-search--header color-background-1"
+                    id="predictive-search-{{ section.id }}"
+                    tabindex="-1"
+                    data-predictive-search
+                  >
+                    <div class="predictive-search__loading-state">
+                      {% render 'icon-spinner' %}
+                    </div>
+                  </div>
 
-              {% render 'search-modal' %}
+                  <span
+                    class="predictive-search-status visually-hidden"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                {%- endif -%}
 
-            </form>
+                {% render 'search-modal' %}
+
+              </form>
+            </div>
+            {%- if settings.predictive_search_enabled -%}
+              </predictive-search>
+            {%- endif -%}
           </div>
-          {%- if settings.predictive_search_enabled -%}
-            </predictive-search>
-          {%- endif -%}
         </div>
       </div>
-    </div>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+<div class="header__center">
+  {%- if section.settings.header_layout == 'logo_center' -%}
+    {% render 'header-logo' %}
+  {%- else -%}
+    {%- if section.settings.enable_search -%}
+      <div
+        class="header__search header__search_desktop search"
+        id="{{ section.id }}"
+        role="dialog"
+        aria-modal="true"
+        aria-label="{{ 'general.search.search' | t }}"
+      >
+        <div class="search__content">
+          <div class="search__main">
+            {%- if settings.predictive_search_enabled -%}
+              <predictive-search class="search-modal__form search-modal__form-desktop" data-loading-text="{{ 'accessibility.loading' | t }}">
+            {%- endif -%}
+            <div class="search__container">
+              <form
+                action="{{ routes.search_url }}"
+                method="get"
+                role="search"
+                class="search search__form"
+              >
+                <div class="field">
+                  <button
+                    class="search__button button focus-inset"
+                    aria-label="{{ 'general.search.search' | t }}"
+                  >
+                    {% render 'icon-search' %}
+                  </button>
+                  <input
+                    class="search__input field__input"
+                    id="Search-In-Modal-2"
+                    type="search"
+                    dir="ltr"
+                    name="q"
+                    value="{{ search.terms | escape }}"
+                    placeholder="{{ 'general.search.placeholder' | t }}"
+                    {%- if settings.predictive_search_enabled -%}
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-owns="predictive-search-results-list"
+                      aria-controls="predictive-search-results-list"
+                      aria-haspopup="listbox"
+                      aria-autocomplete="list"
+                      autocorrect="off"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                    {%- endif -%}
+                  >
+                  <span class="search__input--icon-clear focus-inset" tabindex="0" aria-label="{{ 'accessibility.close' | t }}">
+                    {% render 'icon-close' %}
+                  </span>
+                  <label class="visually-hidden" for="Search-In-Modal-2">{{ 'general.search.search' | t }}</label>
+                  <input type="hidden" name="options[prefix]" value="last">
+                </div>
+
+                {%- if settings.predictive_search_enabled -%}
+                  <div
+                    class="predictive-search predictive-search--header color-background-1"
+                    id="predictive-search-{{ section.id }}-center"
+                    tabindex="-1"
+                    data-predictive-search
+                  >
+                    <div class="predictive-search__loading-state">
+                      {% render 'icon-spinner' %}
+                    </div>
+                  </div>
+
+                  <span
+                    class="predictive-search-status visually-hidden"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                {%- endif -%}
+
+                {% render 'search-modal' %}
+
+              </form>
+            </div>
+            {%- if settings.predictive_search_enabled -%}
+              </predictive-search>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
   {%- endif -%}
 </div>
 
@@ -113,7 +201,7 @@
     {% assign sale_text = 'sale' | t | downcase %}
     <nav class="header__inline-menu">
       <ul class="list-menu list-menu--inline" role="list">
-        {%- for link in section.settings.menu.links limit:4 -%}
+        {%- for link in section.settings.menu.links limit:5 -%}
           {% liquid
             assign simple_mega_menu = false
             assign mega_menu = false
@@ -216,7 +304,88 @@
 
     {% render 'color-scheme' %}
 
-    {% render 'header-account' %}
+    {%- if shop.customer_accounts_enabled -%}
+      <details-disclosure class="header__account">
+        <details>
+          <summary
+            class="header__icon header__icon--account link--text header__icon--summary focus-inset modal__toggle"
+            aria-haspopup="dialog"
+            role="button"
+          >
+            {% render 'icon-account' %}
+          </summary>
+          <div
+            class="header__account-modal modal__toggle color-background-1"
+            role="dialog"
+            aria-modal="true"
+          >
+            {%- if customer -%}
+              <div class="header__account__account">
+                <div class="header__account__name subheading">{{ customer.name }}</div>
+                <ul class="header__account__body">
+                  <li class="header__account__link">
+                    <a
+                      href="{{ routes.account_url }}"
+                      aria-label="{{ 'customer.account_fallback' | t }}"
+                    >
+                      {{ 'customer.account_fallback' | t }}
+                    </a>
+                  </li>
+                  <li class="header__account__address">
+                    <a
+                      href="{{ routes.account_addresses_url }}"
+                      aria-label="{{ 'customer.addresses.book' | t }}"
+                    >
+                      {{- 'customer.addresses.book' | t -}}
+                    </a>
+                  </li>
+                </ul>
+                <a
+                  class="header__account__logout button button--primary button--primary-size focus-inset"
+                  href="{{ routes.account_logout_url }}"
+                  data-button-text="{{ 'customer.log_out' | t }}"
+                  aria-label="{{ 'customer.log_out' | t }}"
+                >
+                  <span>
+                    {{ 'customer.log_out' | t }}
+                  </span>
+                </a>
+              </div>
+            {%- else -%}
+              <a
+                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                class="button button--tertiary button--primary-size button header__account__login link focus-inset"
+                {%- if customer -%}
+                  data-button-text="{{ 'customer.account_fallback' | t }}"
+                  aria-label="{{ 'customer.account_fallback' | t }}"
+                {%- else -%}
+                  data-button-text="{{ 'customer.log_in' | t }}"
+                  aria-label="{{ 'customer.log_in' | t }}"
+                {%- endif -%}
+              >
+                <span>
+                  {% if customer %}
+                    {{ 'customer.account_fallback' | t }}
+                  {% else %}
+                    {{ 'customer.log_in' | t }}
+                  {% endif %}
+                </span>
+              </a>
+
+              <span class="subheading header__account__info">{{ 'customer.login_page.create_account_info' | t }}</span>
+
+              <a
+                class="header__account__register link button button--secondary"
+                href="{{ routes.account_register_url }}"
+                aria-label="{{ 'customer.login_page.create_account' | t }}"
+              >
+                <span>{{ 'customer.login_page.create_account' | t }}</span>
+              </a>
+            {%- endif -%}
+          </div>
+        </details>
+      </details-disclosure>
+    {%- endif -%}
 
     <div class="{% if request.page_type != 'cart' %}header__cart {% else %} header__cart--page{% endif %}">
       <a

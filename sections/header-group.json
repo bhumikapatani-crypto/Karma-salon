@@ -17,14 +17,20 @@
         "menu_1": {
           "type": "aside_mega_menu",
           "settings": {
-            "menu_label": "Chairs",
+            "menu_label": "FURNITURE",
             "menu_link": "",
             "icon": "table",
             "button_function": "popup",
             "collection_list": [
-              "barber-chairs",
-              "makeup-chairs",
-              "salon-chairs"
+              "barber-chairs-1",
+              "shampoo-units",
+              "beauty-beds-1",
+              "makeup-chairs-1",
+              "salon-chairs-1",
+              "stools-1",
+              "trolleys-1",
+              "waiting-lounges-1",
+              "work-stations-1"
             ],
             "images_shape": "square",
             "desc": "",
@@ -35,15 +41,11 @@
         "menu_2": {
           "type": "aside_mega_menu",
           "settings": {
-            "menu_label": "Furniture",
-            "menu_link": "",
+            "menu_label": "Accessories",
+            "menu_link": "shopify://collections/accessories",
             "icon": "sofa",
-            "button_function": "popup",
-            "collection_list": [
-              "work-stations",
-              "waiting-lounges",
-              "trolleys"
-            ],
+            "button_function": "link",
+            "collection_list": [],
             "images_shape": "square",
             "desc": "",
             "button_label": "",
@@ -53,48 +55,15 @@
         "menu_3": {
           "type": "aside_mega_menu",
           "settings": {
-            "menu_label": "Equipment",
+            "menu_label": "Electrical",
             "menu_link": "",
             "icon": "bath",
             "button_function": "popup",
             "collection_list": [
-              "basin-units",
-              "electrical"
-            ],
-            "images_shape": "square",
-            "desc": "",
-            "button_label": "",
-            "button_link": ""
-          }
-        },
-        "aside_mega_menu_XpP4xz": {
-          "type": "aside_mega_menu",
-          "settings": {
-            "menu_label": "Accessories",
-            "menu_link": "",
-            "icon": "stars",
-            "button_function": "popup",
-            "collection_list": [
-              "acessories",
-              "barber-poles",
-              "anti-fatigue-mats"
-            ],
-            "images_shape": "square",
-            "desc": "",
-            "button_label": "",
-            "button_link": ""
-          }
-        },
-        "aside_mega_menu_qkDMt4": {
-          "type": "aside_mega_menu",
-          "settings": {
-            "menu_label": "Others",
-            "menu_link": "",
-            "icon": "label",
-            "button_function": "popup",
-            "collection_list": [
-              "stools",
-              "beauty-beds"
+              "lighting",
+              "hot-towel-cabinets",
+              "facial-steamers",
+              "beauty-machine"
             ],
             "images_shape": "square",
             "desc": "",
@@ -106,21 +75,20 @@
       "block_order": [
         "menu_1",
         "menu_2",
-        "menu_3",
-        "aside_mega_menu_XpP4xz",
-        "aside_mega_menu_qkDMt4"
+        "menu_3"
       ],
       "settings": {
         "enable_border": true,
-        "logo": "shopify://shop_images/karma_logo.jpg",
-        "logo_width": 130,
+        "logo": "shopify://shop_images/Logo.jpg",
+        "logo_width": 170,
         "menu": "main-menu",
         "sticky_header_type": "on-scroll-up",
         "enable_aside_menu": true,
         "aside_additional_menu": "customer-account-main-menu",
         "enable_country_selector": true,
         "enable_language_selector": true,
-        "enable_search": true
+        "enable_search": true,
+        "header_layout": "search_center"
       }
     }
   },

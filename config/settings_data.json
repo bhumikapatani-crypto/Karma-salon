@@ -40,11 +40,14 @@
     "popup_heading_scale": 112,
     "notification_heading_scale": 100,
     "colors_badge_labels_custom": "#5d735d",
+    "social_instagram_link": "https://www.instagram.com/karmasalon_furniture/",
+    "favicon": "shopify://shop_images/Karma_Favicon.png",
     "show_on_mobile": true,
     "search_product": [],
     "search_media_size": "3/4",
     "cart_color_scheme": "background-1",
     "show_cart_note_drawer": true,
+    "show_shipping": false,
     "currency_code_enabled": false,
     "search_page_card_ratio": "16/9",
     "sale_badge_color_scheme": "background-1",
@@ -124,6 +127,7 @@
       }
     }
   },
+  "installed_preset_name": "Residence",
   "presets": {
     "Stockist": {
       "color_scheme": "light",

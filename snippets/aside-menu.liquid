@@ -5,7 +5,7 @@
 	{%- endif -%}
 {% endfor %}
 
-<div class="aside-menu" data-menu-trigger="{{ section.settings.aside_menu_trigger }}">
+<div class="aside-menu">
 	<div class="aside-menu__overlay color-background-2"></div>
 	<div
 		class="aside-menu__wrapper color-background-1"
@@ -42,7 +42,7 @@
 							{% for block in section.blocks %}
 								{% liquid
 									assign mega_menu_trigger = block.settings.mega_menu_trigger | handle | strip
-
+	
 									if link.handle == mega_menu_trigger
 									 assign mega_menu = true
 									endif
@@ -354,7 +354,21 @@
 		<div class="menu-drawer__bottom">
 			<div class="menu-drawer__bottom_left">
 				{% if shop.customer_accounts_enabled %}
-					{% render 'header-account', is_mobile: true %}
+					<div class="aside-menu-drawer__account">
+						<a
+							href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+							class="aside-menu__account link focus-inset"
+							{%- if customer -%}
+								data-button-text="{{ 'customer.account_fallback' | t }}"
+								aria-label="{{ 'customer.account_fallback' | t }}"
+							{%- else -%}
+								data-button-text="{{ 'customer.log_in' | t }}"
+								aria-label="{{ 'customer.log_in' | t }}"
+							{%- endif -%}
+						>
+							{% render 'icon-account' %}
+						</a>
+					</div>
 				{% endif %}
 				{% render 'color-scheme' %}
 			</div>
@@ -379,11 +393,6 @@
 												aria-controls="HeaderCountryListMobile"
 												aria-describedby="HeaderCountryLabel"
 											>
-												{%- if section.settings.show_country_flag -%}
-													<span class="currency-flag currency-country" aria-hidden="true">
-														{{- localization.country | image_url: width: 40 | image_tag: class: 'currency-flag-img' -}}
-													</span>
-												{%- endif -%}
 												<span class="currency-country">
 													{{ localization.country.name }} (
 													{{- localization.country.currency.iso_code }}
@@ -398,17 +407,26 @@
 												hidden
 											>
 												{%- for country in localization.available_countries -%}
-													<li class="disclosure__item secondary_text" tabindex="-1">
-														<a class="link link--text disclosure__link caption-large{% if country.iso_code == localization.country.iso_code %} disclosure__link--active{% endif %} focus-inset" href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
-																{%- if section.settings.show_country_flag -%}
-																	<span class="currency-flag" aria-hidden="true">
-																		{{- country | image_url: width: 40 | image_tag: class: 'currency-flag-img' -}}
-																	</span>
-																{%- endif -%}
-																<span class="disclosure__country-name">
-																	{{ country.name }}
-																</span>
-																<span class="localization-form__currency">({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
+													<li class="disclosure__item" tabindex="-1">
+														<a
+															class="link link--text disclosure__link disclosure__link--flag {% if country.iso_code == localization.country.iso_code %} disclosure__link--active{% endif %} focus-inset secondary_text"
+															href="#"
+															{% if country.iso_code
+																	== localization.country.iso_code
+															%}
+																aria-current="true"
+															{% endif %}
+															aria-label="{{ country.name }}"
+															data-value="{{ country.iso_code }}"
+															data-flag="{{ country.currency.iso_code }}"
+														>
+															<span>
+																{{ country.name }}
+																<span class="localization-form__currency"
+																	>({{ country.currency.iso_code }}
+																	{{ country.currency.symbol }})</span
+																>
+															</span>
 														</a>
 													</li>
 												{%- endfor -%}
@@ -468,7 +486,7 @@
 															aria-label="{{ language.endonym_name }}"
 															data-value="{{ language.iso_code }}"
 														>
-															<span>
+															<span> 
 																{{ language.endonym_name | capitalize }}
 															</span>
 														</a>
