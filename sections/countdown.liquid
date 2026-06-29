@@ -37,12 +37,12 @@
     assign media_chosen = true
   endif
 
-  assign countdown_fontsize = "h0"
-  if section.settings.layout == "simple"
-    assign countdown_fontsize = "h2 spec_big"
+  assign countdown_fontsize = 'h0'
+  if section.settings.layout == 'simple'
+    assign countdown_fontsize = 'h2 spec_big'
 
     if section.settings.desktop_image != blank
-      assign countdown_fontsize = "h2 spec_big with-media"
+      assign countdown_fontsize = 'h2 spec_big with-media'
     endif
   endif
 %}
@@ -51,203 +51,206 @@
   class="countdown js-countdown countdown--overlay section-{{ section.id }}-padding color-{{ section.settings.heading_color }} js-countdown-{{ section.id }} {{ scheme.settings.color_accent }}"
   data-date="{{ section.settings.date_picker }}"
   data-time="{{ section.settings.time_picker }}"
-  data-completed="{{ section.settings.completed_countdown }}" 
+  data-completed="{{ section.settings.completed_countdown }}"
   data-enable-mock-timer="{{ section.settings.enable_mock_timer | default: false }}"
-	data-enable-mock-picker-day="{{ section.settings.mock_date_picker_day | default: 2 }}"
+  data-enable-mock-picker-day="{{ section.settings.mock_date_picker_day | default: 2 }}"
   data-enable-mock-picker-hours="{{ section.settings.mock_date_picker_hours | default: 3 }}"
-{% if section.settings.layout == "overlay" %}data-animation="{{ is_animated }}"{% endif %}
-  data-speed="{{ section.settings.heading_animation_speed }}" 
+  {% if section.settings.layout == 'overlay' %}
+    data-animation="{{ is_animated }}"
+  {% endif %}
+  data-speed="{{ section.settings.heading_animation_speed }}"
 >
   <div class="countdown__container color-{{ section.settings.main_color_scheme }}">
-      <div class="countdown__wrapper {{ section.settings.layout }}">
-        {% liquid
-          if section.settings.desktop_height != 'adapt'
-            assign aspect_ratio = section.settings.desktop_height | split: '/'
-            assign temp = aspect_ratio[0] | append: '.0'
-            assign padding_bottom_desktop = aspect_ratio[1] | divided_by: temp | times: 100 | round: 2
-          elsif section.settings.desktop_height == 'adapt'
-            if section.settings.desktop_image != blank
-              assign padding_bottom_desktop = 1 | divided_by: section.settings.desktop_image.aspect_ratio | times: 100 | round: 2
-            else
-              assign padding_bottom_desktop = 0
-            endif 
+    <div class="countdown__wrapper {{ section.settings.layout }}">
+      {% liquid
+        if section.settings.desktop_height != 'adapt'
+          assign aspect_ratio = section.settings.desktop_height | split: '/'
+          assign temp = aspect_ratio[0] | append: '.0'
+          assign padding_bottom_desktop = aspect_ratio[1] | divided_by: temp | times: 100 | round: 2
+        elsif section.settings.desktop_height == 'adapt'
+          if section.settings.desktop_image != blank
+            assign padding_bottom_desktop = 1 | divided_by: section.settings.desktop_image.aspect_ratio | times: 100 | round: 2
           else
             assign padding_bottom_desktop = 0
           endif
-        %}
+        else
+          assign padding_bottom_desktop = 0
+        endif
+      %}
 
-          {% style %}
-            #shopify-section-{{ section.id }} .countdown__wrapper.overlay::before {
-              content: "";
-              display: block;
-              padding-bottom: {{ padding_bottom_desktop }}%;
-            }
+      {% style %}
+        #shopify-section-{{ section.id }} .countdown__wrapper.overlay::before {
+          content: "";
+          display: block;
+          padding-bottom: {{ padding_bottom_desktop }}%;
+        }
 
-            @media screen and (min-width: 576px) {
-              #shopify-section-{{ section.id }} .countdown__wrapper.overlay::before {
-                content: "";
-                display: block;
-                padding-bottom: {{ padding_bottom_desktop }}%;
-              }
-            }
+        @media screen and (min-width: 576px) {
+          #shopify-section-{{ section.id }} .countdown__wrapper.overlay::before {
+            content: "";
+            display: block;
+            padding-bottom: {{ padding_bottom_desktop }}%;
+          }
+        }
 
-            #shopify-section-{{ section.id }} .countdown__inner--simple .countdown__main.with-media {
-              background-image: url('{{ section.settings.desktop_image | image_url }}');
-              background-size: cover;
-              background-clip: text;
-              background-position: 50% 50%;
-              background-repeat: no-repeat;
-              -webkit-background-clip: text;
+        #shopify-section-{{ section.id }} .countdown__inner--simple .countdown__main.with-media {
+          background-image: url('{{ section.settings.desktop_image | image_url }}');
+          background-size: cover;
+          background-clip: text;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          -webkit-background-clip: text;
 
-              > *:not(.countdown__label) {
-                color: rgba(255, 255, 255, 0);
-              }
-            }
-          {% endstyle %}
+          > *:not(.countdown__label) {
+            color: rgba(255, 255, 255, 0);
+          }
+        }
+      {% endstyle %}
 
-          <div class="countdown__inner container countdown__inner--{{ section.settings.layout }}{% if section.settings.full_width %} full_width{% endif %}">
-            {%- if section.settings.heading != blank or section.settings.text != blank or section.settings.button_label != blank -%}
-              <div class="countdown__text-block
-                {% if section.settings.layout == "overlay" %} countdown__text-block--{{ section.settings.content_alignment }}
-                {% else %}  countdown__text-block--center{% endif %}" data-animation="{{ section.settings.is_animated_big_heading }}"
+      <div class="countdown__inner container countdown__inner--{{ section.settings.layout }}{% if section.settings.full_width %} full_width{% endif %}">
+        {%- if section.settings.heading != blank
+          or section.settings.text != blank
+          or section.settings.button_label != blank
+        -%}
+          <div
+            class="
+              countdown__text-block
+              {% if section.settings.layout == "overlay" %} countdown__text-block--{{ section.settings.content_alignment }}
+              {% else %}  countdown__text-block--center{% endif %}
+            "
+            data-animation="{{ section.settings.is_animated_big_heading }}"
+          >
+            {%- if section.settings.heading_big != blank -%}
+              <{{ section.settings.heading_tag }}
+                class="countdown__heading_big h0 {% if section.settings.is_animated_big_heading %} animated-heading{% endif %}"
+                data-speed="{{ section.settings.big_heading_animation_speed }}"
+                data-animated_text="{{ section.settings.heading_big }}"
+              >
+                <span
+                  class="{% if section.settings.is_animated_big_heading %} animated-heading--inner{% endif %}"
+                  {% if section.settings.is_animated_big_heading %}
+                    style="opacity: 0;"
+                  {% endif %}
                 >
-                {%- if section.settings.heading_big != blank -%}
-                  <h2 class="countdown__heading_big h0 {% if section.settings.is_animated_big_heading %} animated-heading{% endif %}"
-                    data-speed="{{ section.settings.big_heading_animation_speed }}" 
-                    data-animated_text="{{ section.settings.heading_big }}"
-                  >
-                    <span
-                      class="{% if section.settings.is_animated_big_heading %} animated-heading--inner{% endif %}"
-                      {% if section.settings.is_animated_big_heading %}
-                        style="opacity: 0;"
-                      {% endif %}
-                    >
-                      {{ section.settings.heading_big }}
-                    </span>
-                  </h2>
-                {%- endif -%}
-                {%- if section.settings.heading != blank -%}
-                  <h2 class="countdown__heading {{ section.settings.heading_size }}">
-                      {{ section.settings.heading }}
-                  </h2>
-                {%- endif -%}
-                {%- if section.settings.text != blank -%}
-                  <div class="countdown__text {% if section.settings.layout == "simple" %} body-large {% endif %}">
-                    {{ section.settings.text | escape }}
-                  </div>
-                {%- endif -%}
-                {%- if section.settings.button_label -%}
-                  {% render 'button',
-                    btn_link: section.settings.button_link,
-                    btn_label: section.settings.button_label,
-                    btn_style: section.settings.button_style,
-                    add_classes: 'countdown__button'
-                  %}
-                {%- endif -%}
+                  {{ section.settings.heading_big }}
+                </span>
+              </{{ section.settings.heading_tag }}>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+              <{{ section.settings.heading_tag_second }} class="countdown__heading {{ section.settings.heading_size }}">
+                {{ section.settings.heading }}
+              </{{ section.settings.heading_tag_second }}>
+            {%- endif -%}
+            {%- if section.settings.text != blank -%}
+              <div class="countdown__text {% if section.settings.layout == "simple" %} body-large {% endif %}">
+                {{ section.settings.text | escape }}
               </div>
             {%- endif -%}
-            {% if section.settings.date_picker != blank %}
-              <div class="countdown__main{% if is_divider %} smaller-gap{% endif %}{% if section.settings.desktop_image != blank %} with-media{% endif %}">
-                <div class="countdown__block">
-                  <div class="countdown__spacer">
-                    <span class="countdown__number {{ countdown_fontsize }} countdown__days">
-                    </span>
-                  </div>
-                  <span class="countdown__label{% if section.settings.layout == "overlay" %} subheading{% else %} h3{% endif %}">
-                    {{- 'countdown.days' | t }}
-                  </span>
-                </div>
-                {% if is_divider %}
-                  <div class="countdown__divider {{ countdown_fontsize }}">:</div>
-                {% endif %}
-                <div class="countdown__block">
-                  <div class="countdown__spacer">
-                    <span class="countdown__number {{ countdown_fontsize }} countdown__hours">
-                    </span>
-                  </div>
-                  <span class="countdown__label{% if section.settings.layout == "overlay" %} subheading{% else %} h3{% endif %}">
-                    {{- 'countdown.hours' | t -}}
-                  </span>
-                </div>
-                {% if is_divider %}
-                  <div class="countdown__divider {{ countdown_fontsize }}">:</div>
-                {% endif %}
-                <div class="countdown__block">
-                  <div class="countdown__spacer">
-                    <span class="countdown__number {{ countdown_fontsize }} countdown__minutes">
-                    </span>
-                  </div>
-                  <span class="countdown__label{% if section.settings.layout == "overlay" %} subheading{% else %} h3{% endif %}">
-                    {{- 'countdown.minutes' | t -}}
-                  </span>
-                </div>
-                {% if is_divider %}
-                  <div class="countdown__divider {{ countdown_fontsize }}">:</div>
-                {% endif %}
-                <div class="countdown__block">
-                  <div class="countdown__spacer">
-                    <span class="countdown__number {{ countdown_fontsize }} countdown__seconds">
-                    </span>
-                  </div>
-                  <span class="countdown__label{% if section.settings.layout == "overlay" %} subheading{% else %} h3{% endif %}">
-                    {{- 'countdown.seconds' | t -}}
-                  </span>
-                </div>
-              </div>
-            {% endif %}
-            {% if section.settings.countdown_heading %}
-              <div class="countdown__end">
-                <div class="countdown__end-wrapper">
-                  <h2 class="h2 countdown__end-text">
-                    {{ section.settings.countdown_heading }}
-                  </h2>
-                </div>
-              </div>
-            {% endif %}
+            {%- if section.settings.button_label -%}
+              {% render 'button',
+                btn_link: section.settings.button_link,
+                btn_label: section.settings.button_label,
+                btn_style: section.settings.button_style,
+                add_classes: 'countdown__button'
+              %}
+            {%- endif -%}
           </div>
-
-
-          {% if section.settings.layout == "overlay" %}
-            <div class="countdown__bg">
-              {% if media_chosen and section.settings.layout == "overlay" %}
-                <span
-                  class="countdown__bg-overlay"
-                  style="background-color: rgba(var(--color-overlay), {{ section.settings.opacity_overlay }})"
-                ></span>
-              {% endif %}
-              {%- if section.settings.desktop_image != blank 
-                and section.settings.video == blank
-              -%}
-                {% liquid
-                  assign class = 'countdown__image'
-                %}
-                {{
-                  section.settings.desktop_image
-                  | image_url: width: section.settings.desktop_image.width
-                  | image_tag:
-                    class: class,
-                    style: style,
-                    loading: 'lazy',
-                    widths: '768, 990, 1100, 1360, 1600, 1920, 2200, 2400, 2600'
-                }}
-              {%- elsif section.settings.video != blank -%}
-                  {% liquid
-                    assign class = 'countdown__video'
-                  %}
-                  {{
-                    section.settings.video
-                    | video_tag:
-                      image_size: '1920x',
-                      class: 'countdown__image data-alt',
-                      autoplay: true,
-                      loop: true,
-                      controls: false,
-                      muted: true
-                  }}
-              {%- endif -%}
+        {%- endif -%}
+        {% if section.settings.date_picker != blank %}
+          <div class="countdown__main{% if is_divider %} smaller-gap{% endif %}{% if section.settings.desktop_image != blank %} with-media{% endif %}">
+            <div class="countdown__block">
+              <div class="countdown__spacer">
+                <span class="countdown__number {{ countdown_fontsize }} countdown__days"> </span>
+              </div>
+              <span class="countdown__label{% if section.settings.layout == "overlay" %} subheading{% else %} h3{% endif %}">
+                {{- 'countdown.days' | t }}
+              </span>
             </div>
-          {% endif %}
+            {% if is_divider %}
+              <div class="countdown__divider {{ countdown_fontsize }}">:</div>
+            {% endif %}
+            <div class="countdown__block">
+              <div class="countdown__spacer">
+                <span class="countdown__number {{ countdown_fontsize }} countdown__hours"> </span>
+              </div>
+              <span class="countdown__label{% if section.settings.layout == "overlay" %} subheading{% else %} h3{% endif %}">
+                {{- 'countdown.hours' | t -}}
+              </span>
+            </div>
+            {% if is_divider %}
+              <div class="countdown__divider {{ countdown_fontsize }}">:</div>
+            {% endif %}
+            <div class="countdown__block">
+              <div class="countdown__spacer">
+                <span class="countdown__number {{ countdown_fontsize }} countdown__minutes"> </span>
+              </div>
+              <span class="countdown__label{% if section.settings.layout == "overlay" %} subheading{% else %} h3{% endif %}">
+                {{- 'countdown.minutes' | t -}}
+              </span>
+            </div>
+            {% if is_divider %}
+              <div class="countdown__divider {{ countdown_fontsize }}">:</div>
+            {% endif %}
+            <div class="countdown__block">
+              <div class="countdown__spacer">
+                <span class="countdown__number {{ countdown_fontsize }} countdown__seconds"> </span>
+              </div>
+              <span class="countdown__label{% if section.settings.layout == "overlay" %} subheading{% else %} h3{% endif %}">
+                {{- 'countdown.seconds' | t -}}
+              </span>
+            </div>
+          </div>
+        {% endif %}
+        {% if section.settings.countdown_heading %}
+          <div class="countdown__end">
+            <div class="countdown__end-wrapper">
+              <{{ section.settings.heading_tag_countdown }} class="h2 countdown__end-text">
+                {{ section.settings.countdown_heading }}
+              </{{ section.settings.heading_tag_countdown }}>
+            </div>
+          </div>
+        {% endif %}
       </div>
+
+      {% if section.settings.layout == 'overlay' %}
+        <div class="countdown__bg">
+          {% if media_chosen and section.settings.layout == 'overlay' %}
+            <span
+              class="countdown__bg-overlay"
+              style="background-color: rgba(var(--color-overlay), {{ section.settings.opacity_overlay }})"
+            ></span>
+          {% endif %}
+          {%- if section.settings.desktop_image != blank and section.settings.video == blank -%}
+            {% liquid
+              assign class = 'countdown__image'
+            %}
+            {{
+              section.settings.desktop_image
+              | image_url: width: section.settings.desktop_image.width
+              | image_tag:
+                class: class,
+                style: style,
+                loading: 'lazy',
+                widths: '768, 990, 1100, 1360, 1600, 1920, 2200, 2400, 2600'
+            }}
+          {%- elsif section.settings.video != blank -%}
+            {% liquid
+              assign class = 'countdown__video'
+            %}
+            {{
+              section.settings.video
+              | video_tag:
+                image_size: '1920x',
+                class: 'countdown__image data-alt',
+                autoplay: true,
+                loop: true,
+                controls: false,
+                muted: true
+            }}
+          {%- endif -%}
+        </div>
+      {% endif %}
+    </div>
   </div>
 </countdown-timer>
 
@@ -285,12 +288,12 @@
       "label": "t:sections.countdown.settings.layout.label"
     },
     {
-			"type": "checkbox",
-			"id": "enable_mock_timer",
-			"default": false,
-			"label": "t:sections.countdown.settings.enable_mock_timer.label",
-			"info": "t:sections.countdown.settings.enable_mock_timer.info"
-		},
+      "type": "checkbox",
+      "id": "enable_mock_timer",
+      "default": false,
+      "label": "t:sections.countdown.settings.enable_mock_timer.label",
+      "info": "t:sections.countdown.settings.enable_mock_timer.info"
+    },
     {
       "type": "text",
       "id": "date_picker",
@@ -308,25 +311,25 @@
       "visible_if": "{{ section.settings.enable_mock_timer == false }}"
     },
     {
-			"type": "range",
-			"id": "mock_date_picker_day",
-			"min": 0,
-			"max": 31,
-			"step": 1,
-			"default": 2,
-			"label": "t:sections.countdown.settings.mock_date_picker_day.label",
-			"visible_if": "{{ section.settings.enable_mock_timer }}"
-		},
-		{
-			"type": "range",
-			"id": "mock_date_picker_hours",
-			"min": 1,
-			"max": 23,
-			"step": 1,
-			"default": 3,
-			"label": "t:sections.countdown.settings.mock_date_picker_hours.label",
-			"visible_if": "{{ section.settings.enable_mock_timer }}"
-		},
+      "type": "range",
+      "id": "mock_date_picker_day",
+      "min": 0,
+      "max": 31,
+      "step": 1,
+      "default": 2,
+      "label": "t:sections.countdown.settings.mock_date_picker_day.label",
+      "visible_if": "{{ section.settings.enable_mock_timer }}"
+    },
+    {
+      "type": "range",
+      "id": "mock_date_picker_hours",
+      "min": 1,
+      "max": 23,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.countdown.settings.mock_date_picker_hours.label",
+      "visible_if": "{{ section.settings.enable_mock_timer }}"
+    },
     {
       "type": "select",
       "id": "completed_countdown",
@@ -357,6 +360,47 @@
       "label": "t:sections.countdown.settings.countdown_heading.label",
       "info": "t:sections.countdown.settings.countdown_heading.info",
       "visible_if": "{{ section.settings.enable_mock_timer == false }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag_countdown",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.all.heading_tag.options__6.label"
+        },
+        {
+          "value": "div",
+          "label": "t:sections.all.heading_tag.options__7.label"
+        },
+        {
+          "value": "p",
+          "label": "t:sections.all.heading_tag.options__8.label"
+        }
+      ],
+      "default": "h2",
+      "label": "t:sections.all.heading.label__tag",
+      "info": "t:sections.all.heading_tag.info"
     },
     {
       "type": "header",
@@ -452,30 +496,112 @@
       "label": "t:sections.all.heading.label"
     },
     {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.all.heading_tag.options__6.label"
+        },
+        {
+          "value": "div",
+          "label": "t:sections.all.heading_tag.options__7.label"
+        },
+        {
+          "value": "p",
+          "label": "t:sections.all.heading_tag.options__8.label"
+        }
+      ],
+      "default": "h2",
+      "label": "t:sections.all.heading.label__tag",
+      "info": "t:sections.all.heading_tag.info"
+    },
+    {
       "type": "inline_richtext",
       "id": "heading",
       "label": "t:sections.all.heading.label__22"
     },
     {
-			"type": "select",
-			"id": "heading_size",
-			"options": [
-				{
-					"value": "h1",
-					"label": "t:sections.all.heading_size.options__1.label"
-				},
-				{
-					"value": "h2",
-					"label": "t:sections.all.heading_size.options__2.label"
-				},
-				{
-					"value": "h3",
-					"label": "t:sections.all.heading_size.options__3.label"
-				}
-			],
-			"default": "h1",
-			"label": "t:sections.all.heading_size.label"
-		},
+      "type": "select",
+      "id": "heading_tag_second",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.all.heading_tag.options__6.label"
+        },
+        {
+          "value": "div",
+          "label": "t:sections.all.heading_tag.options__7.label"
+        },
+        {
+          "value": "p",
+          "label": "t:sections.all.heading_tag.options__8.label"
+        }
+      ],
+      "default": "h2",
+      "label": "t:sections.all.heading.label__tag",
+      "info": "t:sections.all.heading_tag.info"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
     {
       "type": "textarea",
       "id": "text",
@@ -486,41 +612,41 @@
       "type": "header",
       "content": "t:sections.image-banner.settings.heading_animation.label"
     },
-		{
-			"type": "checkbox",
-			"id": "is_animated_big_heading",
-			"default": true,
-			"label": "t:sections.image-banner.settings.enable_heading_animation.label"
-		},
-		{
-			"type": "range",
-			"id": "big_heading_animation_speed",
-			"min": 50,
-			"max": 300,
-			"step": 50,
-			"label": "t:sections.image-banner.settings.heading_animation_speed.label",
-			"default": 150
-		},
-		{
+    {
+      "type": "checkbox",
+      "id": "is_animated_big_heading",
+      "default": true,
+      "label": "t:sections.image-banner.settings.enable_heading_animation.label"
+    },
+    {
+      "type": "range",
+      "id": "big_heading_animation_speed",
+      "min": 50,
+      "max": 300,
+      "step": 50,
+      "label": "t:sections.image-banner.settings.heading_animation_speed.label",
+      "default": 150
+    },
+    {
       "type": "header",
       "content": "t:sections.countdown.settings.timer_animation.heading",
       "info": "t:sections.countdown.settings.timer_animation.info"
     },
-		{
-			"type": "checkbox",
-			"id": "is_animated_heading",
-			"default": true,
-			"label": "t:sections.countdown.settings.timer_animation.enable_timer_animation.label"
-		},
-		{
-			"type": "range",
-			"id": "heading_animation_speed",
-			"min": 20,
-			"max": 300,
-			"step": 20,
-			"label": "t:sections.image-banner.settings.heading_animation_speed.label",
-			"default": 120
-		},
+    {
+      "type": "checkbox",
+      "id": "is_animated_heading",
+      "default": true,
+      "label": "t:sections.countdown.settings.timer_animation.enable_timer_animation.label"
+    },
+    {
+      "type": "range",
+      "id": "heading_animation_speed",
+      "min": 20,
+      "max": 300,
+      "step": 20,
+      "label": "t:sections.image-banner.settings.heading_animation_speed.label",
+      "default": 120
+    },
     {
       "type": "header",
       "content": "t:sections.all.button.header_button.content"
@@ -565,21 +691,21 @@
       "id": "margin_top",
       "options": [
         {
-					"value": "no-indent",
-					"label": "t:sections.all.section-margin.options__1.label"
-				},
-				{
-					"value": "s",
-					"label": "t:sections.all.section-margin.options__3.label"
-				},
-				{
-					"value": "m",
-					"label": "t:sections.all.section-margin.options__4.label"
-				},
-				{
-					"value": "l",
-					"label": "t:sections.all.section-margin.options__5.label"
-				}
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        }
       ],
       "default": "no-indent",
       "label": "t:sections.all.section-margin.margin_top.label"
@@ -589,21 +715,21 @@
       "id": "margin_bottom",
       "options": [
         {
-					"value": "no-indent",
-					"label": "t:sections.all.section-margin.options__1.label"
-				},
-				{
-					"value": "s",
-					"label": "t:sections.all.section-margin.options__3.label"
-				},
-				{
-					"value": "m",
-					"label": "t:sections.all.section-margin.options__4.label"
-				},
-				{
-					"value": "l",
-					"label": "t:sections.all.section-margin.options__5.label"
-				}
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        }
       ],
       "default": "no-indent",
       "label": "t:sections.all.section-margin.margin_bottom.label"

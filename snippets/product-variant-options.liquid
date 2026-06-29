@@ -4,6 +4,10 @@
   - product: {Object} product object.
   - option: {Object} current product_option object.
   - block: {Object} block object.
+  - section_obj: section,
+  - section_id: section.id,
+  - show_color_swatch: is_color_option,
+  - show_image_swatch: show_image_swatch,
   Usage:
   {% render 'product-variant-options',
     product: product,
@@ -13,11 +17,6 @@
   %}
 {% endcomment %}
 {%- liquid
-  assign variants_available_arr = product.variants | map: 'available'
-  assign variants_option1_arr = product.variants | map: 'option1'
-  assign variants_option2_arr = product.variants | map: 'option2'
-  assign variants_option3_arr = product.variants | map: 'option3'
-
   assign product_form_id = 'product-form-' | append: section.id
 -%}
 
@@ -25,25 +24,26 @@
   {%- liquid
     assign option_disabled = true
 
-    for option1_name in variants_option1_arr
-      case option.position
-        when 1
-          if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
-            assign option_disabled = false
-          endif
-        when 2
-          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
-            assign option_disabled = false
-          endif
-        when 3
-          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
-            assign option_disabled = false
-          endif
-      endcase
-    endfor
+    if value.available
+      assign option_disabled = false
+    endif
   -%}
 
-  {% if show_color_swatch %}
+  {%- liquid
+    assign show_swatch_ui = show_color_swatch | default: false
+    if show_image_swatch
+      assign show_swatch_ui = true
+    endif
+  -%}
+
+  {%- capture input_id -%}
+      {%- if section_id != blank -%}{{ section_id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.id }}{%- else -%}{{ section_obj.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.id }}{%- if index_tab -%}-{{ index_tab }}{%- endif -%}{%- endif -%}{%- if forloop_index -%}-{{ forloop_index }}{%- endif -%}
+    {%- endcapture -%}
+  {%- capture input_name -%}
+      {%- if section_id != blank -%}{{ option.name }}-{{ section_id }}-{{ product.id }}{%- else -%}{{ option.name }}-{{ section_obj.id }}-{{ product.id }}{%- if index_tab -%}-{{ index_tab }}{%- endif -%}{%- endif -%}{%- if forloop_index -%}-{{ forloop_index }}{%- endif -%}
+  {%- endcapture -%}
+
+  {% if show_swatch_ui %}
     {% liquid
       if settings.color_swatch
         if value.swatch.image != blank
@@ -106,8 +106,8 @@
 
     <input
       type="radio"
-      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.id }}"
-      name="{{ option.name }}-{{ section.id }}-{{ product.id }}"
+      id="{{ input_id }}"
+      name="{{ input_name }}"
       value="{{ value | escape }}"
       {% if variant_link %}
         data-variant-link="{{ variant_link }}"
@@ -115,14 +115,20 @@
       {% if variant_id %}
         data-variant-id="{{ variant_id }}"
       {% endif %}
-      {% if no_form_id != true %}
+      {% if product_form_id != blank %}
         form="{{ product_form_id }}"
       {% endif %}
       {% if option.selected_value == value %}
         checked
       {% endif %}
-      {% if option_disabled and no_form_id != true %}
+      {% if option_disabled and product_form_id != blank %}
         class="disabled"
+      {% endif %}
+      tabindex="0"
+      aria-label="{{- value -}}"
+      data-option-value-id="{{ value.id }}"
+      {% if value.product_url != blank %}
+        data-product-url="{{ value.product_url }}"
       {% endif %}
     >
     {% liquid
@@ -140,54 +146,50 @@
     %}
     {% if swatch_type != blank and swatch_type == 'variant_image' %}
       <label
-        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.id }}"
+        for="{{ input_id }}"
         class="variant-image-swatch variant-{{ variant_image_size }}"
         title="{{- value -}}"
       >
         <span
-          class="variant-swatch variant-swatch--{{ variant_image_size }}{% if is_white %} color-white{% endif %}{% if is_black %} color-black{% endif %} {{ color_variant }}
-          {%- liquid
-            assign option_index = option.position | minus: 1
-            for variant in product.variants
-                if variant.options[option_index] == value
-                  if variant.image == blank
-                    echo "no_img"
+          class="
+            variant-swatch variant-swatch--{{ variant_image_size }}{% if is_white %} color-white{% endif %}{% if is_black %} color-black{% endif %} {{ color_variant }}
+            {%- liquid
+              assign option_index = option.position | minus: 1
+              for variant in product.variants
+                  if variant.options[option_index] == value
+                    if variant.image == blank
+                      echo "no_img"
+                    endif
+                    break
                   endif
-                  break
-                endif
-            endfor
-          -%}"         
+              endfor
+            -%}
+          "
           style="
             background-image:url(
               {%- liquid
-                assign option_index = option.position | minus: 1
-                for variant in product.variants
-                    if variant.options[option_index] == value
-                      if variant.image != blank
-                        assign image_width = 102
-                        assign image_ratio = variant.image.aspect_ratio
-                        assign calc_ratio = 1
-                        if variant_image_size == 'portrait'
-                          assign setting_ratio = 0.74
-                        elsif variant_image_size == 'square'
-                          assign setting_ratio = 1
-                        elsif variant_image_size == 'landscape'
-                          assign setting_ratio = 1.33
-                        else
-                          assign setting_ratio = 0.74
-                        endif
-                        if image_ratio > setting_ratio
-                          assign calc_ratio = image_ratio | divided_by: setting_ratio | round: 2
-                          assign image_width = image_width | times: calc_ratio
-                        endif
-
-                        echo variant.image | image_url: width: image_width
-                      else
-                        echo 'data:image/svg+xml,%3Csvg%20width%3D%2250%22%20height%3D%2267%22%20viewBox%3D%220%200%2050%2067%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%2250%22%20height%3D%2267%22%20fill%3D%22%23F5F5F5%22%2F%3E%3Cg%20opacity%3D%220.3%22%3E%3Cpath%20d%3D%22M17.5%2036.8333L23.3333%2034.3333L26.6667%2035.8483M29.0658%2041.1008L30.8333%2039.3333M30.8333%2039.3333L32.6008%2037.5658M30.8333%2039.3333L29.0658%2037.5658M30.8333%2039.3333L32.6008%2041.1008M28.3333%2031.8333C27.8913%2031.8333%2027.4674%2031.6577%2027.1548%2031.3452C26.8423%2031.0326%2026.6667%2030.6087%2026.6667%2030.1667C26.6667%2029.7246%2026.8423%2029.3007%2027.1548%2028.9882C27.4674%2028.6756%2027.8913%2028.5%2028.3333%2028.5C28.7754%2028.5%2029.1993%2028.6756%2029.5118%2028.9882C29.8244%2029.3007%2030%2029.7246%2030%2030.1667C30%2030.6087%2029.8244%2031.0326%2029.5118%2031.3452C29.1993%2031.6577%2028.7754%2031.8333%2028.3333%2031.8333Z%22%20stroke%3D%22black%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M25.8333%2041H18C17.8674%2041%2017.7402%2040.9473%2017.6464%2040.8536C17.5527%2040.7598%2017.5%2040.6326%2017.5%2040.5V26.5C17.5%2026.3674%2017.5527%2026.2402%2017.6464%2026.1464C17.7402%2026.0527%2017.8674%2026%2018%2026H32C32.1326%2026%2032.2598%2026.0527%2032.3536%2026.1464C32.4473%2026.2402%2032.5%2026.3674%2032.5%2026.5V34.3333%22%20stroke%3D%22black%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E'
-                      endif
-                      break
-                    endif
-                endfor
+                assign variant_image = value.variant.featured_image
+                if variant_image != blank
+                  assign image_width = 102
+                  assign image_ratio = value.variant.featured_image.aspect_ratio
+                  assign calc_ratio = 1
+                  if variant_image_size == 'portrait'
+                    assign setting_ratio = 0.74
+                  elsif variant_image_size == 'square'
+                    assign setting_ratio = 1
+                  elsif variant_image_size == 'landscape'
+                    assign setting_ratio = 1.33
+                  else
+                    assign setting_ratio = 0.74
+                  endif
+                  if image_ratio > setting_ratio
+                    assign calc_ratio = image_ratio | divided_by: setting_ratio | round: 2
+                    assign image_width = image_width | times: calc_ratio
+                  endif
+                  echo variant_image | image_url: width: 250
+                else
+                  echo 'data:image/svg+xml,%3Csvg%20width%3D%2250%22%20height%3D%2267%22%20viewBox%3D%220%200%2050%2067%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%2250%22%20height%3D%2267%22%20fill%3D%22%23F5F5F5%22%2F%3E%3Cg%20opacity%3D%220.3%22%3E%3Cpath%20d%3D%22M17.5%2036.8333L23.3333%2034.3333L26.6667%2035.8483M29.0658%2041.1008L30.8333%2039.3333M30.8333%2039.3333L32.6008%2037.5658M30.8333%2039.3333L29.0658%2037.5658M30.8333%2039.3333L32.6008%2041.1008M28.3333%2031.8333C27.8913%2031.8333%2027.4674%2031.6577%2027.1548%2031.3452C26.8423%2031.0326%2026.6667%2030.6087%2026.6667%2030.1667C26.6667%2029.7246%2026.8423%2029.3007%2027.1548%2028.9882C27.4674%2028.6756%2027.8913%2028.5%2028.3333%2028.5C28.7754%2028.5%2029.1993%2028.6756%2029.5118%2028.9882C29.8244%2029.3007%2030%2029.7246%2030%2030.1667C30%2030.6087%2029.8244%2031.0326%2029.5118%2031.3452C29.1993%2031.6577%2028.7754%2031.8333%2028.3333%2031.8333Z%22%20stroke%3D%22black%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M25.8333%2041H18C17.8674%2041%2017.7402%2040.9473%2017.6464%2040.8536C17.5527%2040.7598%2017.5%2040.6326%2017.5%2040.5V26.5C17.5%2026.3674%2017.5527%2026.2402%2017.6464%2026.1464C17.7402%2026.0527%2017.8674%2026%2018%2026H32C32.1326%2026%2032.2598%2026.0527%2032.3536%2026.1464C32.4473%2026.2402%2032.5%2026.3674%2032.5%2026.5V34.3333%22%20stroke%3D%22black%22%20stroke-width%3D%221.1%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E'
+                endif
             -%}
               );
             background-position: center;
@@ -204,7 +206,7 @@
       </label>
     {% else %}
       <label
-        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.id }}"
+        for="{{ input_id }}"
         class="color-swatch focus-inset{% if is_white %} color-white{% endif %}{% if is_black %} color-black{% endif %}"
         style="--swatch-color: {{ color_value }}; --swatch-border-radius: {{ settings.swatch_border_radius }}px"
         aria-label="{{- value -}}"
@@ -216,10 +218,12 @@
       </label>
     {% endif %}
   {% else %}
-    {% if block.settings.picker_type == 'button' or block.settings.picker_type == 'popup' %}
+    {% if block.settings.picker_type == 'button'
+      or block.settings.picker_type == 'popup'
+    %}
       <input
         type="radio"
-        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        id="{{ input_id }}"
         name="{{ option.name }}"
         value="{{ value | escape }}"
         {% if no_form_id != true %}
@@ -231,62 +235,56 @@
         {% if option_disabled %}
           class="disabled"
         {% endif %}
+        tabindex="0"
+        aria-label="{{- value -}}"
+        data-option-value-id="{{ value.id }}"
+        {% if value.product_url != blank %}
+          data-product-url="{{ value.product_url }}"
+        {% endif %}
       >
-      <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="focus-inset">
+      <label
+        tabindex="0"
+        for="{{ input_id }}"
+        class="focus-inset"
+      >
         <span>{{ value -}}</span>
         <span class="visually-hidden">
           {{- 'products.product.variant_sold_out_or_unavailable' | t -}}
         </span>
       </label>
     {% elsif block.settings.picker_type == 'dropdown' %}
-      {% comment %}<option
-        value="{{ value | escape }}"
-        {% if option.selected_value == value %}
-          selected="selected"
-        {% endif %}
-      >
-        {% if option_disabled -%}
-          {{- 'products.product.value_unavailable' | t: option_value: value -}}
-        {%- else -%}
-          {{- value -}}
-        {%- endif %}
-      </option>{% endcomment %}
-        <li data-value="{{ value | escape }}">
-         <input
-            type="radio"
-            id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-            name="{{ option.name }}"
-            value="{{ value | escape }}"
-            {% if no_form_id != true %}
-              form="{{ product_form_id }}"
-            {% endif %}
-            {% if option.selected_value == value %}
-              checked
-            {% endif %}
-            {% if option_disabled %}
-              class="disabled"
-            {% endif %}
-          >
-          <label
-            for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-            class="pills-variant-labels secondary_text"
-          >
-            <span class="select-labels">
-              {{- value | escape -}}
-            </span>
-          </label>
-        </li>
+      <li data-value="{{ value | escape }}">
+        <input
+          type="radio"
+          id="{{ input_id }}"
+          name="{{ option.name }}"
+          value="{{ value | escape }}"
+          {% if no_form_id != true %}
+            form="{{ product_form_id }}"
+          {% endif %}
+          {% if option.selected_value == value %}
+            checked
+          {% endif %}
+          {% if option_disabled %}
+            class="disabled"
+          {% endif %}
+          tabindex="0"
+          aria-label="{{- value -}}"
+          data-option-value-id="{{ value.id }}"
+          {% if value.product_url != blank %}
+            data-product-url="{{ value.product_url }}"
+          {% endif %}
+        >
+        <label
+          tabindex="0"
+          for="{{ input_id }}"
+          class="pills-variant-labels secondary_text"
+        >
+          <span class="select-labels">
+            {{- value | escape -}}
+          </span>
+        </label>
+      </li>
     {% endif %}
   {% endif %}
 {%- endfor -%}
-
-{% comment %}{% if swatch_type != blank and swatch_type == 'variant_image' %}
-  <script>
-    //document.querySelectorAll('input+label[data-{{ option.name | downcase }}]').forEach((el) => {
-    //  el.addEventListener('click', () => {
-    //    document.querySelector('#selected-{{option.name}}').textContent =
-    //      ' ' + el.getAttribute('data-{{ option.name | downcase }}');
-    //  });
-    //});
-  </script>
-{% endif %}{% endcomment %}

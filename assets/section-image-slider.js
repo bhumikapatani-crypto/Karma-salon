@@ -7,7 +7,6 @@
 			$(this).addClass("slider_started");
 			const id = $(this).attr("id");
 			const box = $(this).find(".image-slider");
-			animateHeading(box[0]);
 			const autoplay = box.data("autoplay");
 			const isLoop = box.data("loop");
 			const stopAutoplay = box.data("stop-autoplay");

@@ -12,14 +12,14 @@
     "promo-banner": {
       "type": "promo-banner",
       "settings": {
-        "color_scheme": "background-2",
-        "image": "shopify://shop_images/WhatsApp_Image_2026-06-25_at_07.58.07.jpg",
-        "image_2": "shopify://shop_images/WhatsApp_Image_2026-06-25_at_07.58.07_1.jpg",
+        "color_scheme": "",
+        "image": "shopify://shop_images/image_24.jpg",
+        "image_2": "shopify://shop_images/Group_7694.jpg",
         "image_ratio": "large",
         "overlay_opacity": 0,
         "overlay_link": false,
         "subheading": "Our Story",
-        "heading_2": "All Salons Need Good Karma",
+        "heading_2": "Crafting Quality and Style",
         "description": "We've been dedicated to offering high-quality products that enhance your everyday life.",
         "is_animated_heading": true,
         "heading_animation_speed": 150,
@@ -72,7 +72,6 @@
         "card-grid_card_2",
         "card-grid_card_3"
       ],
-      "disabled": true,
       "settings": {
         "columns_per_row": 3,
         "layout": "simple",
@@ -96,9 +95,9 @@
         "column_1": {
           "type": "column",
           "settings": {
-            "icon": "plant_2",
-            "heading": "Sustainably Conscious",
-            "text": "Sustainability is at the forethought in creationand repairs over replacing",
+            "icon": "hands_3",
+            "heading": "Free Gifts",
+            "text": "Enjoy exclusive gifts with your purchase. Treat yourself to something special, on us.",
             "button_label": "",
             "button_link": "",
             "linked_heading": false
@@ -108,8 +107,8 @@
           "type": "column",
           "settings": {
             "icon": "basket_2",
-            "heading": "Quality Made Furniture",
-            "text": "We offer only genuine, high-quality furniture youcan trust.",
+            "heading": "Original Products",
+            "text": "We offer only genuine, high-quality products you can trust.",
             "button_label": "",
             "button_link": "",
             "linked_heading": false
@@ -119,8 +118,8 @@
           "type": "column",
           "settings": {
             "icon": "envelope",
-            "heading": "Rapid Response Support",
-            "text": "We are here to help! Support is only a click away.",
+            "heading": "Support 24/7",
+            "text": "We're here for you anytime, day or night. Get help whenever you need it.",
             "button_label": "",
             "button_link": "",
             "linked_heading": false
@@ -130,8 +129,8 @@
           "type": "column",
           "settings": {
             "icon": "globe",
-            "heading": "Nation Wide Shipping",
-            "text": "Wherever you are in Australia, we've got you covered with fast, reliable nation wide shipping.",
+            "heading": "Worldwide Shipping",
+            "text": "Wherever you are, we've got you covered with fast, reliable worldwide shipping.",
             "button_label": "",
             "button_link": "",
             "linked_heading": false
@@ -158,34 +157,11 @@
         "padding_bottom": "m"
       }
     },
-    "image_with_text_MJRVXC": {
-      "type": "image-with-text",
-      "custom_css": [
-        ".image-with-text__description p {text-align: justify; margin: 4px !important;}",
-        ".image-with-text__title:not(:last-child) {margin-bottom: 2.6rem; text-align: left;}"
-      ],
-      "name": "t:sections.image-with-text.presets.name",
-      "settings": {
-        "color_scheme": "",
-        "image_ratio": "3/2",
-        "image": "shopify://shop_images/WhatsApp_Image_2026-06-26_at_10.39.58.jpg",
-        "image_parallax": false,
-        "heading": "All Salons Need Good Karma",
-        "text": "<p>Karma Salon Furniture is a family-founded and operated business based on the Gold Coast, Queensland. Established at the end of 2020, we have defied the odds and have been bringing Good Karma to salons across Australia ever since.</p><p> Our mission is to provide quality, stylish, and functional furniture to every salon, barbershop, and beauty space. With over 30 years of combined industry experience, our founders, Karl and Maher, have their fingers firmly on the pulse of the hair and beauty industry. Their shared passion for both barbering and hairdressing has made them respected leaders in the trade, with the knowledge and expertise to understand what’s trending, what’s evolving, and what’s here to stay.</p><p>At Karma Salon Furniture, sustainability is at the heart of what we do. Because we design and manufacture our own furniture, we have a deep understanding of every piece we create. We believe in repairing rather than replacing wherever possible, allowing us to provide lasting solutions instead of temporary fixes.<br/>Our commitment to quality, longevity, and customer support ensures that every piece of Karma furniture is built to serve your salon for years to come.</p>",
-        "image_size": "l",
-        "button_label": "",
-        "button_link": "",
-        "button_style": "tertiary",
-        "margin_top": "no-indent",
-        "margin_bottom": "m"
-      }
-    },
     "content-banner": {
       "type": "content-banner",
-      "disabled": true,
       "settings": {
         "color_scheme": "background-1",
-        "animated_text": false,
+        "animated_text": true,
         "enable_background": false,
         "notebook_bg": false,
         "layout": "image_right",
@@ -193,11 +169,33 @@
         "button_position": "center",
         "image": "shopify://shop_images/image_26.jpg",
         "overlay_opacity": 0.2,
-        "heading": "\"All Salons Need Good Karma\"<br>\n\nKarma Salon Furniture is a family-founded and operated business based on the Gold Coast, Queensland. Established at the end of 2020, we have defied the odds and have been bringing Good Karma to salons across Australia ever since.\n\nOur mission is to provide quality, stylish, and functional furniture to every salon, barbershop, and beauty space. With over 30 years of combined industry experience, our founders, Karl and Maher, have their fingers firmly on the pulse of the hair and beauty industry. Their shared passion for both barbering and hairdressing has made them respected leaders in the trade, with the knowledge and expertise to understand what’s trending, what’s evolving, and what’s here to stay.\n\nAt Karma Salon Furniture, sustainability is at the heart of what we do. Because we design and manufacture our own furniture, we have a deep understanding of every piece we create. We believe in repairing rather than replacing wherever possible, allowing us to provide lasting solutions instead of temporary fixes. Our commitment to quality, longevity, and customer support ensures that every piece of Karma furniture is built to serve your salon for years to come.",
-        "heading_size": "h2",
+        "heading": "We’re here to ignite your imagination, bring comfort to your surroundings, and inspire creativity in every detail, helping you create a space that truly feels like yours",
+        "heading_size": "h1",
         "button_label": "",
         "button_link": "",
         "button_style": "simple",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "image-banner": {
+      "type": "image-banner",
+      "settings": {
+        "color_scheme": "",
+        "image": "shopify://shop_images/timer_image_1.jpg",
+        "image_ratio": "adapt",
+        "overlay_opacity": 0,
+        "layout": "bottom",
+        "content_position": "left",
+        "heading": "Sophistication in Every Touch, Comfort in Every Space",
+        "heading_size": "h1",
+        "heading_2": "",
+        "description": "",
+        "is_animated_heading": true,
+        "heading_animation_speed": 150,
+        "button_label": "Shop Collection",
+        "button_link": "",
+        "button_style": "primary",
         "margin_top": "no-indent",
         "margin_bottom": "m"
       }
@@ -208,39 +206,20 @@
         "column_1": {
           "type": "column",
           "settings": {
-            "image_1": "shopify://shop_images/Celebrity_logo.jpg",
-            "image_width": 120,
+            "image_width": 130,
             "brand_link": ""
           }
         },
         "column_2": {
           "type": "column",
           "settings": {
-            "image_1": "shopify://shop_images/Queensland_logo.jpg",
-            "image_width": 120,
-            "brand_link": ""
-          }
-        },
-        "column_5": {
-          "type": "column",
-          "settings": {
-            "image_1": "shopify://shop_images/tafe_logo.png",
-            "image_width": 120,
-            "brand_link": ""
-          }
-        },
-        "column_6": {
-          "type": "column",
-          "settings": {
-            "image_1": "shopify://shop_images/NSW_logo.png",
-            "image_width": 120,
+            "image_width": 155,
             "brand_link": ""
           }
         },
         "column_3": {
           "type": "column",
           "settings": {
-            "image_1": "shopify://shop_images/Mondrian_logo.jpg",
             "image_width": 120,
             "brand_link": ""
           }
@@ -248,8 +227,28 @@
         "column_4": {
           "type": "column",
           "settings": {
-            "image_1": "shopify://shop_images/NSW_logo.jpg",
-            "image_width": 120,
+            "image_width": 140,
+            "brand_link": ""
+          }
+        },
+        "column_5": {
+          "type": "column",
+          "settings": {
+            "image_width": 100,
+            "brand_link": ""
+          }
+        },
+        "column_6": {
+          "type": "column",
+          "settings": {
+            "image_width": 190,
+            "brand_link": ""
+          }
+        },
+        "column_7": {
+          "type": "column",
+          "settings": {
+            "image_width": 125,
             "brand_link": ""
           }
         }
@@ -257,88 +256,30 @@
       "block_order": [
         "column_1",
         "column_2",
+        "column_3",
+        "column_4",
         "column_5",
         "column_6",
-        "column_3",
-        "column_4"
+        "column_7"
       ],
       "settings": {
-        "columns_per_row": 6,
-        "columns_mobile": "2",
-        "section_heading": "Organisations With Karma",
+        "columns_per_row": 7,
+        "columns_mobile": "1",
+        "section_heading": "Featured Brands",
         "section_heading_size": "h2",
-        "section_description": "Karma salon furniture is trusted with big brands and organisations around australia including but not exclusive to:",
+        "section_description": "Discover top brands that stand out for their quality and style. Shop the best names in beauty, fashion, and more.",
         "section_button_label": "",
         "section_button_link": "",
         "section_button_style": "secondary",
         "enable_swiper": true,
-        "show_arrows": false,
-        "show_bullets": false,
+        "show_arrows": true,
+        "show_bullets": true,
         "margin_top": "no-indent",
-        "margin_bottom": "s"
-      }
-    },
-    "collapsible_content_UWWcfH": {
-      "type": "collapsible-content",
-      "blocks": {
-        "faq_XbBGqP": {
-          "type": "faq",
-          "settings": {
-            "heading": "FAQ",
-            "description": "Find answers to your questions.",
-            "icon": "info",
-            "popup_info": "<h1><span style=\"text-decoration:underline\"><strong>Ordering & Payments </strong></span></h1><p><strong>What payment methods do you accept? </strong></p><p>- We accept major credit cards, PayPal, bank transfer, and selected Buy Now Pay  Later options including Afterpay ZipPay & Klarna. All payments are processed  securely through trusted payment providers. </p><p><strong>Can I receive a tax invoice? </strong></p><p>- Absolutely. A tax invoice will be emailed to you once your order has been  processed. </p><p><strong>Do you offer finance options? </strong></p><p>- We may offer flexible payment or lay buy solutions on selected purchases.  Please contact our team to discuss available options for your salon setup. </p><h1><span style=\"text-decoration:underline\"><strong>Shipping & Delivery </strong></span></h1><p><strong>Do you ship Australia-wide? </strong></p><p>- Yes, we deliver salon furniture and equipment across Australia, including metro,  regional, and remote areas. </p><p><strong>How long does delivery take? </strong></p><p>- Delivery times vary depending on your location and the item ordered. Most in stock items are dispatched within 1–3 business days, with delivery generally  taking: </p><p>Metro areas: 2–7 business days  </p><p>Regional areas: 5–10 business days  </p><p>Bulky or rural freight items may require additional transit time. </p><p><strong>How much does shipping cost? </strong></p><p>- Shipping costs are calculated based on your location and the size of your items.  </p><p><strong>Can I track my order? </strong></p><p>- Yes. Once your order has been dispatched, you will receive tracking details via  email so you can monitor your delivery. </p><p><strong>Do you deliver to residential addresses? </strong></p><p>- Yes, we deliver to both residential and commercial addresses Australia-wide.</p><p><strong>Will the delivery company unpack and set up my furniture? </strong></p><p>- Our standard delivery service is a door-to-door service only. This means your  order will be delivered to the entrance of your salon, business, or home. Delivery  drivers are unable to move furniture into rooms, carry items up staircases or  small lifts, unpack products, or remove packaging and rubbish. </p><h1><span style=\"text-decoration:underline\"><strong>Product Information </strong></span></h1><p><strong>Are your salon chairs commercial-grade? </strong></p><p>- Yes. Our salon and barber furniture is designed for professional commercial use  and built to withstand the demands of busy salon environments. </p><p><strong>Are your salon chairs hydraulic? </strong></p><p>- Many of our salon chairs feature professional hydraulic pump systems for  smooth height adjustment. Product specifications are listed on each product  page. </p><p><strong>What materials are your salon chairs made from? </strong></p><p>- Our chairs are manufactured using high-quality materials including heavy-duty  frames, premium vinyl upholstery, and high-density foam cushioning for comfort  and durability. </p><p><strong>Do your products come assembled? </strong></p><p>- Assembly requirements vary depending on the product. Some items arrive fully  assembled, while others require minor assembly. Assembly details are included  on each product listing on our website. </p><p><strong>Are replacement parts available? </strong></p><p>- Yes, replacement parts are available for many of our products. Please contact  our support team with your order details and product information for assistance. </p><p><strong>Are your basins compatible with Australian plumbing? </strong></p><p>- Yes, our salon basins are designed to suit Australian plumbing standards. We  recommend installation by a licensed plumber to ensure correct setup and  compliance. Please note that failure to use a licensed plumber may void the  product warranty.</p><h1><span style=\"text-decoration:underline\"><strong>Returns & Warranty </strong></span></h1><p><strong>Do your products come with a warranty? </strong></p><p>- Yes, all our products are backed by a manufacturer’s warranty for added peace  of mind. Warranty periods may vary depending on the product, and full warranty  details can be found on each individual product page. </p><p><strong>What is your return policy? </strong></p><p>- We accept returns on eligible items in accordance with Australian Consumer  Law. Returned items must be unused, in their original, unopened packaging, and  returned within the specified return period. Return shipping costs are the  responsibility of the buyer unless the item is faulty or incorrect. </p><p><strong>Can I return an item if I change my mind? </strong></p><p>- Change-of-mind returns may be accepted on selected items, subject to approval  and a restocking fee will apply. Freight charges are non-refundable and freight  costs back to us are the responsibility of the buyer.  </p><p><strong>What should I do if my product has a fault? </strong></p><p>- Please contact us via the warranty page on our website as soon as possible with  photos and a description of the issue. We’ll assess the problem and provide a  suitable solution promptly. </p><h1><span style=\"text-decoration:underline\"><strong>General Questions</strong></span><strong> </strong></h1><p><strong>Can I visit your showroom? </strong></p><p>- We welcome customers to visit our showroom located in Nerang, Gold Coast. Please contact us to confirm if there is a particular item you wish to view so we  can ensure we have the stock on show and in stock.  </p><p><strong>Why choose Salon Furniture Australia? </strong></p><p>- We’re committed to supplying high-quality salon furniture at competitive prices,  backed by reliable customer service and Australia-wide delivery. Our goal is to  help salon owners create professional, stylish, and functional spaces with  confidence. </p><p><strong>Do you sell to the public or trade only? </strong></p><p>- We supply both salon professionals and individual customers across Australia.</p><p><strong>How do I set up a trade account?  </strong></p><p>- To set up a trade account, please head to the <strong>Account </strong>section on our website  and select <strong>Trade Account </strong>during the registration process. Once submitted, our  team will review your application and contact you if any additional information is  required. </p><p><strong>Do you offer wholesale or reseller partnerships? </strong></p><p>- Yes, we welcome partnerships with wholesalers, online retailers, and  businesses looking to list and sell our products through their own website or  store. We offer wholesale pricing and ongoing supply support for approved  reseller accounts. If you are interested in becoming a reseller or listing our  products online, please contact our team to discuss partnership opportunities  and account eligibility.</p>"
-          }
-        },
-        "info_jRrYp6": {
-          "type": "info",
-          "settings": {
-            "heading": "Contact Us",
-            "description": "Get in touch with us.",
-            "icon": "envelope_2",
-            "description_popup": "Get in touch with us for any questions or support. We're here to help.",
-            "popup_info": "<p><strong> Address</strong><br/>71 Lawrence Drive, Nerang, Gold Coast 4211</p><p><strong>Phone Number</strong><br/>+61 459 954 931</p><p><strong>Email</strong></p><p><a href=\"mailto:sales@salonfurnitureaustralia.com.au\">sales@salonfurnitureaustralia.com.au</a></p>",
-            "socials_description": "You can write us in any social media.",
-            "show_social": true
-          }
-        },
-        "info_Wt4gLM": {
-          "type": "info",
-          "settings": {
-            "heading": "Call Us",
-            "description": "Call us for quick assistance.",
-            "icon": "phone",
-            "description_popup": "Feel free to give us a call for any questions, support, or inquiries. We’re here to assist you.",
-            "popup_info": "<p><strong>Phone Number</strong><br/>+61 459 954 931</p>",
-            "socials_description": "You can write us in any social media.",
-            "show_social": false
-          }
-        }
-      },
-      "block_order": [
-        "faq_XbBGqP",
-        "info_jRrYp6",
-        "info_Wt4gLM"
-      ],
-      "name": "t:sections.collapsible-content.name",
-      "settings": {
-        "color_scheme": "",
-        "image": "shopify://shop_images/chair-karma.jpg",
-        "image_ratio": "16/9",
-        "image_parallax": true,
-        "notebook_bg": false,
-        "section_heading": "Have Any Questions?",
-        "section_heading_size": "h2",
-        "section_description": "Find all the information you need, gathered in one convenient spot.",
-        "margin_top": "no-indent",
-        "margin_bottom": "no-indent",
-        "padding_top": "m",
-        "padding_bottom": "m"
+        "margin_bottom": "m"
       }
     },
     "featured-blog": {
       "type": "featured-blog",
-      "disabled": true,
       "name": "t:sections.featured-blog.presets.name",
       "settings": {
         "blog": "news",
@@ -408,7 +349,6 @@
         "info_WVHPqJ",
         "info_zczbQF"
       ],
-      "disabled": true,
       "name": "t:sections.collapsible-content.name",
       "settings": {
         "color_scheme": "",
@@ -425,13 +365,13 @@
         "padding_bottom": "m"
       }
     },
-    "image_collage_NWcGde": {
+    "image_collage_YAx7pY": {
       "type": "image-collage",
       "blocks": {
-        "image_collage_card_UEi3xE": {
+        "image_collage_card_YAdKPp": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/Ali_Barbers_Mackay.webp",
+            "image": "shopify://shop_images/classic_sofas.webp",
             "overlay_opacity": 0,
             "color_scheme": "",
             "heading": "",
@@ -439,10 +379,10 @@
             "overlay_link": ""
           }
         },
-        "image_collage_card_Qy9Qm3": {
+        "image_collage_card_WWdxx9": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/Ronnie_and_Family_Barbershop.webp",
+            "image": "shopify://shop_images/armchairs.webp",
             "overlay_opacity": 0,
             "color_scheme": "",
             "heading": "",
@@ -450,10 +390,10 @@
             "overlay_link": ""
           }
         },
-        "image_collage_card_N8E7zf": {
+        "image_collage_card_ppJPMx": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/Nxt_Lvl_Fades.webp",
+            "image": "shopify://shop_images/sofa_beds.webp",
             "overlay_opacity": 0,
             "color_scheme": "",
             "heading": "",
@@ -461,10 +401,10 @@
             "overlay_link": ""
           }
         },
-        "image_collage_card_PMmr98": {
+        "image_collage_card_wDH3am": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/Seven_and_one_Studio.webp",
+            "image": "shopify://shop_images/dining_chairs.webp",
             "overlay_opacity": 0,
             "color_scheme": "",
             "heading": "",
@@ -472,10 +412,10 @@
             "overlay_link": ""
           }
         },
-        "image_collage_card_KT7ryB": {
+        "image_collage_card_6393Tb": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/Studio_Seventeen_7_Front.webp",
+            "image": "shopify://shop_images/ceiling_lights.png",
             "overlay_opacity": 0,
             "color_scheme": "background-2",
             "heading": "",
@@ -483,10 +423,10 @@
             "overlay_link": ""
           }
         },
-        "image_collage_card_MBkrtm": {
+        "image_collage_card_4BRXiL": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/Studio_Seventeen_7_1.webp",
+            "image": "shopify://shop_images/vases.png",
             "overlay_opacity": 0,
             "color_scheme": "",
             "heading": "",
@@ -494,10 +434,10 @@
             "overlay_link": ""
           }
         },
-        "image_collage_card_NxTBPp": {
+        "image_collage_card_pRFTq8": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/Sarges_Barbershop.webp",
+            "image": "shopify://shop_images/table_lamps.png",
             "overlay_opacity": 0,
             "color_scheme": "background-2",
             "heading": "",
@@ -505,10 +445,10 @@
             "overlay_link": ""
           }
         },
-        "image_collage_card_8xFUmX": {
+        "image_collage_card_QUTtwf": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/Zavian_Hair_Boutique.webp",
+            "image": "shopify://shop_images/hall.png",
             "overlay_opacity": 0,
             "color_scheme": "background-2",
             "heading": "",
@@ -516,10 +456,10 @@
             "overlay_link": ""
           }
         },
-        "image_collage_card_acWfe8": {
+        "image_collage_card_cc3T4f": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/HMB_Barbers.webp",
+            "image": "shopify://shop_images/textile.png",
             "overlay_opacity": 0,
             "color_scheme": "background-2",
             "heading": "",
@@ -527,10 +467,21 @@
             "overlay_link": ""
           }
         },
-        "image_collage_card_6PqWKt": {
+        "image_collage_card_MqJFaY": {
           "type": "image-collage_card",
           "settings": {
-            "image": "shopify://shop_images/Hair_Co.webp",
+            "image": "shopify://shop_images/coffee_tables.png",
+            "overlay_opacity": 0,
+            "color_scheme": "background-2",
+            "heading": "",
+            "text": "",
+            "overlay_link": ""
+          }
+        },
+        "image_collage_card_GcaEqE": {
+          "type": "image-collage_card",
+          "settings": {
+            "image": "shopify://shop_images/dining_tables.webp",
             "overlay_opacity": 0,
             "color_scheme": "background-2",
             "heading": "",
@@ -540,16 +491,17 @@
         }
       },
       "block_order": [
-        "image_collage_card_UEi3xE",
-        "image_collage_card_Qy9Qm3",
-        "image_collage_card_N8E7zf",
-        "image_collage_card_PMmr98",
-        "image_collage_card_KT7ryB",
-        "image_collage_card_MBkrtm",
-        "image_collage_card_NxTBPp",
-        "image_collage_card_8xFUmX",
-        "image_collage_card_acWfe8",
-        "image_collage_card_6PqWKt"
+        "image_collage_card_YAdKPp",
+        "image_collage_card_WWdxx9",
+        "image_collage_card_ppJPMx",
+        "image_collage_card_wDH3am",
+        "image_collage_card_6393Tb",
+        "image_collage_card_4BRXiL",
+        "image_collage_card_pRFTq8",
+        "image_collage_card_QUTtwf",
+        "image_collage_card_cc3T4f",
+        "image_collage_card_MqJFaY",
+        "image_collage_card_GcaEqE"
       ],
       "name": "t:sections.image-collage.name",
       "settings": {
@@ -557,8 +509,8 @@
         "section_heading_size": "h2",
         "h_direction": "column",
         "section_description": "Stay inspired and explore our latest collections on Instagram. Get a closer look at our unique designs.",
-        "section_button_label": "karmasalon_furniture",
-        "section_button_link": "https://www.instagram.com/karmasalon_furniture/",
+        "section_button_label": "@Mart.home",
+        "section_button_link": "",
         "section_button_style": "primary",
         "color_scheme": "",
         "swiper": true,
@@ -572,14 +524,13 @@
         "margin_bottom": "no-indent"
       }
     },
-    "rich_text_zdFQNr": {
+    "rich-text": {
       "type": "rich-text",
-      "name": "t:sections.rich-text.presets.name",
       "settings": {
         "section_layout": "column",
         "heading": "",
         "heading_size": "h2",
-        "text": "<p>Discover our wide range of <a href=\"/collections/barber-chairs-1\" target=\"_blank\" title=\"Barber Chairs\">Barber Chairs</a>, <a href=\"/collections/salon-chairs-1\" target=\"_blank\" title=\"Salon chairs\">Salon Chairs</a>, <a href=\"/collections/beauty-beds-1\" target=\"_blank\" title=\"Beauty beds\">Beauty Beds</a>, and <a href=\"/collections/shampoo-units\" target=\"_blank\" title=\"Basin Units\">Basin Units</a>. All our pieces are designed to  bring both style and practicality to any salon space. From contemporary designs to aesthetically pleasing statement pieces, our furniture adds a personal touch to your salon while enhancing both comfort and functionality. Karma Salon Furniture has carefully crafted a range that balances style, comfort, and practicality to suit every space and aesthetic.</p>",
+        "text": "<p>Discover our exclusive collections of <a href=\"/collections/frontpage\" title=\"Books\">books</a>, <a href=\"/collections/stationary\" title=\"Stationary\">stationery</a>, <a href=\"/collections/soft-goods\" title=\"Soft Goods\">soft goods</a>, and <a href=\"/collections/home-items\" title=\"Home Items\">home items </a>— each designed to bring style and comfort to your space. From contemporary pieces to timeless details, every item is made to enrich your home’s atmosphere. Find the perfect balance of function and beauty in our carefully chosen selection.</p>",
         "margin_top": "l",
         "margin_bottom": "l"
       }
@@ -589,13 +540,12 @@
     "promo-banner",
     "card-grid",
     "multicolumn",
-    "image_with_text_MJRVXC",
     "content-banner",
+    "image-banner",
     "brands",
-    "collapsible_content_UWWcfH",
     "featured-blog",
     "collapsible-content",
-    "image_collage_NWcGde",
-    "rich_text_zdFQNr"
+    "image_collage_YAx7pY",
+    "rich-text"
   ]
 }
