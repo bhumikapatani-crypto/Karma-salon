@@ -61,7 +61,6 @@
     },
     "featured_blog": {
       "type": "featured-blog",
-      "disabled": true,
       "settings": {
         "blog": "news",
         "post_limit": 6,
@@ -71,7 +70,7 @@
         "show_image": true,
         "show_tags": true,
         "show_date": true,
-        "show_author": false,
+        "show_author": true,
         "show_excerpt": false,
         "columns_mobile": "1",
         "enable_swiper": false,
@@ -88,58 +87,57 @@
         "margin_bottom": "m"
       }
     },
-    "collapsible_content_xc6HYr": {
+    "collapsible_content_nNYTVR": {
       "type": "collapsible-content",
       "blocks": {
-        "faq_gDVC8W": {
+        "faq_iBAtFG": {
           "type": "faq",
           "settings": {
-            "heading": "FAQ",
+            "heading": "FAQs",
             "description": "Find answers to your questions.",
             "icon": "info",
-            "popup_info": "<h1><span style=\"text-decoration:underline\"><strong>Ordering & Payments </strong></span></h1><p><strong>What payment methods do you accept? </strong></p><p>- We accept major credit cards, PayPal, bank transfer, and selected Buy Now Pay  Later options including Afterpay ZipPay & Klarna. All payments are processed  securely through trusted payment providers. </p><p><strong>Can I receive a tax invoice? </strong></p><p>- Absolutely. A tax invoice will be emailed to you once your order has been  processed. </p><p><strong>Do you offer finance options? </strong></p><p>- We may offer flexible payment or lay buy solutions on selected purchases.  Please contact our team to discuss available options for your salon setup. </p><h1><span style=\"text-decoration:underline\"><strong>Shipping & Delivery </strong></span></h1><p><strong>Do you ship Australia-wide? </strong></p><p>- Yes, we deliver salon furniture and equipment across Australia, including metro,  regional, and remote areas. </p><p><strong>How long does delivery take? </strong></p><p>- Delivery times vary depending on your location and the item ordered. Most in stock items are dispatched within 1–3 business days, with delivery generally  taking: </p><p>Metro areas: 2–7 business days  </p><p>Regional areas: 5–10 business days  </p><p>Bulky or rural freight items may require additional transit time. </p><p><strong>How much does shipping cost? </strong></p><p>- Shipping costs are calculated based on your location and the size of your items.  </p><p><strong>Can I track my order? </strong></p><p>- Yes. Once your order has been dispatched, you will receive tracking details via  email so you can monitor your delivery. </p><p><strong>Do you deliver to residential addresses? </strong></p><p>- Yes, we deliver to both residential and commercial addresses Australia-wide.</p><p><strong>Will the delivery company unpack and set up my furniture? </strong></p><p>- Our standard delivery service is a door-to-door service only. This means your  order will be delivered to the entrance of your salon, business, or home. Delivery  drivers are unable to move furniture into rooms, carry items up staircases or  small lifts, unpack products, or remove packaging and rubbish. </p><h1><span style=\"text-decoration:underline\"><strong>Product Information </strong></span></h1><p><strong>Are your salon chairs commercial-grade? </strong></p><p>- Yes. Our salon and barber furniture is designed for professional commercial use  and built to withstand the demands of busy salon environments. </p><p><strong>Are your salon chairs hydraulic? </strong></p><p>- Many of our salon chairs feature professional hydraulic pump systems for  smooth height adjustment. Product specifications are listed on each product  page. </p><p><strong>What materials are your salon chairs made from? </strong></p><p>- Our chairs are manufactured using high-quality materials including heavy-duty  frames, premium vinyl upholstery, and high-density foam cushioning for comfort  and durability. </p><p><strong>Do your products come assembled? </strong></p><p>- Assembly requirements vary depending on the product. Some items arrive fully  assembled, while others require minor assembly. Assembly details are included  on each product listing on our website. </p><p><strong>Are replacement parts available? </strong></p><p>- Yes, replacement parts are available for many of our products. Please contact  our support team with your order details and product information for assistance. </p><p><strong>Are your basins compatible with Australian plumbing? </strong></p><p>- Yes, our salon basins are designed to suit Australian plumbing standards. We  recommend installation by a licensed plumber to ensure correct setup and  compliance. Please note that failure to use a licensed plumber may void the  product warranty.</p><h1><span style=\"text-decoration:underline\"><strong>Returns & Warranty </strong></span></h1><p><strong>Do your products come with a warranty? </strong></p><p>- Yes, all our products are backed by a manufacturer’s warranty for added peace  of mind. Warranty periods may vary depending on the product, and full warranty  details can be found on each individual product page. </p><p><strong>What is your return policy? </strong></p><p>- We accept returns on eligible items in accordance with Australian Consumer  Law. Returned items must be unused, in their original, unopened packaging, and  returned within the specified return period. Return shipping costs are the  responsibility of the buyer unless the item is faulty or incorrect. </p><p><strong>Can I return an item if I change my mind? </strong></p><p>- Change-of-mind returns may be accepted on selected items, subject to approval  and a restocking fee will apply. Freight charges are non-refundable and freight  costs back to us are the responsibility of the buyer.  </p><p><strong>What should I do if my product has a fault? </strong></p><p>- Please contact us via the warranty page on our website as soon as possible with  photos and a description of the issue. We’ll assess the problem and provide a  suitable solution promptly. </p><h1><span style=\"text-decoration:underline\"><strong>General Questions</strong></span><strong> </strong></h1><p><strong>Can I visit your showroom? </strong></p><p>- We welcome customers to visit our showroom located in Nerang, Gold Coast. Please contact us to confirm if there is a particular item you wish to view so we  can ensure we have the stock on show and in stock.  </p><p><strong>Why choose Salon Furniture Australia? </strong></p><p>- We’re committed to supplying high-quality salon furniture at competitive prices,  backed by reliable customer service and Australia-wide delivery. Our goal is to  help salon owners create professional, stylish, and functional spaces with  confidence. </p><p><strong>Do you sell to the public or trade only? </strong></p><p>- We supply both salon professionals and individual customers across Australia.</p><p><strong>How do I set up a trade account?  </strong></p><p>- To set up a trade account, please head to the <strong>Account </strong>section on our website  and select <strong>Trade Account </strong>during the registration process. Once submitted, our  team will review your application and contact you if any additional information is  required. </p><p><strong>Do you offer wholesale or reseller partnerships? </strong></p><p>- Yes, we welcome partnerships with wholesalers, online retailers, and  businesses looking to list and sell our products through their own website or  store. We offer wholesale pricing and ongoing supply support for approved  reseller accounts. If you are interested in becoming a reseller or listing our  products online, please contact our team to discuss partnership opportunities  and account eligibility.</p>"
+            "popup_info": "<h3>What is the estimated delivery time for my order?</h3><p>Our standard delivery time is 5-10 business days, depending on your location. We’ll keep you updated with tracking information so you can monitor your order’s progress.</p><h3>Do you offer assembly services?</h3><p>Yes, we offer an optional assembly service for most items. During checkout, you can choose this option to have our team handle setup upon delivery.</p><h3>What is your return policy if I’m not satisfied with my purchase?</h3><p>We accept returns within 30 days of delivery for a full refund or exchange, as long as the item is in its original condition. Please contact our customer service team to initiate a return.</p><h3>What should I do if my order arrives damaged or incomplete?</h3><p>We’re here to help. Please reach out to our customer service team with your order number and photos of the issue, and we’ll work quickly to resolve it—whether that means a replacement, refund, or missing item follow-up.</p><h3>Will sold-out items be restocked, and how can I get notified?</h3><p>We frequently restock our bestsellers. To stay updated on restocks and new arrivals, we recommend subscribing to our newsletter—you’ll be the first to know.<br/><br/></p>"
           }
         },
-        "info_bBRTMd": {
+        "info_WVHPqJ": {
           "type": "info",
           "settings": {
             "heading": "Contact Us",
             "description": "Get in touch with us.",
             "icon": "envelope_2",
             "description_popup": "Get in touch with us for any questions or support. We're here to help.",
-            "popup_info": "<p><strong> Address</strong><br/>71 Lawrence Drive, Nerang, Gold Coast 4211</p><p><strong>Phone Number</strong><br/>+61 459 954 931</p><p><strong>Email</strong></p><p><a href=\"mailto:sales@salonfurnitureaustralia.com.au\">sales@salonfurnitureaustralia.com.au</a></p>",
+            "popup_info": "<p><strong>Our Address</strong><br/>Av. Libertador 1450, Buenos Aires, Argentina</p><p><strong>Phone Number</strong><br/>+995 596 789 093</p><p><strong>Email</strong><br/>stockist.home@hello.com</p>",
             "socials_description": "You can write us in any social media.",
             "show_social": true
           }
         },
-        "info_mrUK3W": {
+        "info_zczbQF": {
           "type": "info",
           "settings": {
             "heading": "Call Us",
             "description": "Call us for quick assistance.",
             "icon": "phone",
             "description_popup": "Feel free to give us a call for any questions, support, or inquiries. We’re here to assist you.",
-            "popup_info": "<p><strong>Phone Number</strong><br/>+61 459 954 931</p>",
+            "popup_info": "<p><strong>Phone Number</strong><br/>+995 596 789 093</p>",
             "socials_description": "You can write us in any social media.",
             "show_social": false
           }
         }
       },
       "block_order": [
-        "faq_gDVC8W",
-        "info_bBRTMd",
-        "info_mrUK3W"
+        "faq_iBAtFG",
+        "info_WVHPqJ",
+        "info_zczbQF"
       ],
       "name": "t:sections.collapsible-content.name",
       "settings": {
         "color_scheme": "",
-        "image": "shopify://shop_images/chair-karma.jpg",
         "image_ratio": "16/9",
-        "image_parallax": true,
-        "notebook_bg": false,
+        "image_parallax": false,
+        "notebook_bg": true,
         "section_heading": "Have Any Questions?",
         "section_heading_size": "h2",
-        "section_description": "Find all the information you need, gathered in one convenient spot.",
+        "section_description": "Some Find all the information you need, gathered in one convenient spot.",
         "margin_top": "no-indent",
         "margin_bottom": "no-indent",
         "padding_top": "m",
@@ -162,7 +160,7 @@
   "order": [
     "main_article",
     "featured_blog",
-    "collapsible_content_xc6HYr",
+    "collapsible_content_nNYTVR",
     "rich_text_m9UJzY"
   ]
 }
